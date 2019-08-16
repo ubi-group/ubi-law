@@ -111,11 +111,18 @@ public class Tester {
         URL url = classLoader.getResource("NewsData");
         String resourcesPath = url.getPath() + File.separator;
 
-        String wordVectorPath = resourcesPath + "NewsWordVector.txt";
-        String modelPath = resourcesPath + "NewsModel.net";
-        String categoriesPath = resourcesPath + "LabelledNews" + File.separator + "categories.txt";
+        String wordVectorPath = "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt";
+        String modelPath = "/home/nahum/code/ubi-law/hebrew_news/NewsModel.net";
+        String categoriesPath = "/home/nahum/code/ubi-law/hebrew_news/WordFilteredNews/categories.txt";
         
-        String input = "Narendra Modi tells India that “a new era has begun” after Kashmir power grab";
+        String input = "פיגוע הדריסה: המחבל היה כלוא בישראל בגין טרור; דרס ברכב גנוב";
+//        String input = "אלפי פלסטינים מפגינים בגבול רצועת עזה";
+//        String input = "בנו של הזמר חיים אוליאל נמצא ללא רוח חיים: \"מוזיקאי מדהים\"";
+//        String input = "הדוגמנית החמה: מישל טימושנקו";
+//        String input = "ריאל מדריד: אדן הזאר יחמיץ את משחק הפתיחה מול סלטה ויגו בשל פציעה";
+//        String input = "העברות בעולם - 16.8: \"פול פוגבה רוצה לעזוב, הוא לא יכול לעשות הכל במנצ'סטר יונייטד\"";
+//        String input = "האם בקרוב נוכל להיפטר מהמטען? סמסונג מתכננת סמארטפון עם סוללה מהפכנית";
+//        String input = "שריל את שומעת? כנראה שכן: פייסבוק האזינה לשיחות מסנג'ר";
         
         Tester tester = new Tester(wordVectorPath, modelPath, categoriesPath);
         String output = tester.test(input);
