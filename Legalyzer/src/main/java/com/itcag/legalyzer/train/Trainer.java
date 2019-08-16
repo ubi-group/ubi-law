@@ -1,6 +1,6 @@
 package com.itcag.legalyzer.train;
 
-import org.datavec.api.util.ClassPathResource;
+import java.io.BufferedReader;
 
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -24,58 +24,72 @@ import org.nd4j.linalg.learning.config.RmsProp;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Trainer {
 
-    public static String userDirectory = "";
-    public static String DATA_PATH = "";
-    public static String WORD_VECTORS_PATH = "";
-    public static WordVectors wordVectors;
-    private static TokenizerFactory tokenizerFactory;
+    private final Properties config;
+    
+    private final WordVectors wordVectors;
+    
+    private final ArrayList<String> categories = new ArrayList<>();
+    
+    private final TokenizerFactory tokenizerFactory;
+    
+    private final DataIterator trainingData;
+    private final DataIterator testData;
+    
+    private final Logger log = LoggerFactory.getLogger(Trainer.class);
 
-    public static void main(String[] args) throws Exception {
+    public Trainer(Properties config) throws Exception {
 
-        userDirectory = new ClassPathResource("NewsData").getFile().getAbsolutePath() + File.separator;
-        DATA_PATH = userDirectory + "LabelledNews";
-        WORD_VECTORS_PATH = userDirectory + "NewsWordVector.txt";
-
-        int batchSize = 50;     //Number of examples in each minibatch
-        int nEpochs = 1000;        //Number of epochs (full passes of training data) to train on
-        int truncateReviewsToLength = 300;  //Truncate reviews with length (# words) greater than this
-
-        //DataSetIterators for training and testing respectively
-        //Using AsyncDataSetIterator to do data loading in a separate thread; this may improve performance vs. waiting for data to load
-        wordVectors = WordVectorSerializer.readWord2VecModel(new File(WORD_VECTORS_PATH));
-
-        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
+        this.config = config;
+        
+        wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getProperty("wordVectorPath")));
+        
+        tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
 
-        NewsIterator iTrain = new NewsIterator.Builder()
-            .dataDirectory(DATA_PATH)
+        File file = new File(config.getProperty("categoriesPath"));
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                categories.add(line);
+            }
+            reader.close();
+        }
+        
+        trainingData = new DataIterator.Builder()
+            .dataDirectory(config.getProperty("dataPath"))
             .wordVectors(wordVectors)
-            .batchSize(batchSize)
-            .truncateLength(truncateReviewsToLength)
+            .batchSize(Integer.parseInt(config.getProperty("batchSize")))
+            .truncateLength(Integer.parseInt(config.getProperty("truncateLength")))
             .tokenizerFactory(tokenizerFactory)
             .train(true)
             .build();
 
-        NewsIterator iTest = new NewsIterator.Builder()
-            .dataDirectory(DATA_PATH)
+        testData = new DataIterator.Builder()
+            .dataDirectory(config.getProperty("dataPath"))
             .wordVectors(wordVectors)
-            .batchSize(batchSize)
+            .batchSize(Integer.parseInt(config.getProperty("batchSize")))
             .tokenizerFactory(tokenizerFactory)
-            .truncateLength(truncateReviewsToLength)
+            .truncateLength(Integer.parseInt(config.getProperty("truncateLength")))
             .train(false)
             .build();
 
-        //DataSetIterator train = new AsyncDataSetIterator(iTrain,1);
-        //DataSetIterator test = new AsyncDataSetIterator(iTest,1);
+    }
 
-        int inputNeurons = wordVectors.getWordVector(wordVectors.vocab().wordAtIndex(0)).length; // 100 in our case
-        int outputs = iTrain.getLabels().size();
+    public final void execute() throws Exception {
+        
+        int inputNeurons = wordVectors.getWordVector(wordVectors.vocab().wordAtIndex(0)).length;
+        int outputs = trainingData.getLabels().size();
 
-        tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
         //Set up network configuration
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
             .updater(new RmsProp(0.0018))
@@ -93,16 +107,47 @@ public class Trainer {
         net.init();
 
         System.out.println("Starting training...");
-        net.setListeners(new ScoreIterationListener(1), new EvaluativeListener(iTest, 1, InvocationType.EPOCH_END));
-        net.fit(iTrain, nEpochs);
+        net.setListeners(new ScoreIterationListener(1), new EvaluativeListener(testData, 1, InvocationType.EPOCH_END));
+        net.fit(trainingData, Integer.parseInt(config.getProperty("epochs")));
 
-        System.out.println("Evaluating...");
-        Evaluation eval = net.evaluate(iTest);
-        System.out.println(eval.stats());
+        log.info("Evaluating...");
+        Evaluation eval = net.evaluate(testData);
+        log.info(eval.stats());
 
-        net.save(new File(userDirectory + "NewsModel.net"), true);
-        System.out.println("----- Example complete -----");
+        net.save(new File(config.getProperty("modelPath")), true);
+        log.info("----- Example complete -----");
 
+    }
+    
+    public static void main(String[] args) throws Exception {
+
+        Properties config = new Properties();
+        
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        URL url = classLoader.getResource("NewsData");
+        String resourcesPath = url.getPath() + File.separator;
+        config.setProperty("resourcesPath", resourcesPath);
+//        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
+//        config.setProperty("modelPath", resourcesPath + "NewsModel.net");
+//        config.setProperty("categoriesPath", resourcesPath + "LabelledNews" + File.separator + "categories.txt");
+//        config.setProperty("dataPath", resourcesPath + "LabelledNews");
+        config.setProperty("wordVectorPath", "/home/nahum/Desktop/hebrew_news/wordvec.txt");
+        config.setProperty("modelPath", "/home/nahum/Desktop/hebrew_news/NewsModel.net");
+        config.setProperty("categoriesPath", "/home/nahum/Desktop/hebrew_news/LabelledNews/categories.txt");
+        config.setProperty("dataPath", "/home/nahum/Desktop/hebrew_news/LabelledNews");
+        config.setProperty("batchSize", "50");
+        config.setProperty("truncateLength", "300");
+        config.setProperty("epochs", "1000");
+//        config.setProperty("", "");
+
+        
+        Trainer tester = new Trainer(config);
+        tester.execute();
+        
+    }
+    
+    private static void insertNetConfiguration() {
+        
     }
     
 }

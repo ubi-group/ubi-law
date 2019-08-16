@@ -1,7 +1,5 @@
 package com.itcag.legalyzer.train;
 
-import org.datavec.api.util.ClassPathResource;
-
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
@@ -15,46 +13,74 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
+import java.net.URL;
+
+import java.util.Properties;
+
 public class Word2Vector {
 
+    private final Properties config;
+    
+    private final SentenceIterator sentenceIterator;
+    
+    private final TokenizerFactory tokenizerFactory;
+    
+    private final Logger log = LoggerFactory.getLogger(Word2Vector.class);
 
-    private static final Logger LOG = LoggerFactory.getLogger(Word2Vector.class);
+    public Word2Vector(Properties config) throws Exception {
 
-    public static void main(String[] args) throws Exception {
+        this.config = config; 
 
-        // Gets Path to Text file
-        String classPathResource = new ClassPathResource("NewsData").getFile().getAbsolutePath() + File.separator;
-        String filePath = new File(classPathResource + File.separator + "RawNewsToGenerateWordVector.txt").getAbsolutePath();
+        sentenceIterator = new BasicLineIterator(config.getProperty("textPath"));
 
-        LOG.info("Load & Vectorize Sentences....");
-        // Strip white space before and after for each line
-        SentenceIterator iter = new BasicLineIterator(filePath);
-        // Split on white spaces in the line to get words
-        TokenizerFactory t = new DefaultTokenizerFactory();
+        tokenizerFactory = new DefaultTokenizerFactory();
+        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
 
-        //CommonPreprocessor will apply the following regex to each token: [\d\.:,"'\(\)\[\]|/?!;]+
-        //So, effectively all numbers, punctuation symbols and some special symbols are stripped off.
-        //Additionally it forces lower case for all tokens.
-        t.setTokenPreProcessor(new CommonPreprocessor());
+    }
+    
+    public void execute() throws Exception {
 
-        LOG.info("Building model....");
+        log.info("Building model....");
         Word2Vec vec = new Word2Vec.Builder()
-            .minWordFrequency(2)
-            .iterations(5)
-            .layerSize(100)
-            .seed(42)
-            .windowSize(20)
-            .iterate(iter)
-            .tokenizerFactory(t)
+            .minWordFrequency(Integer.parseInt(config.getProperty("minWordFrequency")))
+            .iterations(Integer.parseInt(config.getProperty("iterations")))
+            .layerSize(Integer.parseInt(config.getProperty("layerSize")))
+            .seed(Integer.parseInt(config.getProperty("seed")))
+            .windowSize(Integer.parseInt(config.getProperty("windowSize")))
+            .iterate(sentenceIterator)
+            .tokenizerFactory(tokenizerFactory)
             .build();
 
-        LOG.info("Fitting Word2Vec model....");
+        log.info("Fitting Word2Vec model....");
         vec.fit();
 
-        LOG.info("Writing word vectors to text file....");
+        log.info("Writing word vectors to text file....");
+        WordVectorSerializer.writeWordVectors(vec.lookupTable(), config.getProperty("wordVectorPath"));
 
-        // Write word vectors to file
-        WordVectorSerializer.writeWordVectors(vec.lookupTable(), classPathResource + "NewsWordVector.txt");
+    }
+    
+    public static void main(String[] args) throws Exception {
+
+        Properties config = new Properties();
+
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        URL url = classLoader.getResource("NewsData");
+        String resourcesPath = url.getPath() + File.separator;
+        config.setProperty("resourcesPath", resourcesPath);
+
+        config.setProperty("textPath", "/home/nahum/Desktop/hebrew_news/raw.txt");
+        config.setProperty("wordVectorPath", "/home/nahum/Desktop/hebrew_news/wordvec.txt");
+//        config.setProperty("textPath", resourcesPath  + "RawNewsToGenerateWordVector.txt");
+//        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
+        config.setProperty("minWordFrequency", "2");
+        config.setProperty("iterations", "5");
+        config.setProperty("layerSize", "100");
+        config.setProperty("seed", "42");
+        config.setProperty("windowSize", "20");
+//        config.setProperty("", "");
+
+        Word2Vector generator = new Word2Vector(config);
+        generator.execute();
 
     }
     
