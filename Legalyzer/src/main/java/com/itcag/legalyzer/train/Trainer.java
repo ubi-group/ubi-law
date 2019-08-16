@@ -131,10 +131,10 @@ public class Trainer {
 //        config.setProperty("modelPath", resourcesPath + "NewsModel.net");
 //        config.setProperty("categoriesPath", resourcesPath + "LabelledNews" + File.separator + "categories.txt");
 //        config.setProperty("dataPath", resourcesPath + "LabelledNews");
-        config.setProperty("wordVectorPath", "/home/nahum/Desktop/hebrew_news/wordvec.txt");
-        config.setProperty("modelPath", "/home/nahum/Desktop/hebrew_news/NewsModel.net");
-        config.setProperty("categoriesPath", "/home/nahum/Desktop/hebrew_news/LabelledNews/categories.txt");
-        config.setProperty("dataPath", "/home/nahum/Desktop/hebrew_news/LabelledNews");
+        config.setProperty("wordVectorPath", "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt");
+        config.setProperty("modelPath", "/home/nahum/code/ubi-law/hebrew_news/NewsModel.net");
+        config.setProperty("categoriesPath", "/home/nahum/code/ubi-law/hebrew_news/WordFilteredNews/categories.txt");
+        config.setProperty("dataPath", "/home/nahum/code/ubi-law/hebrew_news/WordFilteredNews");
         config.setProperty("batchSize", "50");
         config.setProperty("truncateLength", "300");
         config.setProperty("epochs", "1000");
