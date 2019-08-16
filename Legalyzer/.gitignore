@@ -2,7 +2,7 @@
 */build/
 */dist/
 */store/
-*/target/
+*/target/*
 */nbproject/private/
 nb*.xml
 *.class
