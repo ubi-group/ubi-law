@@ -8,4 +8,4 @@ nb*.xml
 *.class
 *.*~
 *.iml
-
+/target/*
