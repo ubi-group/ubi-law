@@ -62,11 +62,14 @@ public class Tester {
         INDArray predicted = model.output(fet, false);
         long[] arrsiz = predicted.shape();
 
+        System.out.println();
         double max = 0;
         int pos = 0;
         for (int i = 0; i < arrsiz[1]; i++) {
-            if (max < (double) predicted.slice(0).slice(i).sumNumber()) {
-                max = (double) predicted.slice(0).slice(i).sumNumber();
+            double sumNum = (double) predicted.slice(0).slice(i).sumNumber();
+            System.out.println(categories.get(i).split(",")[1] + ": " + sumNum);
+            if (max < sumNum) {
+                max = sumNum;
                 pos = i;
             }
         }

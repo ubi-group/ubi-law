@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class WordFilter {
 
-    private final static int THRESHOLD = 50;
+    private final static int THRESHOLD = 6;
     private final static String SOURCE = "/home/nahum/Desktop/hebrew_news/";
     private final static String TARGET = "/home/nahum/Desktop/hebrew_news_processed/";
     
@@ -184,6 +184,7 @@ public class WordFilter {
                 
             }
 
+            Files.createDirectories(Paths.get(TARGET));
             Files.write(Paths.get(TARGET + fileName), buffer.toString().getBytes());
             
         }

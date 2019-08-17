@@ -29,7 +29,7 @@ public class Scraper {
 //        String baseUrl = "https://sports.walla.co.il/archive/156";
 //        String baseUrl = "https://celebs.walla.co.il/archive/3601";
 //        String baseUrl = "https://tech.walla.co.il/archive/4000";
-        String baseUrl = "https://news.walla.co.il/archive/2";
+        String baseUrl = "https://sports.walla.co.il/archive/175";
         int year = 2006;
         int month = 1;
         int page = 1;
@@ -75,10 +75,14 @@ System.out.println(location);
         InputStream is = url.openStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-        String line;
-        while ((line = br.readLine()) != null) {
-            retVal.append(line).append("\n");
-        }        
+        try {
+            String line;
+            while ((line = br.readLine()) != null) {
+                retVal.append(line).append("\n");
+            }        
+        } catch(Exception ex) {
+            //do nothing
+        }
 
         return retVal.toString();
         
