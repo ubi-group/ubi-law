@@ -2,10 +2,10 @@
 */build/
 */dist/
 */store/
-*/target/
 */nbproject/private/
 nb*.xml
 *.class
 *.*~
 *.iml
-/target/*
+wordvec.txt
+*.net

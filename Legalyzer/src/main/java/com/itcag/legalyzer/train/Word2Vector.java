@@ -69,7 +69,7 @@ public class Word2Vector {
         config.setProperty("resourcesPath", resourcesPath);
 
         config.setProperty("textPath", "/home/nahum/Desktop/hebrew_news/raw.txt");
-        config.setProperty("wordVectorPath", "/home/nahum/Desktop/hebrew_news/wordvec.txt");
+        config.setProperty("wordVectorPath", "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt");
 //        config.setProperty("textPath", resourcesPath  + "RawNewsToGenerateWordVector.txt");
 //        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
         config.setProperty("minWordFrequency", "2");

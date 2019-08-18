@@ -99,12 +99,8 @@ public class Trainer {
             .list()
             .layer( new LSTM.Builder().nIn(inputNeurons).nOut(200)
                 .activation(Activation.TANH).build())
-            .layer( new LSTM.Builder().nIn(200).nOut(200)
-                .activation(Activation.TANH).build())
-            .layer( new LSTM.Builder().nIn(200).nOut(200)
-                .activation(Activation.TANH).build())
-            .layer(new RnnOutputLayer.Builder().activation(Activation.SIGMOID)
-                .lossFunction(LossFunctions.LossFunction.XENT).nIn(200).nOut(outputs).build())
+            .layer(new RnnOutputLayer.Builder().activation(Activation.SOFTMAX)
+                .lossFunction(LossFunctions.LossFunction.MCXENT).nIn(200).nOut(outputs).build())
             .build();
 
         MultiLayerNetwork net = new MultiLayerNetwork(conf);
@@ -141,7 +137,7 @@ public class Trainer {
         config.setProperty("dataPath", "/home/nahum/code/ubi-law/hebrew_news/LabelledNews");
         config.setProperty("batchSize", "50");
         config.setProperty("truncateLength", "300");
-        config.setProperty("epochs", "200");
+        config.setProperty("epochs", "100");
 //        config.setProperty("", "");
 
         
