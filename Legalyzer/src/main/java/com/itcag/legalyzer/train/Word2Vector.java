@@ -16,6 +16,7 @@ import java.io.File;
 import java.net.URL;
 
 import java.util.Properties;
+import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
 
 public class Word2Vector {
 
@@ -31,7 +32,8 @@ public class Word2Vector {
 
         this.config = config; 
 
-        sentenceIterator = new BasicLineIterator(config.getProperty("textPath"));
+//        sentenceIterator = new BasicLineIterator(config.getProperty("textPath"));
+        sentenceIterator = new FileSentenceIterator(new File(config.getProperty("textPath")));
 
         tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
@@ -68,7 +70,8 @@ public class Word2Vector {
         String resourcesPath = url.getPath() + File.separator;
         config.setProperty("resourcesPath", resourcesPath);
 
-        config.setProperty("textPath", "/home/nahum/Desktop/hebrew_news/raw.txt");
+//        config.setProperty("textPath", "/home/nahum/Desktop/hebrew_news/raw.txt");
+        config.setProperty("textPath", "/home/nahum/code/ubi-law/hebrew_news/raw/");
         config.setProperty("wordVectorPath", "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt");
 //        config.setProperty("textPath", resourcesPath  + "RawNewsToGenerateWordVector.txt");
 //        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");

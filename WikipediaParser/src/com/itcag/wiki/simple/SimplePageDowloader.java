@@ -17,30 +17,39 @@ public class SimplePageDowloader {
         String path = "/home/nahum/Desktop/hebrew/wikipedia/";
         Files.createDirectories(Paths.get(path));
 
+        Printer.print();
+        Printer.print();
+        Printer.print("------------------------------------------------------------------------------");
         Printer.print("Starting download...");
         
         WikiTitles downloader = new WikiTitles();
         downloader.download(language);
 
-        Printer.print("Total: " + downloader.getPageIds().size() + " articles");
+        int totalPages = downloader.getPageIds().size();
+        
+        Printer.print("Total: " + totalPages + " articles");
         
         Printer.print("Processing downloaded articles...");
         
-        int count = 0;
+        int pageCount = 0;
+        int sentenceCount = 0;
         int fileNum = 0;
+        StringBuilder text = new StringBuilder();
+
         WikiPage pager = new WikiPage();
         for (String pageId : downloader.getPageIds()) {
             
+            pageCount++;
+            
             ArrayList<String> sentences = pager.download(pageId, language);
             
-            Printer.print("\tprocessing " + pageId + " (" + sentences.size() + " sentences)");
+            Printer.print("\t" + pageCount + "/" + totalPages + "\tprocessing " + pageId + " (" + sentences.size() + " sentences)");
             
-            StringBuilder text = new StringBuilder();
             for (String sentence : sentences) {
                 
-                count++;
+                sentenceCount++;
                 
-                if (count%100000 == 0) {
+                if (sentenceCount%100000 == 0) {
                     String fileName = Integer.toString(fileNum) + ".txt";
                     Files.write(Paths.get(path + fileName), text.toString().getBytes());
                     text = new StringBuilder();
@@ -51,15 +60,15 @@ public class SimplePageDowloader {
             
             }
 
-            if (text.length() > 0) {
-                String fileName = Integer.toString(fileNum) + ".txt";
-                Files.write(Paths.get(path + fileName), text.toString().getBytes());
-            }
-
-            Printer.print("Total: " + count + " sentences from " + downloader.getPageIds().size() + " articles");
-            
         }
         
+        if (text.length() > 0) {
+            String fileName = Integer.toString(fileNum) + ".txt";
+            Files.write(Paths.get(path + fileName), text.toString().getBytes());
+        }
+
+        Printer.print("Total: " + sentenceCount + " sentences from " + totalPages + " articles");
+
     }
     
     
