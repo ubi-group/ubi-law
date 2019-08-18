@@ -74,9 +74,9 @@ public class Word2Vector {
 //        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
         config.setProperty("minWordFrequency", "2");
         config.setProperty("iterations", "5");
-        config.setProperty("layerSize", "100");
+        config.setProperty("layerSize", "300");
         config.setProperty("seed", "42");
-        config.setProperty("windowSize", "20");
+        config.setProperty("windowSize", "5");
 //        config.setProperty("", "");
 
         Word2Vector generator = new Word2Vector(config);
