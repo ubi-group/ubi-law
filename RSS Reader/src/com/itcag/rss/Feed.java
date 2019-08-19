@@ -1,4 +1,4 @@
-package com.sa.util.rss;
+package com.itcag.rss;
 
 import java.util.ArrayList;
 import java.util.List;

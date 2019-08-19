@@ -1,4 +1,4 @@
-package com.sa.util.rss;
+package com.itcag.rss;
 
 public class FeedMessage {
 
