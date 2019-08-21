@@ -1,35 +1,89 @@
 package scraper;
 
+import com.itcag.util.txt.TextToolbox;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.jsoup.Jsoup;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Scraper {
 
-    private static HashSet<String> titles = new HashSet<>();
+    private static final Split split = new Split();
+    
+    private static final HashSet<String> SENTENCES = new HashSet<>();
     
     public static void main(String[] args) throws Exception {
 
-        String path = "/home/nahum/Desktop/hebrew_news/raw.txt";
+        String path = "/home/nahum/Desktop/hebrew/news/";
+
+        ArrayList<String> links = extractLinks("https://www.walla.co.il/archive");
         
-//        String baseUrl = "https://news.walla.co.il/archive/2689";
-//        String baseUrl = "https://sports.walla.co.il/archive/156";
-//        String baseUrl = "https://celebs.walla.co.il/archive/3601";
-//        String baseUrl = "https://tech.walla.co.il/archive/4000";
-        String baseUrl = "https://sports.walla.co.il/archive/175";
+        for (String link : links) {
+            scrapArchive(link);
+        }
+        
+        StringBuilder text = new StringBuilder();
+        
+        int count = 0;
+        int fileNum = 0;
+        
+        for (String sentence : SENTENCES) {
+            if (text.length() > 0) text.append("\n");
+            text.append(sentence);
+            count++;
+            if (count%100000 == 0) {
+                Files.write(Paths.get(path + Integer.toString(fileNum) + ".txt"), text.toString().getBytes(), StandardOpenOption.APPEND);
+                fileNum++;
+                text = new StringBuilder();
+            }
+        }
+        
+        if (text.length() > 0) Files.write(Paths.get(path + Integer.toString(fileNum) + ".txt"), text.toString().getBytes(), StandardOpenOption.APPEND);
+        
+    }
+    
+    private static ArrayList<String> extractLinks(String location) throws Exception {
+        
+        ArrayList<String> retVal = new ArrayList<>();
+        
+        String page = getPage(location);
+        if (page == null || page.isEmpty()) return retVal;
+        Document doc = Jsoup.parse(page);
+        
+        Elements elts = doc.select("#container > section > section > section > section > ul > li > a");
+        for (Element link : elts) {
+            String href = link.attr("href");
+            if (TextToolbox.isReallyEmpty(href)) continue;
+            if (href.contains("?")) {
+                int pos = href.indexOf("?");
+                href = href.substring(0, pos);
+            }
+            href = href.trim();
+            retVal.add(href);
+            System.out.println(href);
+        }
+        
+        return retVal;
+        
+    }
+    
+    private static void scrapArchive(String baseUrl) throws Exception {
+        
         int year = 2006;
         int month = 1;
         int page = 1;
@@ -39,28 +93,18 @@ public class Scraper {
                 for (int k = page; k < 11; k++) {
                     String location = baseUrl + "?year=" + i + "&month=" + j + "&page=" + k;
 System.out.println(location);
-                    String text = getContent(location);
+                    String text = getPage(location);
                     if (text == null || text.isEmpty()) break;
                     Document doc = Jsoup.parse(text);
                     extractHeadlines(doc);
-                    if (titles.size() > 16000) break;
+                    extractSummaries(doc);
                 }
-                if (titles.size() > 16000) break;
             }
-            if (titles.size() > 16000) break;
         }
-        
-        
-        StringBuilder text = new StringBuilder();
-        for (String title : titles) {
-            text.append(title).append("\n");
-        }
-        
-        Files.write(Paths.get(path), text.toString().getBytes(), StandardOpenOption.APPEND);
         
     }
     
-    private static String getContent(String location) throws Exception {
+    private static String getPage(String location) throws Exception {
 
         StringBuilder retVal = new StringBuilder();
         
@@ -93,11 +137,23 @@ System.out.println(location);
         Elements elts = doc.select("#container > section.fc.common-section.grid-1-1 > section > div > section > ul > li > article > a > h3 > div > span");
         for (Element title : elts) {
             String text = title.text();
-            if (text == null) continue;
+            if (TextToolbox.isReallyEmpty(text)) continue;
             text = text.trim();
-            if (text.isEmpty()) continue;
-            titles.add(text);
-            System.out.println(text);
+            ArrayList<String> sentences = split.split(text);
+            SENTENCES.addAll(sentences);
+        }
+        
+    }
+    
+    private static void extractSummaries(Document doc) {
+        
+        Elements elts = doc.select("#container > section.fc.common-section.grid-1-1 > section > div > section > ul > li > article > a > p");
+        for (Element title : elts) {
+            String text = title.text();
+            if (TextToolbox.isReallyEmpty(text)) continue;
+            text = text.trim();
+            ArrayList<String> sentences = split.split(text);
+            SENTENCES.addAll(sentences);
         }
         
     }

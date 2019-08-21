@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -78,6 +79,16 @@ public class WikiTitles {
         
     }
 
+    public final void filter(HashSet<String> filter) {
+        
+        Iterator<String> pageIterator = this.pageIds.iterator();
+        while (pageIterator.hasNext()) {
+            String pageId = pageIterator.next();
+            if (filter.contains(pageId)) pageIterator.remove();
+        }
+        
+    }
+    
     public final HashSet<String> getPageIds() {
         return pageIds;
     }
