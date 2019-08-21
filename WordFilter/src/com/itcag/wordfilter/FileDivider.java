@@ -1,4 +1,4 @@
-package wordfilter;
+package com.itcag.wordfilter;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

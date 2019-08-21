@@ -1,4 +1,4 @@
-package scraper;
+package com.itcag.scraper;
 
 import com.itcag.util.txt.TextToolbox;
 

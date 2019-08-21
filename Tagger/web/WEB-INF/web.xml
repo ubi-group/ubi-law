@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- -->
+    <!-- HOME -->
+    <!-- -->
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.Home</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <!-- TAGS -->
+    <!-- -->
+    <servlet>
+        <servlet-name>AddTag</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.AddTag</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTag</servlet-name>
+        <url-pattern>/AddTag</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>EditTag</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.EditTag</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditTag</servlet-name>
+        <url-pattern>/EditTag</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>DeleteTag</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.DeleteTag</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteTag</servlet-name>
+        <url-pattern>/DeleteTag</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>Tags</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.Tags</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tags</servlet-name>
+        <url-pattern>/Tags</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <!-- DOCUMENTS -->
+    <!-- -->
+    <servlet>
+        <servlet-name>AddDocument</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.AddDocument</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDocument</servlet-name>
+        <url-pattern>/AddDocument</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>DeleteDocument</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.DeleteDocument</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteDocument</servlet-name>
+        <url-pattern>/DeleteDocument</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>Document</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.Document</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Document</servlet-name>
+        <url-pattern>/Document</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>Documents</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.Documents</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Documents</servlet-name>
+        <url-pattern>/Documents</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>DocumentsNotCompleted</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.DocumentsNotCompleted</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocumentsNotCompleted</servlet-name>
+        <url-pattern>/DocumentsNotCompleted</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>DocumentsNotApproved</servlet-name>
+        <servlet-class>com.itcag.tagger.servlet.DocumentsNotApproved</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocumentsNotApproved</servlet-name>
+        <url-pattern>/DocumentsNotApproved</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <!-- SESSION -->
+    <!-- -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

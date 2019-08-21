@@ -1,4 +1,4 @@
-package com.sa.util.rss;
+package com.itcag.rss;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
