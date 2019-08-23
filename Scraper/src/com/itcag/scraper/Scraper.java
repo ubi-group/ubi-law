@@ -21,15 +21,20 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import scraper.Split;
+
 public class Scraper {
 
     private static final Split split = new Split();
     
     private static final HashSet<String> SENTENCES = new HashSet<>();
+
+    private final static String PATH = "/home/nahum/Desktop/hebrew/news/";
+    private static int fileNum = 0;
     
     public static void main(String[] args) throws Exception {
 
-        String path = "/home/nahum/Desktop/hebrew/news/";
+        Files.createDirectories(Paths.get(PATH));
 
         ArrayList<String> links = extractLinks("https://www.walla.co.il/archive");
         
@@ -37,23 +42,7 @@ public class Scraper {
             scrapArchive(link);
         }
         
-        StringBuilder text = new StringBuilder();
-        
-        int count = 0;
-        int fileNum = 0;
-        
-        for (String sentence : SENTENCES) {
-            if (text.length() > 0) text.append("\n");
-            text.append(sentence);
-            count++;
-            if (count%100000 == 0) {
-                Files.write(Paths.get(path + Integer.toString(fileNum) + ".txt"), text.toString().getBytes(), StandardOpenOption.APPEND);
-                fileNum++;
-                text = new StringBuilder();
-            }
-        }
-        
-        if (text.length() > 0) Files.write(Paths.get(path + Integer.toString(fileNum) + ".txt"), text.toString().getBytes(), StandardOpenOption.APPEND);
+        if (!SENTENCES.isEmpty()) record();
         
     }
     
@@ -132,7 +121,7 @@ System.out.println(location);
         
     }
     
-    private static void extractHeadlines(Document doc) {
+    private static void extractHeadlines(Document doc) throws Exception {
         
         Elements elts = doc.select("#container > section.fc.common-section.grid-1-1 > section > div > section > ul > li > article > a > h3 > div > span");
         for (Element title : elts) {
@@ -140,12 +129,15 @@ System.out.println(location);
             if (TextToolbox.isReallyEmpty(text)) continue;
             text = text.trim();
             ArrayList<String> sentences = split.split(text);
-            SENTENCES.addAll(sentences);
+            for (String sentence : sentences) {
+                SENTENCES.add(sentence);
+                if (SENTENCES.size() == 100000) record();
+            }
         }
         
     }
     
-    private static void extractSummaries(Document doc) {
+    private static void extractSummaries(Document doc) throws Exception {
         
         Elements elts = doc.select("#container > section.fc.common-section.grid-1-1 > section > div > section > ul > li > article > a > p");
         for (Element title : elts) {
@@ -153,8 +145,27 @@ System.out.println(location);
             if (TextToolbox.isReallyEmpty(text)) continue;
             text = text.trim();
             ArrayList<String> sentences = split.split(text);
-            SENTENCES.addAll(sentences);
+            for (String sentence : sentences) {
+                SENTENCES.add(sentence);
+                if (SENTENCES.size() == 100000) record();
+            }
         }
+        
+    }
+    
+    private static void record() throws Exception {
+        
+        StringBuilder text = new StringBuilder();
+        
+        for (String sentence : SENTENCES) {
+            if (text.length() > 0) text.append("\n");
+            text.append(sentence);
+        }
+
+        Files.write(Paths.get(PATH + Integer.toString(fileNum) + ".txt"), text.toString().getBytes());
+        fileNum++;
+
+        SENTENCES.clear();
         
     }
     
