@@ -1,7 +1,9 @@
 package wordfilter;
 
 import com.itcag.util.io.TextFileReader;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +18,7 @@ public class TokenCounter {
 
     public static void main(String[] args) throws Exception {
         
-        readFolder("/home/nahum/Desktop/hebrew/wikipedia/");
+        readFolder("/home/nahum/Desktop/hebrew/news/clean/");
         
         TreeMap<Integer, TreeSet<String>> invertedIndex = invertedIndex();
         

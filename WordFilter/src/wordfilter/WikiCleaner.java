@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Cleaner {
+public class WikiCleaner {
     
     private final static HashSet<String> NEW_LINES = new HashSet<>();
 
