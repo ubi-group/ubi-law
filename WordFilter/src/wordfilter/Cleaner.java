@@ -64,6 +64,7 @@ public class Cleaner {
             if (line.startsWith("(ראו:")) continue;
             
             if (!line.contains(" ")) continue;
+            if (line.split(" ").length < 4) continue;
             
             if (!containsHebrewCharacters(line)) continue;
             if (isMishMash(line)) continue;
