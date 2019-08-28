@@ -36,9 +36,6 @@ public class HTMLAbout {
         Element elt = HTMLGeneratorToolbox.getBody(doc);
         elt.setAttribute("style", "font-family: 'Varela Round', sans-serif; padding: 20px; ");
         
-        Element breadcrumbs = HTMLGeneratorToolbox.getBreadcrumbs(null, "Home", WebConstants.CONTEXT_PATH, doc);
-        elt.appendChild(breadcrumbs);
-
         Element subElt = HTMLGeneratorToolbox.getTitle(Targets.ABOUT.getTitle(), doc);
         subElt.setAttribute("style", "clear:both; float:right;");
         elt.appendChild(subElt);
