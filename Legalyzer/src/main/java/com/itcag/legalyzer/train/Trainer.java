@@ -1,6 +1,11 @@
 package com.itcag.legalyzer.train;
 
-import java.io.BufferedReader;
+import com.itcag.legalyzer.ConfigurationFields;
+import com.itcag.legalyzer.Constants;
+
+import java.io.File;
+
+import java.util.Properties;
 
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -22,12 +27,8 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.learning.config.RmsProp;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-
-import java.io.File;
-import java.io.FileReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Properties;
+import org.nd4j.linalg.schedule.ScheduleType;
+import org.nd4j.linalg.schedule.StepSchedule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,6 @@ public class Trainer {
     private final Properties config;
     
     private final WordVectors wordVectors;
-    
-    private final ArrayList<String> categories = new ArrayList<>();
     
     private final TokenizerFactory tokenizerFactory;
     
@@ -51,35 +50,26 @@ public class Trainer {
 
         this.config = config;
         
-        wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getProperty("wordVectorPath")));
+        wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getProperty(ConfigurationFields.WORD_VECTOR_PATH.getName())));
         
         tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
 
-        File file = new File(config.getProperty("categoriesPath"));
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                categories.add(line);
-            }
-            reader.close();
-        }
-        
         trainingData = new DataIterator.Builder()
-            .dataDirectory(config.getProperty("dataPath"))
+            .dataDirectory(config.getProperty(ConfigurationFields.DATA_PATH.getName()))
             .wordVectors(wordVectors)
-            .batchSize(Integer.parseInt(config.getProperty("batchSize")))
-            .truncateLength(Integer.parseInt(config.getProperty("truncateLength")))
+            .batchSize(Integer.parseInt(config.getProperty(ConfigurationFields.BATCH_SIZE.getName())))
+            .truncateLength(Integer.parseInt(config.getProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName())))
             .tokenizerFactory(tokenizerFactory)
             .train(true)
             .build();
 
         testData = new DataIterator.Builder()
-            .dataDirectory(config.getProperty("dataPath"))
+            .dataDirectory(config.getProperty(ConfigurationFields.DATA_PATH.getName()))
             .wordVectors(wordVectors)
-            .batchSize(Integer.parseInt(config.getProperty("batchSize")))
+            .batchSize(Integer.parseInt(config.getProperty(ConfigurationFields.BATCH_SIZE.getName())))
             .tokenizerFactory(tokenizerFactory)
-            .truncateLength(Integer.parseInt(config.getProperty("truncateLength")))
+            .truncateLength(Integer.parseInt(config.getProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName())))
             .train(false)
             .build();
 
@@ -90,31 +80,50 @@ public class Trainer {
         int inputNeurons = wordVectors.getWordVector(wordVectors.vocab().wordAtIndex(0)).length;
         int outputs = trainingData.getLabels().size();
 
+        double learningRate = Double.parseDouble(config.getProperty(ConfigurationFields.LEARNING_RATE.getName()));
+        double decayRate = Double.parseDouble(config.getProperty(ConfigurationFields.DECAY_RATE.getName()));
+        double step = Double.parseDouble(config.getProperty(ConfigurationFields.DECAY_STEP.getName()));
+        
         //Set up network configuration
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-            .updater(new RmsProp(0.0018))
+            /**
+             * StepSchedule receives 4 arguments:
+             *      schedule type is either iteration or epoch,
+             *      initial learning rate,
+             *      decay rate,
+             *      step size.
+             * The decay is calculated by this formula:
+             *    initial learning rate * decay rate^(floor(epoch/step))
+             */
+            .updater(new RmsProp(new StepSchedule(ScheduleType.EPOCH, learningRate, decayRate, step)))
             .l2(1e-5)
             .weightInit(WeightInit.XAVIER)
             .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue).gradientNormalizationThreshold(1.0)
             .list()
             .layer( new LSTM.Builder().nIn(inputNeurons).nOut(200)
                 .activation(Activation.TANH).build())
-            .layer(new RnnOutputLayer.Builder().activation(Activation.SOFTMAX)
-                .lossFunction(LossFunctions.LossFunction.MCXENT).nIn(200).nOut(outputs).build())
+            .layer( new LSTM.Builder().nIn(200).nOut(200)
+                .activation(Activation.TANH).build())
+            .layer( new LSTM.Builder().nIn(200).nOut(200)
+                .activation(Activation.TANH).build())
+            .layer(new RnnOutputLayer.Builder().activation(Activation.SIGMOID)
+                .lossFunction(LossFunctions.LossFunction.XENT).nIn(200).nOut(outputs).build())
             .build();
 
         MultiLayerNetwork net = new MultiLayerNetwork(conf);
         net.init();
 
-        System.out.println("Starting training...");
         net.setListeners(new ScoreIterationListener(1), new EvaluativeListener(testData, 1, InvocationType.EPOCH_END));
+
+
+        log.info("Starting training...");
         net.fit(trainingData, Integer.parseInt(config.getProperty("epochs")));
 
         log.info("Evaluating...");
         Evaluation eval = net.evaluate(testData);
         log.info(eval.stats());
 
-        net.save(new File(config.getProperty("modelPath")), true);
+        net.save(new File(config.getProperty(ConfigurationFields.MODEL_PATH.getName())), true);
         log.info("----- Example complete -----");
 
     }
@@ -123,21 +132,18 @@ public class Trainer {
 
         Properties config = new Properties();
         
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        URL url = classLoader.getResource("NewsData");
-        String resourcesPath = url.getPath() + File.separator;
-        config.setProperty("resourcesPath", resourcesPath);
-//        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
-//        config.setProperty("modelPath", resourcesPath + "NewsModel.net");
-//        config.setProperty("categoriesPath", resourcesPath + "LabelledNews" + File.separator + "categories.txt");
-//        config.setProperty("dataPath", resourcesPath + "LabelledNews");
-        config.setProperty("wordVectorPath", "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt");
-        config.setProperty("modelPath", "/home/nahum/code/ubi-law/hebrew_news/NewsModel.net");
-        config.setProperty("categoriesPath", "/home/nahum/code/ubi-law/hebrew_news/LabelledNews/categories.txt");
-        config.setProperty("dataPath", "/home/nahum/code/ubi-law/hebrew_news/LabelledNews");
-        config.setProperty("batchSize", "50");
-        config.setProperty("truncateLength", "300");
-        config.setProperty("epochs", "100");
+        config.setProperty(ConfigurationFields.WORD_VECTOR_PATH.getName(), Constants.WORD_2_VEC_PATH);
+        config.setProperty(ConfigurationFields.MODEL_PATH.getName(), Constants.MODEL_PATH);
+        config.setProperty(ConfigurationFields.CATEGORIES_PATH.getName(), Constants.CATEGORIES_PATH);
+        config.setProperty(ConfigurationFields.DATA_PATH.getName(), Constants.TRAINING_DATA_PATH);
+        
+        config.setProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName(), "300");
+        config.setProperty(ConfigurationFields.BATCH_SIZE.getName(), "50");
+        config.setProperty(ConfigurationFields.EPOCHS.getName(), "100");
+        
+        config.setProperty(ConfigurationFields.LEARNING_RATE.getName(), "0.0018");
+        config.setProperty(ConfigurationFields.DECAY_RATE.getName(), "0.1");
+        config.setProperty(ConfigurationFields.DECAY_STEP.getName(), "100");
 //        config.setProperty("", "");
 
         

@@ -1,4 +1,4 @@
-package wordfilter;
+package com.itcag.legalyzer.util;
 
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.txt.TextToolbox;

@@ -1,4 +1,4 @@
-package wordfilter;
+package com.itcag.legalyzer.util;
 
 import com.itcag.util.io.TextFileReader;
 
@@ -18,7 +18,7 @@ public class TokenCounter {
 
     public static void main(String[] args) throws Exception {
         
-        readFolder("/home/nahum/Desktop/hebrew/news/clean/");
+        readFolder("/home/nahum/Desktop/hebrew/combined/");
         
         TreeMap<Integer, TreeSet<String>> invertedIndex = invertedIndex();
         

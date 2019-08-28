@@ -1,10 +1,13 @@
-package wordfilter;
+package com.itcag.legalyzer.util;
 
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.txt.TextToolbox;
+
 import java.io.File;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,11 +19,17 @@ public class WikiCleaner {
     private static final String SOURCE_FOLDER = "/home/nahum/Desktop/hebrew/wikipedia/";
     private static final String TARGET_FOLDER = "/home/nahum/Desktop/hebrew/wikipedia/clean/";
     
-    private static int fileNum = 0;
+    private static int fileNum = 29;
+    
+    private static int count = 0;
     
     public static void main(String[] args) throws Exception {
         
+        Files.createDirectories(Paths.get(TARGET_FOLDER));
+
         readFolder();
+        
+        System.out.println("COUNT: " + count);
         
     }
 
@@ -71,6 +80,7 @@ public class WikiCleaner {
             if (Character.isDigit(line.charAt(0))) continue;
             
             NEW_LINES.add(line);
+            count++;
             
             if (NEW_LINES.size() >= 100000) recordNewLines();
             

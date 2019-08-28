@@ -1,8 +1,11 @@
 package com.itcag.legalyzer.train;
 
+import com.itcag.legalyzer.ConfigurationFields;
+import com.itcag.legalyzer.Constants;
+
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
-import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
+import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
@@ -13,10 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import java.net.URL;
-
 import java.util.Properties;
-import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
 
 public class Word2Vector {
 
@@ -32,8 +32,7 @@ public class Word2Vector {
 
         this.config = config; 
 
-//        sentenceIterator = new BasicLineIterator(config.getProperty("textPath"));
-        sentenceIterator = new FileSentenceIterator(new File(config.getProperty("textPath")));
+        sentenceIterator = new FileSentenceIterator(new File(config.getProperty(ConfigurationFields.DATA_PATH.getName())));
 
         tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
@@ -44,11 +43,11 @@ public class Word2Vector {
 
         log.info("Building model....");
         Word2Vec vec = new Word2Vec.Builder()
-            .minWordFrequency(Integer.parseInt(config.getProperty("minWordFrequency")))
-            .iterations(Integer.parseInt(config.getProperty("iterations")))
-            .layerSize(Integer.parseInt(config.getProperty("layerSize")))
-            .seed(Integer.parseInt(config.getProperty("seed")))
-            .windowSize(Integer.parseInt(config.getProperty("windowSize")))
+            .minWordFrequency(Integer.parseInt(ConfigurationFields.MIN_WORD_FREQUENCY.getName()))
+            .iterations(Integer.parseInt(config.getProperty(ConfigurationFields.ITERATIONS.getName())))
+            .layerSize(Integer.parseInt(config.getProperty(ConfigurationFields.LAYER_SIZE.getName())))
+            .seed(Integer.parseInt(config.getProperty(ConfigurationFields.SEED.getName())))
+            .windowSize(Integer.parseInt(config.getProperty(ConfigurationFields.WINDOW_SIZE.getName())))
             .iterate(sentenceIterator)
             .tokenizerFactory(tokenizerFactory)
             .build();
@@ -57,7 +56,7 @@ public class Word2Vector {
         vec.fit();
 
         log.info("Writing word vectors to text file....");
-        WordVectorSerializer.writeWordVectors(vec.lookupTable(), config.getProperty("wordVectorPath"));
+        WordVectorSerializer.writeWordVectors(vec.lookupTable(), config.getProperty(ConfigurationFields.WORD_VECTOR_PATH.getName()));
 
     }
     
@@ -65,21 +64,13 @@ public class Word2Vector {
 
         Properties config = new Properties();
 
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        URL url = classLoader.getResource("NewsData");
-        String resourcesPath = url.getPath() + File.separator;
-        config.setProperty("resourcesPath", resourcesPath);
-
-//        config.setProperty("textPath", "/home/nahum/Desktop/hebrew_news/raw.txt");
-        config.setProperty("textPath", "/home/nahum/Desktop/hebrew/news/clean");
-        config.setProperty("wordVectorPath", "/home/nahum/code/ubi-law/hebrew_news/wordvec.txt");
-//        config.setProperty("textPath", resourcesPath  + "RawNewsToGenerateWordVector.txt");
-//        config.setProperty("wordVectorPath", resourcesPath + "NewsWordVector.txt");
-        config.setProperty("minWordFrequency", "2");
-        config.setProperty("iterations", "5");
-        config.setProperty("layerSize", "300");
-        config.setProperty("seed", "42");
-        config.setProperty("windowSize", "5");
+        config.setProperty(ConfigurationFields.DATA_PATH.getName(), Constants.WORD_2_VEC_DATA_PATH);
+        config.setProperty(ConfigurationFields.WORD_VECTOR_PATH.getName(), Constants.WORD_2_VEC_PATH);
+        config.setProperty(ConfigurationFields.MIN_WORD_FREQUENCY.getName(), "2");
+        config.setProperty(ConfigurationFields.ITERATIONS.getName(), "5");
+        config.setProperty(ConfigurationFields.LAYER_SIZE.getName(), "300");
+        config.setProperty(ConfigurationFields.SEED.getName(), "42");
+        config.setProperty(ConfigurationFields.WINDOW_SIZE.getName(), "5");
 //        config.setProperty("", "");
 
         Word2Vector generator = new Word2Vector(config);

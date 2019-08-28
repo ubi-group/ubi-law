@@ -1,4 +1,4 @@
-package com.itcag.wordfilter;
+package com.itcag.legalyzer.util;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
