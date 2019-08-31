@@ -7,7 +7,8 @@ import com.itcag.tagger.WebConstants;
 import com.itcag.tagger.doc.Extractor;
 import com.itcag.tagger.lang.Document;
 import com.itcag.util.Printer;
-import com.itcag.utils.html.HTMLErrorPageGenerator;
+import com.itcag.util.html.HTMLErrorPageGenerator;
+import com.itcag.util.html.HTMLErrorPageGenerator;
 
 import java.io.File;
 import java.io.IOException;

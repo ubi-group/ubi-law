@@ -8,8 +8,8 @@ import com.itcag.legalyzer.test.Tester;
 import com.itcag.util.Encoder;
 import com.itcag.util.Printer;
 import com.itcag.util.txt.TextToolbox;
-import com.itcag.utils.html.HTMLErrorPageGenerator;
-import com.itcag.utils.html.HTTPToolbox;
+import com.itcag.util.html.HTMLErrorPageGenerator;
+import com.itcag.util.html.HTTPToolbox;
 
 import java.io.IOException;
 import java.io.PrintWriter;

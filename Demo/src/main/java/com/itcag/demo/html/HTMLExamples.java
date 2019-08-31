@@ -3,7 +3,7 @@ package com.itcag.demo.html;
 import com.itcag.demo.Targets;
 import com.itcag.demo.WebConstants;
 import com.itcag.util.XMLProcessor;
-import com.itcag.utils.html.HTMLGeneratorToolbox;
+import com.itcag.util.html.HTMLGeneratorToolbox;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

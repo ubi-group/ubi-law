@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>HTMLUtils_new</artifactId>
+            <artifactId>HTMLUtils</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

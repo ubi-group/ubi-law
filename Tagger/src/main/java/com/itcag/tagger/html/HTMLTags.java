@@ -6,7 +6,7 @@ import com.itcag.tagger.WebConstants;
 import com.itcag.tagger.lang.Tag;
 import com.itcag.util.Encoder;
 import com.itcag.util.XMLProcessor;
-import com.itcag.utils.html.HTMLGeneratorToolbox;
+import com.itcag.util.html.HTMLGeneratorToolbox;
 
 import java.util.ArrayList;
 

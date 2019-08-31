@@ -4,10 +4,10 @@ import com.itcag.tagger.DataTierAPI;
 import com.itcag.tagger.FormFields;
 import com.itcag.tagger.html.HTMLDocuments;
 import com.itcag.util.Encoder;
+import com.itcag.util.ErrorMessage;
 import com.itcag.util.Printer;
 import com.itcag.util.txt.TextToolbox;
-import com.itcag.utils.ErrorMessage;
-import com.itcag.utils.html.HTTPToolbox;
+import com.itcag.util.html.HTTPToolbox;
 
 import java.io.IOException;
 import java.io.PrintWriter;

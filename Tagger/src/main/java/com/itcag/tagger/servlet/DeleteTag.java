@@ -5,9 +5,9 @@ import com.itcag.tagger.FormFields;
 import com.itcag.tagger.Targets;
 import com.itcag.tagger.WebConstants;
 import com.itcag.util.Encoder;
+import com.itcag.util.ErrorMessage;
 import com.itcag.util.Printer;
 import com.itcag.util.txt.TextToolbox;
-import com.itcag.utils.ErrorMessage;
 
 import java.io.IOException;
 

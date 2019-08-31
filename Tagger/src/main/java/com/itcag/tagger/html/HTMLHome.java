@@ -3,7 +3,7 @@ package com.itcag.tagger.html;
 import com.itcag.tagger.Targets;
 import com.itcag.tagger.WebConstants;
 import com.itcag.util.XMLProcessor;
-import com.itcag.utils.html.HTMLGeneratorToolbox;
+import com.itcag.util.html.HTMLGeneratorToolbox;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
