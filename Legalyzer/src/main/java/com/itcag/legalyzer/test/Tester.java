@@ -1,6 +1,7 @@
 package com.itcag.legalyzer.test;
 
 import com.itcag.legalyzer.ConfigurationFields;
+import com.itcag.legalyzer.Constants;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -28,30 +30,15 @@ import org.nd4j.linalg.indexing.NDArrayIndex;
 
 public class Tester {
 
-    private static Tester instance = null;
-    
     private final WordVectors wordVectors;
     private final MultiLayerNetwork model;
     
     private final TokenizerFactory tokenizerFactory;
 
-    private Tester(Properties config) throws Exception {
-
-        wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getProperty(ConfigurationFields.WORD_VECTOR_PATH.getName())));
-        model = MultiLayerNetwork.load(new File(config.getProperty(ConfigurationFields.MODEL_PATH.getName())), true);
-        
-        tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-
-    }
-    
-    public final static Tester getInstance(Properties config) throws Exception {
-        if (instance == null) instance = new Tester(config);
-        return instance;
-    }
-    
-    public final static Tester getInstance() {
-        return instance;
+    public Tester(WordVectors wordVectors, MultiLayerNetwork model, TokenizerFactory tokenizerFactory) throws Exception {
+        this.wordVectors = wordVectors;
+        this.model = model;
+        this.tokenizerFactory = tokenizerFactory;
     }
     
     public void test(String input, Result result) throws Exception {
@@ -60,21 +47,31 @@ public class Tester {
         input = input.trim();
         if (input.isEmpty()) throw new IllegalArgumentException("Input is empty.");
         
-        DataSet testData = prepareTestData(input);
+        DataSet testData = prepareTestData(input, result.getCategories().size());
         
-        INDArray fet = testData.getFeatures();
+        INDArray features = testData.getFeatures();
         
-        INDArray predicted = model.output(fet, false);
-        long[] arrsiz = predicted.shape();
+        INDArray predicted = model.output(features, false);
 
-        for (int i = 0; i < arrsiz[1]; i++) {
-            double sumNum = (double) predicted.slice(0).slice(i).sumNumber();
-            result.insertScore(i, sumNum);
+        for (int i = 0 ; i < predicted.size(0); i++) {
+            INDArray row = predicted.slice(i);
+            for (int j = 0; j < predicted.size(1); j++) {
+                INDArray column = row.slice(j);
+                /**
+                 * We are using RNN were the probabilities
+                 * are update for every word in the sentence.
+                 * Therefore, only the probability of last word
+                 * really matters - it depends on all previous
+                 * probabilities.
+                 */
+                Double probability = column.getDouble(column.length() - 1);
+                result.insertScore(j, probability);
+            }
         }
 
     }
     
-    private DataSet prepareTestData(String input) throws Exception {
+    private DataSet prepareTestData(String input, int numCategories) throws Exception {
     
         List<String> tokens = new ArrayList<>();
         for (String token : tokenizerFactory.create(input).getTokens()) {
@@ -83,7 +80,7 @@ public class Tester {
         if (tokens.isEmpty()) throw new IllegalArgumentException("Input consists of unrecognized words.");
         
         INDArray features = Nd4j.create(1, wordVectors.lookupTable().layerSize(), tokens.size());
-        INDArray labels = Nd4j.create(1, 4, tokens.size());
+        INDArray labels = Nd4j.create(1, numCategories, tokens.size());
         INDArray featuresMask = Nd4j.zeros(1, tokens.size());
         INDArray labelsMask = Nd4j.zeros(1, tokens.size());
 
@@ -106,41 +103,38 @@ public class Tester {
 
     public static void main(String args[]) throws Exception {
 
-        Properties config = new Properties();
+        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Constants.WORD_2_VEC_PATH));
+        MultiLayerNetwork model = MultiLayerNetwork.load(new File(Constants.MODEL_PATH), true);
         
-        config.setProperty(ConfigurationFields.WORD_VECTOR_PATH.getName(), "/home/nahum/Desktop/hebrew/wordvec.txt");
-        config.setProperty(ConfigurationFields.MODEL_PATH.getName(), "/home/nahum/code/ubi-law/hebrew_news/NewsModel.net");
-        config.setProperty(ConfigurationFields.CATEGORIES_PATH.getName(), "/home/nahum/code/ubi-law/hebrew_news/LabelledNews/categories.txt");
-        
-        Result result = new Result(config.getProperty(ConfigurationFields.CATEGORIES_PATH.getName()));
+        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
+        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
             
-        Tester tester = Tester.getInstance(config);
-        
-        ArrayList<String> lines = readFile("/home/nahum/code/ubi-law/hebrew_news/LabelledNews/train/3.txt");
+        Tester tester = new Tester(wordVectors, model, tokenizerFactory);
+
+        Result result = new Result(Constants.CATEGORIES_PATH);
+
+        ArrayList<String> lines = readFile("/home/nahum/code/ubi-law/hebrew_news/news/security/train/1.txt");
         for (String line : lines) {
             
             try {
 
                 Result copy = result.copy();
                 tester.test(line, copy);
-                if (copy.getTopCategory().getIndex() != 3) {
+                if (copy.getTopCategory().getIndex() != 1) {
                     System.out.println("FAIL!");
-                    System.out.println("Wrong guess: " + copy.getTopCategory().getLabel());
                     System.out.println(line);
                     System.out.println(copy.toString());
                     System.out.println();
                 }
-//                System.out.println(copy.toString());
-//                System.out.println();
                 
             } catch (Exception ex) {
-//                System.out.println(line);
-//                System.out.println("ERROR: " + ex.getMessage());
-//                System.out.println();
+                System.out.println(line);
+                System.out.println("ERROR: " + ex.getMessage());
+                System.out.println();
             }
         
         }
-        
+
     }
 
     private static ArrayList<String> readFile(String filePath) throws Exception {

@@ -6,6 +6,9 @@ public enum ConfigurationFields {
     MODEL_PATH("modelPath"),
     CATEGORIES_PATH("categoriesPath"),
     DATA_PATH("dataPath"),
+    TRAINING_DATA_PATH("trainingDataPath"),
+    TEST_DATA_PATH("testDataPath"),
+    CURRENT_DATA_PATH("currentDataPath"),
     
     TRUNCATE_TEXT_TO("truncateLength"),
     BATCH_SIZE("batchSize"),

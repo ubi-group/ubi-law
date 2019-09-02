@@ -7,7 +7,6 @@ import java.io.File;
 
 import java.util.Properties;
 
-import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.nn.conf.GradientNormalization;
@@ -24,6 +23,8 @@ import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreproc
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
+import org.nd4j.evaluation.classification.Evaluation;
+import org.nd4j.evaluation.classification.ROC;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.learning.config.RmsProp;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
@@ -55,23 +56,11 @@ public class Trainer {
         tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
 
-        trainingData = new DataIterator.Builder()
-            .dataDirectory(config.getProperty(ConfigurationFields.DATA_PATH.getName()))
-            .wordVectors(wordVectors)
-            .batchSize(Integer.parseInt(config.getProperty(ConfigurationFields.BATCH_SIZE.getName())))
-            .truncateLength(Integer.parseInt(config.getProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName())))
-            .tokenizerFactory(tokenizerFactory)
-            .train(true)
-            .build();
+        config.setProperty(ConfigurationFields.CURRENT_DATA_PATH.getName(), Constants.TRAINING_DATA_PATH);
+        trainingData = new DataIterator(config, wordVectors, tokenizerFactory);
 
-        testData = new DataIterator.Builder()
-            .dataDirectory(config.getProperty(ConfigurationFields.DATA_PATH.getName()))
-            .wordVectors(wordVectors)
-            .batchSize(Integer.parseInt(config.getProperty(ConfigurationFields.BATCH_SIZE.getName())))
-            .tokenizerFactory(tokenizerFactory)
-            .truncateLength(Integer.parseInt(config.getProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName())))
-            .train(false)
-            .build();
+        config.setProperty(ConfigurationFields.CURRENT_DATA_PATH.getName(), Constants.TEST_DATA_PATH);
+        testData = new DataIterator(config, wordVectors, tokenizerFactory);
 
     }
 
@@ -106,8 +95,8 @@ public class Trainer {
                 .activation(Activation.TANH).build())
             .layer( new LSTM.Builder().nIn(200).nOut(200)
                 .activation(Activation.TANH).build())
-            .layer(new RnnOutputLayer.Builder().activation(Activation.SIGMOID)
-                .lossFunction(LossFunctions.LossFunction.XENT).nIn(200).nOut(outputs).build())
+            .layer(new RnnOutputLayer.Builder().activation(Activation.SOFTMAX)
+                .lossFunction(LossFunctions.LossFunction.MCXENT).nIn(200).nOut(outputs).build())
             .build();
 
         MultiLayerNetwork net = new MultiLayerNetwork(conf);
@@ -115,17 +104,20 @@ public class Trainer {
 
         net.setListeners(new ScoreIterationListener(1), new EvaluativeListener(testData, 1, InvocationType.EPOCH_END));
 
-
         log.info("Starting training...");
         net.fit(trainingData, Integer.parseInt(config.getProperty("epochs")));
-
-        log.info("Evaluating...");
-        Evaluation eval = net.evaluate(testData);
-        log.info(eval.stats());
 
         net.save(new File(config.getProperty(ConfigurationFields.MODEL_PATH.getName())), true);
         log.info("----- Example complete -----");
 
+        log.info("Evaluating...");
+
+        Evaluation eval = net.evaluate(testData);
+        log.info(eval.stats());
+
+        ROC roc = net.evaluateROC(testData, 0);
+        log.info(roc.stats());
+        
     }
     
     public static void main(String[] args) throws Exception {
@@ -135,7 +127,9 @@ public class Trainer {
         config.setProperty(ConfigurationFields.WORD_VECTOR_PATH.getName(), Constants.WORD_2_VEC_PATH);
         config.setProperty(ConfigurationFields.MODEL_PATH.getName(), Constants.MODEL_PATH);
         config.setProperty(ConfigurationFields.CATEGORIES_PATH.getName(), Constants.CATEGORIES_PATH);
-        config.setProperty(ConfigurationFields.DATA_PATH.getName(), Constants.TRAINING_DATA_PATH);
+        config.setProperty(ConfigurationFields.DATA_PATH.getName(), Constants.DATA_PATH);
+        config.setProperty(ConfigurationFields.TRAINING_DATA_PATH.getName(), Constants.TRAINING_DATA_PATH);
+        config.setProperty(ConfigurationFields.TEST_DATA_PATH.getName(), Constants.TEST_DATA_PATH);
         
         config.setProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName(), "300");
         config.setProperty(ConfigurationFields.BATCH_SIZE.getName(), "50");

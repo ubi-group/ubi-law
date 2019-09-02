@@ -96,28 +96,28 @@ public class HTMLAbout {
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
             content.add(getCell("Accuracy:", "left"));
-            content.add(getCell("0.9546", "right"));
+            content.add(getCell("0.9646", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
             content.add(getCell("Precision:", "left"));
-            content.add(getCell("0.9547", "right"));
+            content.add(getCell("0.9676", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
             content.add(getCell("Recall:", "left"));
-            content.add(getCell("0.9546", "right"));
+            content.add(getCell("0.9614", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
             content.add(getCell("F1 Score:", "left"));
-            content.add(getCell("0.9546", "right"));
+            content.add(getCell("0.9645", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         

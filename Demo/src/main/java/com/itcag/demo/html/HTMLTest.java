@@ -3,12 +3,12 @@ package com.itcag.demo.html;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.Targets;
 import com.itcag.demo.WebConstants;
-import com.itcag.legalyzer.test.Result;
 import com.itcag.util.XMLProcessor;
 import com.itcag.util.html.HTMLGeneratorToolbox;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 
 public class HTMLTest {
 
-    public final static String get(String query, Result result) throws Exception {
+    public final static String get(String query, HashMap<String, String> results) throws Exception {
         
         Document doc = XMLProcessor.getDocument("html");
         Element root = doc.getDocumentElement();
@@ -27,13 +27,13 @@ public class HTMLTest {
         head.appendChild(subElt);
         root.appendChild(head);
 
-        root.appendChild(getBody(query, result, doc));
+        root.appendChild(getBody(query, results, doc));
 
         return XMLProcessor.convertDocumentToString(doc);
         
     }
 
-    private static Element getBody(String query, Result result, Document doc) throws Exception {
+    private static Element getBody(String query, HashMap<String, String> results, Document doc) throws Exception {
         
         Element elt = HTMLGeneratorToolbox.getBody(doc);
         elt.setAttribute("style", "font-family: 'Varela Round', sans-serif; padding: 20px; ");
@@ -47,7 +47,7 @@ public class HTMLTest {
 
         elt.appendChild(getSearchBox(query, doc));
         
-        if (result != null) elt.appendChild(getResultDisplay(query, result, doc));
+        if (results != null) elt.appendChild(getResultDisplay(query, results, doc));
         
         return elt;
         
@@ -68,7 +68,7 @@ public class HTMLTest {
     
     }
     
-    private static Element getResultDisplay(String query, Result result, Document doc) {
+    private static Element getResultDisplay(String query, HashMap<String, String> results, Document doc) {
         
         Element retVal = HTMLGeneratorToolbox.getDiv(doc);
         
@@ -83,9 +83,8 @@ public class HTMLTest {
         Element table = HTMLGeneratorToolbox.getTable(doc);
         table.setAttribute("style", "display:block; clear:both; float:right; margin-top: 20px; width:100%; max-width:100%; border-collapse:collapse; table-layout:fixed; ");
         table.setAttribute("cellpadding", "10");
-        for (Map.Entry<Integer, Result.Category> entry : result.getCategories().entrySet()) {
-            Result.Category category = entry.getValue();
-            table.appendChild(getRow(category, doc));
+        for (Map.Entry<String, String> entry : results.entrySet()) {
+            table.appendChild(getRow(entry, doc));
         }
         retVal.appendChild(table);
         
@@ -93,12 +92,11 @@ public class HTMLTest {
         
     }
     
-    private static Element getRow(Result.Category category, Document doc) {
+    private static Element getRow(Map.Entry<String, String> entry, Document doc) {
         
         ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-        content.add(getCell(Integer.toString(category.getIndex()), "right"));
-        content.add(getCell(category.getLabel(), "right"));
-        content.add(getCell(Double.toString(category.getScore()), "right"));
+        content.add(getCell(entry.getKey(), "right"));
+        content.add(getCell(entry.getValue(), "right"));
 
         return HTMLGeneratorToolbox.getTableRow(content, doc);
 
