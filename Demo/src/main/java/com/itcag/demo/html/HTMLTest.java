@@ -96,7 +96,7 @@ public class HTMLTest {
         
         ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
         content.add(getCell(entry.getKey(), "right"));
-        content.add(getCell(entry.getValue(), "right"));
+        content.add(getCell(entry.getValue(), "left"));
 
         return HTMLGeneratorToolbox.getTableRow(content, doc);
 

@@ -51,8 +51,6 @@ public class HTMLExamples {
         
         elt.appendChild(getExample_1(doc));
         elt.appendChild(getExample_2(doc));
-        elt.appendChild(getExample_3(doc));
-        elt.appendChild(getExample_4(doc));
 
         return elt;
         
@@ -106,29 +104,29 @@ public class HTMLExamples {
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("1.2828307151794434", "right"));
+            content.add(getCell("TRUE", "left"));
             content.add(getCell("צבא וביטחון", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("4.527286218944937E-4", "right"));
+            content.add(getCell("TRUE", "left"));
+            content.add(getCell("טכנולוגיה", "right"));
+            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
+        }
+        
+        {
+            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
+            content.add(getCell("FALSE", "left"));
             content.add(getCell("כדורגל", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("0.02607514150440693", "right"));
+            content.add(getCell("FALSE", "left"));
             content.add(getCell("סלבס", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("7.32424259185791", "right"));
-            content.add(getCell("טכנולוגיה", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
@@ -185,185 +183,29 @@ public class HTMLExamples {
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("1.3295598030090332", "right"));
+            content.add(getCell("TRUE", "left"));
             content.add(getCell("צבא וביטחון", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("0.5671847462654114", "right"));
+            content.add(getCell("FALSE", "left"));
+            content.add(getCell("טכנולוגיה", "right"));
+            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
+        }
+        
+        {
+            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
+            content.add(getCell("FALSE", "left"));
             content.add(getCell("כדורגל", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
         {
             ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("6.496984958648682", "right"));
+            content.add(getCell("TRUE", "left"));
             content.add(getCell("סלבס", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("0.8543418049812317", "right"));
-            content.add(getCell("טכנולוגיה", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        return retVal;
-        
-    } 
-    
-    private static Element getExample_3(Document doc) {
-        
-        Element retVal = HTMLGeneratorToolbox.getDiv(doc);
-        retVal.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:60px;");
-        
-        Element elt = HTMLGeneratorToolbox.getBlockSpan("כותרת:", doc);
-        elt.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
-        retVal.appendChild(elt);
-        
-        elt = HTMLGeneratorToolbox.getBlockSpan("אלונה ברקת התפטרה מתפקידיה בהתאחדות", doc);
-        elt.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-right: 20px; font-weight: bold; font-style: italic;");
-        retVal.appendChild(elt);
-        
-        elt = HTMLGeneratorToolbox.getParagraph(null, doc);
-
-        Element subElt = HTMLGeneratorToolbox.getInlineSpan("שייכת הן ל", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: normal;");
-        elt.appendChild(subElt);
-        
-        subElt = HTMLGeneratorToolbox.getInlineSpan("סלבס ", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: bold;");
-        elt.appendChild(subElt);
-
-        subElt = HTMLGeneratorToolbox.getInlineSpan("והן ל", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: normal;");
-        elt.appendChild(subElt);
-
-        subElt = HTMLGeneratorToolbox.getInlineSpan("כדורגל", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: bold;");
-        elt.appendChild(subElt);
-
-        retVal.appendChild(elt);
-        
-        retVal.appendChild(getTable_3(doc));
-        
-        return retVal;
-        
-    }
-    
-    private static Element getTable_3(Document doc) {
-        
-        Element retVal = HTMLGeneratorToolbox.getTable(doc);
-        retVal.setAttribute("style", "display:block; clear:both; float:right; max-width:100%; border-collapse:collapse; table-layout:fixed;");
-        retVal.setAttribute("cellpadding", "10");
-        retVal.setAttribute("dir", "ltr");
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("5.134960520081222E-4", "right"));
-            content.add(getCell("צבא וביטחון", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("1.0228948593139648", "right"));
-            content.add(getCell("כדורגל", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("3.99676775932312", "right"));
-            content.add(getCell("סלבס", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("9.669674909673631E-5", "right"));
-            content.add(getCell("טכנולוגיה", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        return retVal;
-        
-    } 
-    
-    private static Element getExample_4(Document doc) {
-        
-        Element retVal = HTMLGeneratorToolbox.getDiv(doc);
-        retVal.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:60px;");
-        
-        Element elt = HTMLGeneratorToolbox.getBlockSpan("כותרת:", doc);
-        elt.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
-        retVal.appendChild(elt);
-        
-        elt = HTMLGeneratorToolbox.getBlockSpan("רמי לוי נכנס לשוק הטלוויזיה; יציע תכנים של הוט ב-89 שקלים לחודש", doc);
-        elt.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-right: 20px; font-weight: bold; font-style: italic;");
-        retVal.appendChild(elt);
-        
-        elt = HTMLGeneratorToolbox.getParagraph(null, doc);
-
-        Element subElt = HTMLGeneratorToolbox.getInlineSpan("שייכת הן ל", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: normal;");
-        elt.appendChild(subElt);
-        
-        subElt = HTMLGeneratorToolbox.getInlineSpan("סלבס ", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: bold;");
-        elt.appendChild(subElt);
-
-        subElt = HTMLGeneratorToolbox.getInlineSpan("והן ל", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: normal;");
-        elt.appendChild(subElt);
-
-        subElt = HTMLGeneratorToolbox.getInlineSpan("טכנולוגיה", 0, 0, doc);
-        subElt.setAttribute("style", "font-weight: bold;");
-        elt.appendChild(subElt);
-
-        retVal.appendChild(elt);
-        
-        retVal.appendChild(getTable_4(doc));
-        
-        return retVal;
-        
-    }
-    
-    private static Element getTable_4(Document doc) {
-        
-        Element retVal = HTMLGeneratorToolbox.getTable(doc);
-        retVal.setAttribute("style", "display:block; clear:both; float:right; max-width:100%; border-collapse:collapse; table-layout:fixed;");
-        retVal.setAttribute("cellpadding", "10");
-        retVal.setAttribute("dir", "ltr");
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("0.0011597592383623123", "right"));
-            content.add(getCell("צבא וביטחון", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("2.7817790508270264", "right"));
-            content.add(getCell("כדורגל", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("6.096650123596191", "right"));
-            content.add(getCell("סלבס", "right"));
-            retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
-        }
-        
-        {
-            ArrayList<Map.Entry<String, String>> content = new ArrayList<>();
-            content.add(getCell("4.2400898933410645", "right"));
-            content.add(getCell("טכנולוגיה", "right"));
             retVal.appendChild(HTMLGeneratorToolbox.getTableRow(content, doc));
         }
         
