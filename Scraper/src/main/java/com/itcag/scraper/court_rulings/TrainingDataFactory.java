@@ -100,10 +100,12 @@ public class TrainingDataFactory {
                      * Files can potentially contain duplicate lines.
                      */
                     if (UNIQUE.get(line).equals(category)) continue;
+/*
 System.out.println(file.getName());
 System.out.println(UNIQUE.get(line));
 System.out.println(line);
 System.out.println();
+*/
                     UNIQUE.remove(line);
                     REJECTS.add(line);
                 } else {
