@@ -23,7 +23,7 @@ public class DocumentsNotCompleted extends HttpServlet {
 
         try {
 
-            ArrayList<com.itcag.tagger.lang.Document> tags = DataTierAPI.getDocuments(com.itcag.tagger.lang.Document.Status.TAGGED);
+            ArrayList<com.itcag.doc.lang.Document> tags = DataTierAPI.getDocuments(com.itcag.doc.lang.Document.Status.TAGGED);
         
             HTTPToolbox.prepareResponse(response);
 

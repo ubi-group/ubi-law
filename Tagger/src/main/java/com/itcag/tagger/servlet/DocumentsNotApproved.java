@@ -23,7 +23,7 @@ public class DocumentsNotApproved extends HttpServlet {
 
         try {
 
-            ArrayList<com.itcag.tagger.lang.Document> tags = DataTierAPI.getDocuments(com.itcag.tagger.lang.Document.Status.COMPLETED);
+            ArrayList<com.itcag.doc.lang.Document> tags = DataTierAPI.getDocuments(com.itcag.doc.lang.Document.Status.COMPLETED);
         
             HTTPToolbox.prepareResponse(response);
 

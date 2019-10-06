@@ -55,7 +55,7 @@ public class Documents extends HttpServlet {
             if (TextToolbox.isReallyEmpty(query)) throw new IllegalArgumentException("Missing argument: " + FormFields.QUERY.getName());
             query = Encoder.decodeText(query);            
 
-            ArrayList<com.itcag.tagger.lang.Document> documents = DataTierAPI.getDocuments(query);
+            ArrayList<com.itcag.doc.lang.Document> documents = DataTierAPI.getDocuments(query);
         
             HTTPToolbox.prepareResponse(response);
 

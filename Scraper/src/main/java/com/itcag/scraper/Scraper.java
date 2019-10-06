@@ -1,5 +1,6 @@
 package com.itcag.scraper;
 
+import com.itcag.util.txt.Split;
 import com.itcag.util.txt.TextToolbox;
 
 import java.io.BufferedReader;
@@ -11,7 +12,6 @@ import java.net.URL;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 
 public class HTMLDocuments {
  
-    public final static String get(ArrayList<com.itcag.tagger.lang.Document> documents) throws Exception {
+    public final static String get(ArrayList<com.itcag.doc.lang.Document> documents) throws Exception {
 
         String title = Targets.DOCUMENTS.getTitle();
         
@@ -29,7 +29,7 @@ public class HTMLDocuments {
         
     }
 
-    private static Element getBody(String title, ArrayList<com.itcag.tagger.lang.Document> documents, Document doc) throws Exception {
+    private static Element getBody(String title, ArrayList<com.itcag.doc.lang.Document> documents, Document doc) throws Exception {
         
         Element elt = HTMLGeneratorToolbox.getBody(doc);
         
@@ -51,11 +51,11 @@ public class HTMLDocuments {
         
     }
 
-    private static Element getList(ArrayList<com.itcag.tagger.lang.Document> documents, Document doc) throws Exception {
+    private static Element getList(ArrayList<com.itcag.doc.lang.Document> documents, Document doc) throws Exception {
         
         Element elt = HTMLGeneratorToolbox.getUl(doc);
         
-        for (com.itcag.tagger.lang.Document document : documents) {
+        for (com.itcag.doc.lang.Document document : documents) {
             Element subElt = HTMLGeneratorToolbox.getListItem(null, doc);
             subElt.appendChild(HTMLGeneratorToolbox.getLink(Targets.DOCUMENT.getUrl() + "?" + FormFields._ID.getName() + "=" + Encoder.encodeText(document.get_id()), document.getId(), doc));
             subElt.appendChild(HTMLGeneratorToolbox.getTinyInlineLink(Targets.DELETE_DOCUMENT.getUrl() + "?" + FormFields._ID.getName() + "=" + Encoder.encodeText(document.get_id()), Targets.DELETE_TAG.getTitle(), doc));

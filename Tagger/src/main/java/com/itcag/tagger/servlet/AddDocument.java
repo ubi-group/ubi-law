@@ -5,9 +5,8 @@ import com.itcag.tagger.FormFields;
 import com.itcag.tagger.Targets;
 import com.itcag.tagger.WebConstants;
 import com.itcag.tagger.doc.Extractor;
-import com.itcag.tagger.lang.Document;
+import com.itcag.doc.lang.Document;
 import com.itcag.util.Printer;
-import com.itcag.util.html.HTMLErrorPageGenerator;
 import com.itcag.util.html.HTMLErrorPageGenerator;
 
 import java.io.File;
@@ -37,24 +36,22 @@ public class AddDocument extends HttpServlet {
             Part filePart = request.getPart(FormFields.UPLOAD.getName());
             if (filePart != null) {
                 
-                String ext = null;
+                String extension = null;
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 int pos = fileName.indexOf(".");
-                if (pos > -1)  ext = fileName.substring(pos);
+                if (pos > -1)  extension = fileName.substring(pos);
                 
                 String id = UUID.randomUUID().toString().replace("-", "");
-                String location = WebConstants.UPLOAD_FOLDER + id;
-                if (ext != null) location += ext;
+                String filePath = WebConstants.UPLOAD_FOLDER + id;
+                if (extension != null) filePath += extension;
 
-                Path path = Paths.get(location);
+                Path path = Paths.get(filePath);
                 try (InputStream input = filePart.getInputStream()) {
                     Files.copy(input, path);
                 }
 
-                File file = path.toFile();
-                
                 Extractor extractor = new Extractor();
-                Document doc = extractor.getDocument(id, file);
+                Document doc = extractor.getDocument(id, extension, filePath);
                 DataTierAPI.addDocument(doc);
                 
             }

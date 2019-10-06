@@ -2,7 +2,7 @@ package com.itcag.tagger.servlet;
 
 import com.itcag.tagger.DataTierAPI;
 import com.itcag.tagger.html.HTMLTags;
-import com.itcag.tagger.lang.Tag;
+import com.itcag.doc.lang.Tag;
 import com.itcag.util.ErrorMessage;
 import com.itcag.util.Printer;
 import com.itcag.util.html.HTTPToolbox;

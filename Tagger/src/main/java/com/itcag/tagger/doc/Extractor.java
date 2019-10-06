@@ -1,19 +1,20 @@
 package com.itcag.tagger.doc;
 
-import com.itcag.tagger.lang.Document;
+import com.itcag.doc.MSWord;
+import com.itcag.doc.lang.Document;
 import java.io.File;
 
 public class Extractor {
 
-    public Document getDocument(String id, File file) {
+    public Document getDocument(String id, String extension, String filePath) throws Exception {
         
-        //extract extension
-        //decide how to read file
-        //extract text only
-        //split into paragraphs
-        //split into sentences
-        
-        return null;
+        switch (extension) {
+            case "docx":
+                MSWord parser = new MSWord();
+                return parser.getSentences(id, filePath);
+            default:
+                throw new IllegalArgumentException("Cannot parse document. Unknown document type.");
+        }
         
     }
     

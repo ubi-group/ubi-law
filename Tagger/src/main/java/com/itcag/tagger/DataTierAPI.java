@@ -1,7 +1,7 @@
 package com.itcag.tagger;
 
-import com.itcag.tagger.lang.Document;
-import com.itcag.tagger.lang.Tag;
+import com.itcag.doc.lang.Document;
+import com.itcag.doc.lang.Tag;
 
 import java.util.ArrayList;
 

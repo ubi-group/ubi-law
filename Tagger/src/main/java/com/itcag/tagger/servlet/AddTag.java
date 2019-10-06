@@ -5,7 +5,7 @@ import com.itcag.tagger.FormFields;
 import com.itcag.tagger.Targets;
 import com.itcag.tagger.WebConstants;
 import com.itcag.tagger.html.HTMLAddTag;
-import com.itcag.tagger.lang.Tag;
+import com.itcag.doc.lang.Tag;
 import com.itcag.util.Printer;
 import com.itcag.util.txt.TextToolbox;
 import com.itcag.util.html.HTMLErrorPageGenerator;
