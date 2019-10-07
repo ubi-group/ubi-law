@@ -180,7 +180,6 @@ public class Extractor {
 
         if (line.startsWith("פתח דבר")) return false;
         if (line.startsWith("תוכן עניינים")) return false;
-        
         if (line.startsWith("השופט")) return false;
         if (line.startsWith("שופט")) return false;
         if (line.startsWith("המשנה ל")) return false;
