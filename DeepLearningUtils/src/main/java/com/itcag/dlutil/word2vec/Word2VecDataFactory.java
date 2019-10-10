@@ -1,5 +1,6 @@
-package com.itcag.dlutil;
+package com.itcag.dlutil.word2vec;
 
+import com.itcag.dlutil.Config;
 import com.itcag.util.Converter;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;

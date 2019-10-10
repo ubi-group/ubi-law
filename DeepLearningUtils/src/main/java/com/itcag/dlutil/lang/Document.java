@@ -16,12 +16,15 @@ public class Document {
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
     
+    private int length = 0;
+    
     public Document(ArrayList<String> lines) {
         this.lines = lines;
     }
     
     public void selectParagraphs(Parser parser) throws Exception {
         this.paragraphs = parser.parse(this.lines);
+        this.length = this.paragraphs.stream().map((paragraph) -> paragraph.getText().length()).reduce(0, Integer::sum);
     }
     
     public ArrayList<Paragraph> getParagraphs() {
@@ -97,6 +100,10 @@ public class Document {
         
         return retVal;
         
+    }
+    
+    public int length() {
+        return this.length;
     }
     
 }
