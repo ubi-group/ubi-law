@@ -1,16 +1,14 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.lang.Recommendation;
 import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.lang.Category;
 import com.itcag.dlutil.lang.Document;
 import com.itcag.dlutil.lang.Paragraph;
+import com.itcag.dlutil.lang.Sentence;
 import com.itcag.util.io.TextFileReader;
 
 import java.io.File;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -22,12 +20,6 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 public class Tester {
     
-    /**
-     * Key = document ID,
-     * Value = list of category indices.
-     */
-    private final static HashMap<String, ArrayList<Integer>> DOCS = new HashMap<>();
-
     public static void main(String[] args) throws Exception {
 
         String corpusIndexPath = "/home/nahum/Desktop/legaltech/verdicts";
@@ -54,62 +46,40 @@ public class Tester {
         
         Legalyzer legalyzer = new Legalyzer(wordVectors, model, tokenizerFactory, categories, inference);
 
-        loadDocumentIndex(corpusIndexPath, categories);
+        processFolder(corpusIndexPath, corpusFolder, categories, legalyzer);
+
+//        processDocument("", legalyzer);
+        
+    }
+
+    private static void processFolder(String corpusIndexPath, String corpusFolder, Categories categories, Legalyzer legalyzer) throws Exception {
+        
+        DocumentIndex documentIndex = new DocumentIndex(corpusIndexPath, categories);
         
         int count = 0;
         
-        for (Map.Entry<String, ArrayList<Integer>> entry : DOCS.entrySet()) {
+        for (Map.Entry<String, ArrayList<Integer>> entry : documentIndex.get().entrySet()) {
             try {
                 
                 String fileName = entry.getKey() + ".txt";
+System.out.println("----------------------------------------------------------------");
+System.out.println();
+//System.out.println(fileName);
+for (int index : entry.getValue()) {
+    System.out.println(categories.get().get(index).toString());
+}
+System.out.println();
+
                 processDocument(corpusFolder + fileName, legalyzer);
                 
                 count++;
-                if (count > 1000) break;
+//                if (count > 10) break;
             
             } catch (Exception ex) {
                 //DO NOTHING!
             }
         }
-        
-    }
 
-    private static void loadDocumentIndex(String documentIndexFilePath, Categories categories) throws Exception {
-        
-        ArrayList<String> lines = TextFileReader.read(documentIndexFilePath);
-        for (String line : lines) {
-            
-            String[] elts = line.split("\t");
-            
-            String id = elts[0].trim();
-            
-            Integer tag1 = null;
-            Integer tag2 = null;
-
-            String tagName1 = null;
-            String tagName2 = null;
-
-            if (elts.length > 2 && !elts[2].trim().isEmpty()) {
-                tagName1 = elts[2].trim().replace(",", "").replace(" ", "_");
-                for (Map.Entry<Integer, Category> entry : categories.get().entrySet()) {
-                    if (entry.getValue().getLabel().equalsIgnoreCase(tagName1)) tag1 = entry.getKey();
-                }
-            }
-
-            if (elts.length > 3 && !elts[3].trim().isEmpty()) {
-                tagName2 = elts[3].trim().replace(",", "").replace(" ", "_");
-                for (Map.Entry<Integer, Category> entry : categories.get().entrySet()) {
-                    if (entry.getValue().getLabel().equalsIgnoreCase(tagName2)) tag2 = entry.getKey();
-                }
-            }
-            
-            ArrayList<Integer> tmp = new ArrayList<>();
-            if (tag1 != null) tmp.add(tag1);
-            if (tag2 != null) tmp.add(tag2);
-            if (!tmp.isEmpty()) DOCS.put(id, tmp);
-            
-        }
-        
     }
     
     private static void processDocument(String filePath, Legalyzer legalyzer) throws Exception {
@@ -120,13 +90,13 @@ public class Tester {
         legalyzer.insertRecommendations(document);
 
         for (Paragraph paragraph : document.getParagraphs()) {
+
+            for (Sentence sentence : paragraph.getSentences()) {
+                System.out.println(sentence.toString());
+                System.out.println();
+            }
             
-//            if (paragraph.getRecommendations().isEmpty()) continue;
-            System.out.println(paragraph.toString());
-            System.out.println();
-        
         }
-        System.out.println("----------------------------------------------------------------");
         System.out.println();
         
     }

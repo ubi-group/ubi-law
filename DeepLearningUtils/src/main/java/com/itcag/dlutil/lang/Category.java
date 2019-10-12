@@ -5,7 +5,15 @@ public class Category {
     private final int index;
     private final String label;
 
+    /**
+     * Score is set by neural net.
+     */
     private Double score = null;
+    
+    /**
+     * Significance is set by inference.
+     */
+    private Integer significance = null;
 
     public Category(int index, String label) {
         this.index = index;
@@ -28,6 +36,14 @@ public class Category {
         this.score = score;
     }
 
+    public Integer getSignificance() {
+        return significance;
+    }
+
+    public void setSignificance(Integer significance) {
+        this.significance = significance;
+    }
+        
     @Override
     public String toString() {
         
@@ -39,5 +55,5 @@ public class Category {
         return retVal.toString();
     
     }
-        
+
 }

@@ -259,5 +259,10 @@
             <artifactId>LegalyzerUtils</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Splitter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
