@@ -1,4 +1,6 @@
-package com.itcag.dlutil.lang;
+package com.itcag.legalyzer.util.doc;
+
+import com.itcag.legalyzer.util.cat.Category;
 
 public class Recommendation {
 

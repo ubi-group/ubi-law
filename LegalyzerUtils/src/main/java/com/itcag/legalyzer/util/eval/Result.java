@@ -1,6 +1,6 @@
-package com.itcag.dlutil.eval;
+package com.itcag.legalyzer.util.eval;
 
-import com.itcag.dlutil.lang.Category;
+import com.itcag.legalyzer.util.cat.Category;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;

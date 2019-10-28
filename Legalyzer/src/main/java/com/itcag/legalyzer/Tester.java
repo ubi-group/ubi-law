@@ -1,15 +1,19 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.lang.Document;
-import com.itcag.dlutil.lang.Paragraph;
-import com.itcag.dlutil.lang.Sentence;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.doc.Document;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.doc.Sentence;
+import com.itcag.legalyzer.util.parse.HCRulingParser;
+import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.io.TextFileReader;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Properties;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
@@ -61,20 +65,23 @@ public class Tester {
         for (Map.Entry<String, ArrayList<Integer>> entry : documentIndex.get().entrySet()) {
             try {
                 
+                count++;
+                if (count % 100 != 0) continue;
+//                if (count > 10) break;
+            
                 String fileName = entry.getKey() + ".txt";
+System.out.println("----------------------------------------------------------------");
 System.out.println("----------------------------------------------------------------");
 System.out.println();
 //System.out.println(fileName);
 for (int index : entry.getValue()) {
-    System.out.println(categories.get().get(index).toString());
+    Category category = categories.get().get(index);
+    System.out.println("Manualy assigned: " + category.getIndex() + " " + category.getLabel());
 }
 System.out.println();
 
                 processDocument(corpusFolder + fileName, legalyzer);
                 
-                count++;
-//                if (count > 10) break;
-            
             } catch (Exception ex) {
                 //DO NOTHING!
             }
@@ -85,7 +92,13 @@ System.out.println();
     private static void processDocument(String filePath, Legalyzer legalyzer) throws Exception {
         
         ArrayList<String> lines = TextFileReader.read(filePath);
-        Document document = new Document(lines);
+        Properties config = new Properties();
+        config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "300");
+        config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
+        config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+        config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+        config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
+        Document document = new Document(lines, new HCRulingParser(config));
         
         legalyzer.insertRecommendations(document);
 

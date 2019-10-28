@@ -1,13 +1,14 @@
 package com.itcag.dl.eval;
 
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.eval.Result;
-import com.itcag.dlutil.eval.SigmoidResult;
-import com.itcag.dlutil.lang.Category;
-import com.itcag.dlutil.lang.Document;
-import com.itcag.dlutil.lang.Paragraph;
-import com.itcag.dlutil.parse.CourtRulingParser;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.eval.Result;
+import com.itcag.legalyzer.util.eval.SigmoidResult;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.doc.Document;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.dl.Config;
+import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.io.TextFileReader;
 
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -48,8 +50,13 @@ public class Tester {
         
         ArrayList<String> lines = TextFileReader.read(documentFilePath);
         
-        Document document = new Document(lines);
-        document.selectParagraphs(new CourtRulingParser(6, 300));
+        Properties config = new Properties();
+        config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "300");
+        config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
+        config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+        config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+        config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
+        Document document = new Document(lines, new HCRulingParser(config));
 
         Categories categories = new Categories(categoryFilePath);
         

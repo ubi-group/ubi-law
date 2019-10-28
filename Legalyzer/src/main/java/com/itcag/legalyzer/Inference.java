@@ -1,6 +1,6 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.lang.Category;
+import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.util.MathToolbox;
 
 import java.util.ArrayList;
@@ -23,7 +23,8 @@ public class Inference {
     }
     
     public boolean isAnchor(int index) {
-        return this.anchors.containsIndex(index);
+        return false;
+//        return this.anchors.containsIndex(index);
     }
     
     public TreeMap<Double, Category> getAnchorTags(int index) {
@@ -31,7 +32,8 @@ public class Inference {
     }
     
     public boolean isThematicSibling(int index1, int index2) {
-        return this.siblings.isThematicSibling(index1, index2);
+        return false;
+//        return this.siblings.isThematicSibling(index1, index2);
     }
     
     public ArrayList<Integer> getThematicSiblings(int index) {

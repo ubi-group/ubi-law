@@ -1,13 +1,14 @@
 package com.itcag.legalyzer;
 
 import com.itcag.dl.eval.Tester;
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.eval.SigmoidResult;
-import com.itcag.dlutil.lang.Document;
-import com.itcag.dlutil.lang.Paragraph;
-import com.itcag.dlutil.lang.Sentence;
-import com.itcag.dlutil.parse.CourtRulingParser;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.eval.SigmoidResult;
+import com.itcag.legalyzer.util.doc.Document;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.doc.Sentence;
+import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.split.Splitter;
+
 import java.util.ArrayList;
 
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
@@ -36,8 +37,6 @@ public class Legalyzer {
     public void insertRecommendations(Document document) throws Exception {
         
         Evaluator evaluator = new Evaluator(inference);
-
-        document.selectParagraphs(new CourtRulingParser(6, 300));
 
         for (Paragraph paragraph : document.getParagraphs()) {
             

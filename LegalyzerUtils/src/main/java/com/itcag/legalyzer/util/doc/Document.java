@@ -1,6 +1,7 @@
-package com.itcag.dlutil.lang;
+package com.itcag.legalyzer.util.doc;
 
-import com.itcag.dlutil.parse.Parser;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.parse.Parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,22 +10,26 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 public class Document {
 
+    private final String id = UUID.randomUUID().toString().replace("-", "");
+    
     private final ArrayList<String> lines;
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
     
     private int length = 0;
     
-    public Document(ArrayList<String> lines) {
+    public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
-    }
-    
-    public void selectParagraphs(Parser parser) throws Exception {
         this.paragraphs = parser.parse(this.lines);
         this.length = this.paragraphs.stream().map((paragraph) -> paragraph.getText().length()).reduce(0, Integer::sum);
+    }
+
+    public String getId() {
+        return this.id;
     }
     
     public ArrayList<Paragraph> getParagraphs() {

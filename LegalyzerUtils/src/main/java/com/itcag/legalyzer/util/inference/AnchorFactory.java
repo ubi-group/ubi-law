@@ -1,12 +1,16 @@
-package com.itcag.legalyzer.util;
+package com.itcag.legalyzer.util.inference;
 
 import com.itcag.dl.eval.Tester;
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.eval.SigmoidResult;
-import com.itcag.dlutil.lang.Category;
-import com.itcag.dlutil.lang.Document;
-import com.itcag.dlutil.lang.Paragraph;
-import com.itcag.dlutil.parse.CourtRulingParser;
+import com.itcag.legalyzer.util.Config;
+import com.itcag.legalyzer.util.Tag;
+import com.itcag.legalyzer.util.TopCategory;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.doc.Document;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.eval.SigmoidResult;
+import com.itcag.legalyzer.util.parse.HCRulingParser;
+import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.MathToolbox;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
@@ -16,6 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -101,8 +106,13 @@ public class AnchorFactory {
                 String fileName = entry.getKey() + ".txt";
                 ArrayList<String> lines = TextFileReader.read(corpusFolder + fileName);
 
-                Document document = new Document(lines);
-                document.selectParagraphs(new CourtRulingParser(6, 300));
+                Properties config = new Properties();
+                config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "300");
+                config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
+                config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+                config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+                config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
+                Document document = new Document(lines, new HCRulingParser(config));
 
                 for (Paragraph paragraph : document.getParagraphs()) {
                     paragraph.setResult(new SigmoidResult(categories.get(), 0.00));

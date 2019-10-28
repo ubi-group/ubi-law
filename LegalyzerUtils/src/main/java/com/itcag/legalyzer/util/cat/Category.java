@@ -1,4 +1,4 @@
-package com.itcag.dlutil.lang;
+package com.itcag.legalyzer.util.cat;
 
 public class Category {
         

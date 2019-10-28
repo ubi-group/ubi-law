@@ -1,13 +1,9 @@
-package com.itcag.dlutil;
+package com.itcag.legalyzer.util.cat;
 
-import com.itcag.dlutil.lang.Category;
 import com.itcag.util.Converter;
 import com.itcag.util.io.TextFileReader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class Categories {

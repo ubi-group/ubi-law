@@ -1,6 +1,6 @@
 package com.itcag.legalyzer.util;
 
-import com.itcag.dlutil.lang.Category;
+import com.itcag.legalyzer.util.cat.Category;
 
 /**
  * Holds data about the category that received the highest score.

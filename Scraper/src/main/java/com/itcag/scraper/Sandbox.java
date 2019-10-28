@@ -14,15 +14,52 @@ public class Sandbox {
 
     public static void main(String[] args) throws Exception {
         
-        processFolder("/home/nahum/Desktop/legaltech/experiments/original");
+//        processFolder("/home/nahum/Desktop/legaltech/experiments/original");
+        processFile("/home/nahum/Desktop/legaltech/experiments/original/Criminal - Prisioner's petitions.txt");
         
+//        removeConfusedSentences("/home/nahum/Desktop/legaltech/experiments/confused_sentences", "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Commercial and Economic Regulation.txt");
+
     }
 
+    private static void removeConfusedSentences(String sourcePath, String targetPath) throws Exception {
+        
+        HashSet<String> filter = new HashSet<>();
+        
+        ArrayList<String> lines = TextFileReader.read(sourcePath);
+        lines.forEach((line) -> {
+            filter.add(line);
+        });
+        
+        HashSet<String> outputLines = new HashSet<>();
+        
+        lines = TextFileReader.read(targetPath);
+        System.out.println("Before removal: " + lines.size());
+        System.out.println("To be removed: " + filter.size());
+        for (String line : lines) {
+            if (!filter.contains(line)) outputLines.add(line);
+        }
+        
+        TextFileWriter writer = new TextFileWriter(targetPath);
+        for (String outputLine : outputLines) {
+            writer.write(outputLine);
+        }
+        writer.close();
+        
+        System.out.println("After removal: " + outputLines.size());
+        System.out.println("Removed: " + (lines.size() - outputLines.size()));
+        
+    }
+    
     private static void processFolder(String folderPath) throws Exception {
         
+        int total = 0;
+        int count = 0;
+        
         File folder = new File(folderPath);
+        total = folder.listFiles().length;
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) continue;
+            System.out.println(count++ + "/" + total);
             processFile(file.getPath());
         }
         
@@ -30,25 +67,18 @@ public class Sandbox {
     
     private static void processFile(String filePath) throws Exception {
     
+        String filter = "עתירת";
+        
         ArrayList<String> lines = TextFileReader.read(filePath);
-
-        Splitter splitter = new Splitter();
 
         HashSet<String> outputLines = new HashSet<>();
         
         for (String line : lines) {
             
-            ArrayList<StringBuilder> sentences = splitter.split(new StringBuilder(line));
-            for (StringBuilder sentence : sentences) {
-                
-                if (!isValid(sentence.toString())) {
-                    System.out.println(sentence.toString());
-                    continue;
-                }
-                
-                String cleanedSentence = clean(sentence.toString());
-                outputLines.add(cleanedSentence);
-                
+            if (line.contains(filter)) {
+                System.out.println(line);
+            } else {
+                outputLines.add(line);
             }
             
         }
@@ -59,38 +89,6 @@ public class Sandbox {
         }
         writer.close();
     
-    }
-    
-    private static boolean isValid(String sentence) throws Exception {
-        
-        if (sentence.contains("ערעור")) return false;
-        if (sentence.contains("עתירה")) return false;
-        if (sentence.contains("נמחק")) return false;
-        if (sentence.contains("מוצתה")) return false;
-        if (sentence.contains("הוצאות")) return false;
-        if (sentence.contains("המלצת")) return false;
-        if (sentence.contains("פשרה")) return false;
-        if (sentence.contains("גישור")) return false;
-        if (sentence.contains("מיצתה עצמה")) return false;
-        if (sentence.contains("להידחות")) return false;
-        if (sentence.contains("נדחית")) return false;
-        if (sentence.contains("(")) return false;
-        if (sentence.contains(")")) return false;
-        
-        if (sentence.length() < 100) return false;
-
-        return true;
-        
-    }
-    
-    private static String clean(String sentence) throws Exception {
-        
-        while (sentence.contains("  ")) sentence = TextToolbox.replace(sentence, "  ", " ");
-        sentence = sentence.replace(" .", ".");
-        sentence = sentence.replace(" ,", ",");
-        
-        return sentence;
-        
     }
     
 }

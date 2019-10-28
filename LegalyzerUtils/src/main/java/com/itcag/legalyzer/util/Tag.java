@@ -1,9 +1,9 @@
 package com.itcag.legalyzer.util;
 
-import com.itcag.dlutil.lang.Category;
+import com.itcag.legalyzer.util.cat.Category;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

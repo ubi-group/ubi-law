@@ -1,9 +1,9 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.lang.Recommendation;
-import com.itcag.dlutil.lang.Category;
-import com.itcag.dlutil.lang.Paragraph;
-import com.itcag.dlutil.lang.Text;
+import com.itcag.legalyzer.util.doc.Recommendation;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.doc.Text;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class Evaluator {
         TreeMap<Integer, ArrayList<Category>> recommendedCategories = this.inference.getRecommendations(text.getResult().getCategoriesSortedByScore());
         for (Map.Entry<Integer, ArrayList<Category>> entry : recommendedCategories.entrySet()) {
             for (Category recommendedCategory : entry.getValue()) {
-                if (recommendedCategory.getSignificance() < 11) break;
+//                if (recommendedCategory.getSignificance() < 11) break;
                 Recommendation recommendation = new Recommendation(recommendedCategory, entry.getKey());
                 text.addRecommendation(recommendation);
             }

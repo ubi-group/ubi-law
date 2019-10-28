@@ -1,7 +1,6 @@
-package com.itcag.dlutil.lang;
+package com.itcag.legalyzer.util.doc;
 
-import com.itcag.dlutil.eval.Result;
-
+import com.itcag.legalyzer.util.eval.Result;
 import java.util.ArrayList;
 
 public class Sentence implements Text {
@@ -29,18 +28,22 @@ public class Sentence implements Text {
         return this.text;
     }
     
+    @Override
     public Result getResult() {
         return this.result;
     }
     
+    @Override
     public void setResult(Result result) {
         this.result = result;
     }
     
+    @Override
     public ArrayList<Recommendation> getRecommendations() {
         return this.recommendations;
     }
     
+    @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
     }

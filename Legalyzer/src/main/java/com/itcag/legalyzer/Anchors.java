@@ -1,8 +1,8 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.lang.Category;
-import com.itcag.legalyzer.util.Anchor;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.inference.Anchor;
 import com.itcag.util.Converter;
 import com.itcag.util.io.TextFileReader;
 

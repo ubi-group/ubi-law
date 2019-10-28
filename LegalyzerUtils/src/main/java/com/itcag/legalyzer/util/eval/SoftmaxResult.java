@@ -1,7 +1,7 @@
-package com.itcag.dlutil.eval;
+package com.itcag.legalyzer.util.eval;
 
-import com.itcag.dlutil.lang.Category;
-import com.itcag.dlutil.eval.Result;
+import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.eval.Result;
 import java.util.TreeMap;
 
 public class SoftmaxResult extends Result {

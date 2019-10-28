@@ -41,7 +41,7 @@ public class TrainingDataFactory {
     private final static String CATEGORIES_FILE = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
 
     private final static int TRAIN_DATA_SIZE = 100;
-    private final static int TEST_DATA_SIZE = 100;
+    private final static int TEST_DATA_SIZE = 50;
     
     private final static ArrayList<String> CATEGORIES = new ArrayList<>();
     
@@ -89,6 +89,8 @@ public class TrainingDataFactory {
         File folder = new File(SOURCE_DATA_FOLDER);
         
         for (File file : folder.listFiles()) {
+            
+            if (file.isDirectory()) continue;
 
             String category = file.getName().replace(".txt", "").replace(",", "").replace(" ", "_");
             

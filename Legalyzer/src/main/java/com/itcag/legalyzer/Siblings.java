@@ -1,7 +1,7 @@
 package com.itcag.legalyzer;
 
-import com.itcag.dlutil.Categories;
-import com.itcag.dlutil.lang.Category;
+import com.itcag.legalyzer.util.cat.Categories;
+import com.itcag.legalyzer.util.cat.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
