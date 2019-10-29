@@ -6,14 +6,9 @@ import com.itcag.legalyzer.util.eval.SigmoidResult;
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Sentence;
-import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.split.Splitter;
 
 import java.util.ArrayList;
-
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 public class Legalyzer {
 
@@ -25,9 +20,9 @@ public class Legalyzer {
     
     private final Splitter splitter = new Splitter();
     
-    public Legalyzer(WordVectors wordVectors, MultiLayerNetwork model, TokenizerFactory tokenizerFactory, Categories categories, Inference inference) throws Exception {
+    public Legalyzer(Categories categories, Inference inference) throws Exception {
         
-        this.tester = new Tester(wordVectors, model, tokenizerFactory);
+        this.tester = new Tester();
 
         this.inference = inference;
         this.categories = categories;

@@ -9,18 +9,9 @@ import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.io.TextFileReader;
 
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
-
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 public class Tester {
     
@@ -35,12 +26,6 @@ public class Tester {
         String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
         String anchorFilePath = "/home/nahum/Desktop/legaltech/application/anchors";
         
-        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(word2vecFilePath));
-        MultiLayerNetwork model = MultiLayerNetwork.load(new File(modelPath), true);
-        
-        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-
         Categories categories = new Categories(categoryFilePath);
 
         Anchors anchors = new Anchors(categories, anchorFilePath);
@@ -48,7 +33,7 @@ public class Tester {
         
         Inference inference = new Inference(anchors, siblings);
         
-        Legalyzer legalyzer = new Legalyzer(wordVectors, model, tokenizerFactory, categories, inference);
+        Legalyzer legalyzer = new Legalyzer(categories, inference);
 
         processFolder(corpusIndexPath, corpusFolder, categories, legalyzer);
 

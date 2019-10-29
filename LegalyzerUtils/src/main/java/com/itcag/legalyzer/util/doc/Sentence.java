@@ -1,6 +1,7 @@
 package com.itcag.legalyzer.util.doc;
 
 import com.itcag.legalyzer.util.eval.Result;
+
 import java.util.ArrayList;
 
 public class Sentence implements Text {
@@ -24,6 +25,7 @@ public class Sentence implements Text {
         this.text = text;
     }
     
+    @Override
     public String getText() {
         return this.text;
     }

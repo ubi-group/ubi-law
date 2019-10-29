@@ -58,22 +58,10 @@ public class Tester {
         config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
         Document document = new Document(lines, new HCRulingParser(config));
 
+        Tester tester = new Tester();
+        tester.test(document);
+        
         Categories categories = new Categories(categoryFilePath);
-        
-        for (Paragraph paragraph : document.getParagraphs()) {
-            paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
-        }
-        
-        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
-        MultiLayerNetwork model = MultiLayerNetwork.load(new File(Config.MODEL_PATH), true);
-        
-        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-
-        Tester tester = new Tester(wordVectors, model, tokenizerFactory);
-        for (Paragraph paragraph : document.getParagraphs()) {
-            tester.test(paragraph.getText(), paragraph.getResult());
-        }
         
         TreeMap<Double, ArrayList<Category>> evaluation = document.evaluate(categories.get());
         for (Map.Entry<Double, ArrayList<Category>> entry : evaluation.entrySet()) {
@@ -89,10 +77,25 @@ public class Tester {
     
     private final TokenizerFactory tokenizerFactory;
 
-    public Tester(WordVectors wordVectors, MultiLayerNetwork model, TokenizerFactory tokenizerFactory) throws Exception {
-        this.wordVectors = wordVectors;
-        this.model = model;
-        this.tokenizerFactory = tokenizerFactory;
+    private final Categories categories;
+    
+    public Tester() throws Exception {
+
+        this.wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
+        this.model = MultiLayerNetwork.load(new File(Config.MODEL_PATH), true);
+        
+        this.tokenizerFactory = new DefaultTokenizerFactory();
+        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
+
+        this.categories = new Categories(Config.CATEGORIES_PATH);
+        
+    }
+    
+    public void test(Document document) throws Exception {
+        for (Paragraph paragraph : document.getParagraphs()) {
+            paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
+            test(paragraph.getText(), paragraph.getResult());
+        }
     }
     
     public void test(String input, Result result) throws Exception {

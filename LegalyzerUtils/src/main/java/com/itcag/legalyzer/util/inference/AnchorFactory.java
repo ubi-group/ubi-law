@@ -13,20 +13,11 @@ import com.itcag.util.MathToolbox;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
 
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 /**
  * Analyzes associated categories in a manually tagged corpus of documents, and generates anchors.
@@ -91,13 +82,7 @@ public class AnchorFactory {
         
         loadDocumentIndex(corpusIndexPath, categories);
         
-        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getWord2vecPath()));
-        MultiLayerNetwork model = MultiLayerNetwork.load(new File(config.getModelPath()), true);
-        
-        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-
-        Tester tester = new Tester(wordVectors, model, tokenizerFactory);
+        Tester tester = new Tester();
 
         for (Map.Entry<String, ArrayList<Integer>> entry : DOCS.entrySet()) {
             

@@ -9,18 +9,12 @@ import com.itcag.legalyzer.util.eval.SigmoidResult;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.legalyzer.util.parse.SimpleParser;
 import com.itcag.util.io.TextFileReader;
+
 import java.io.File;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 public class MatrixFactory {
 
@@ -43,13 +37,7 @@ public class MatrixFactory {
         counts = new int[categories.get().size()][categories.get().size()];
         avgs = new double[categories.get().size()][categories.get().size()];
         
-        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(com.itcag.dl.Config.WORD_2_VEC_PATH));
-        MultiLayerNetwork model = MultiLayerNetwork.load(new File(com.itcag.dl.Config.MODEL_PATH), true);
-        
-        TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
-        tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-
-        tester = new Tester(wordVectors, model, tokenizerFactory);
+        tester = new Tester();
 
         processFolder("/home/nahum/Desktop/legaltech/experiments/test");
         calculateAverages();
