@@ -1,5 +1,10 @@
 package com.itcag.scraper;
 
+import com.itcag.legalyzer.util.doc.Document;
+import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.parse.HCRulingParser;
+import com.itcag.legalyzer.util.parse.ParserFields;
+import com.itcag.legalyzer.util.parse.SimpleParser;
 import com.itcag.split.Splitter;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
@@ -9,13 +14,14 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Properties;
 
 public class Sandbox {
 
     public static void main(String[] args) throws Exception {
         
-//        processFolder("/home/nahum/Desktop/legaltech/experiments/original");
-        processFile("/home/nahum/Desktop/legaltech/experiments/original/Criminal - Prisioner's petitions.txt");
+        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
+//        processFile("/home/nahum/Desktop/legaltech/experiments/original/Criminal - Prisioner's petitions.txt");
         
 //        removeConfusedSentences("/home/nahum/Desktop/legaltech/experiments/confused_sentences", "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Commercial and Economic Regulation.txt");
 

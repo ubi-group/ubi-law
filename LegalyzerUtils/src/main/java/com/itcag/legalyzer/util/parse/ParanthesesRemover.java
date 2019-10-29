@@ -11,7 +11,12 @@ public class ParanthesesRemover {
         
 //        String retVal = removeRoundParantheses(line);
         String retVal = TextToolbox.removeParentheses(line, "(", ")");
+        retVal = TextToolbox.removeParentheses(retVal, "[", "]");
+        retVal = TextToolbox.removeParentheses(retVal, "{", "}");
+        retVal = TextToolbox.removeParentheses(retVal, "<", ">");
     
+        while (retVal.contains("  ")) retVal = retVal.replace("  ", " ");
+        
         return retVal;
     
     }

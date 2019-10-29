@@ -20,12 +20,9 @@ public class Document {
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
     
-    private int length = 0;
-    
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
         this.paragraphs = parser.parse(this.lines);
-        this.length = this.paragraphs.stream().map((paragraph) -> paragraph.getText().length()).reduce(0, Integer::sum);
     }
 
     public String getId() {
@@ -105,10 +102,6 @@ public class Document {
         
         return retVal;
         
-    }
-    
-    public int length() {
-        return this.length;
     }
     
 }

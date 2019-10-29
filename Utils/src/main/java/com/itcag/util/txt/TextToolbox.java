@@ -266,28 +266,52 @@ public final class TextToolbox {
         
     }
 
+    public static void main(String[] args) throws Exception {
+        String test = removeParentheses("ב. הערעור מכוון כנגד אי ביטול ההרשעה, ומסב עצמו הן על טיעון עקרוני של הצורך בגישה רחבה לעניין הימנעות מהרשעתם של בגירים צעירים, כמו בענייננו, שכן לגביהם יש קושי להוכיח את הנזק הקונקרטי לשיקום הנאשם כנזכר כהלכת כתב (ע\"פ 2083/96 כתב נ' מדינת ישראל פ\"ד נב(3) 337 (1997)), אך שצוין כי לשיטת המערער מעיקרא הסבה עצמה הלכה זו על נזק פוטנציאלי. אשר למערער דנא, נטען כי גילו הצעיר ואישיותו המורכבת והלא בשלה מצדיקים ביטול הרשעתו, ולכך מצטרף שירות המבחן בתסקיר עדכני, בו צוין כי המערער נישא בינתיים ונולדה לו בת, והוא מתקשה במציאת תעסוקה בשל הבקשה להציג רישום פלילי בסוגים שונים של עבודות. כל אלה נטענו בפנינו על-ידי הסניגוריה.", "(", ")");
+        System.out.println(test);
+    }
+    
     public final static String removeParentheses(String text, String left, String right) {
-        if (TextToolbox.isEmpty(text)) return text;
+        
+        if (isReallyEmpty(text)) return text;
+        
         if (!text.contains(left)) return text;
         if (!text.contains(right)) return text;
+        
         StringBuilder stringBuilder = new StringBuilder(text.length());
+        
         while (text.contains(left)) {
             int start = text.indexOf(left);
             int end = text.indexOf(right);
             if (end == -1) break;
             if (end > start) {
-                stringBuilder.append(text.substring(0, start));
-                stringBuilder.append(" ");
+                
+                /**
+                 * Check if there are parentheses within parentheses.
+                 */
+                int testStart = text.indexOf(left, start + 1);
+                while (testStart > -1 && testStart < end) {
+                    int testEnd = text.indexOf(right, end + 1);
+                    if (testEnd == -1) break;
+                    end = testEnd;
+                    testStart = text.indexOf(left, testStart + 1);
+                }
+                
+                stringBuilder.append(text.substring(0, start).trim());
+//                stringBuilder.append(" ");
                 text = text.substring(end + 1);
             } else {
-                stringBuilder.append(text.substring(0, start));
-                stringBuilder.append(" ");
+                stringBuilder.append(text.substring(0, start).trim());
+//                stringBuilder.append(" ");
                 text = text.substring(start + 1);
             }
         }
+        
         stringBuilder.append(text);
         String retVal = stringBuilder.toString();
+        
         return retVal;
+    
     }
 
     public final static void removeParentheses(StringBuilder text, String left, String right) {

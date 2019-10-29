@@ -24,7 +24,6 @@ public class Tester {
         Properties config = new Properties();
         config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
         config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
-        config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
 
         Document document = new Document(lines, new SimpleParser(config));
         for (Paragraph paragraph : document.getParagraphs()) {

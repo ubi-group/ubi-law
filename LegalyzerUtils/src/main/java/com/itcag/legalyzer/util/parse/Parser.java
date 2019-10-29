@@ -2,19 +2,18 @@ package com.itcag.legalyzer.util.parse;
 
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.util.Converter;
-import com.itcag.util.txt.TextToolbox;
 
 import java.util.ArrayList;
 import java.util.Properties;
 
 public class Parser {
     
-    private final Integer maxLineLength;
-    private final Integer maxNumParagraphs;
+    protected final Integer maxLineLength;
+    protected final Integer maxNumParagraphs;
     
-    private final boolean stripOffBullets;
-    private final boolean removeParentheses;
-    private final boolean removeQuotes;
+    protected final boolean stripOffBullets;
+    protected final boolean removeParentheses;
+    protected final boolean removeQuotes;
     
     protected final ArrayList<String> triggers = new ArrayList<>();
     protected final ArrayList<String> skippers = new ArrayList<>();
@@ -25,9 +24,9 @@ public class Parser {
         this.maxLineLength = Converter.convertStringToInteger(config.getProperty(ParserFields.MAX_LINE_LENGTH.getName()));
         this.maxNumParagraphs = Converter.convertStringToInteger(config.getProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName()));
 
-        this.stripOffBullets = Boolean.getBoolean(config.getProperty(ParserFields.STRIP_OFF_BULLETS.getName()));
-        this.removeParentheses = Boolean.getBoolean(config.getProperty(ParserFields.REMOVE_PARENTHESES.getName()));
-        this.removeQuotes = Boolean.getBoolean(config.getProperty(ParserFields.REMOVE_QUOTES.getName()));
+        this.stripOffBullets = Boolean.valueOf(config.getProperty(ParserFields.STRIP_OFF_BULLETS.getName()));
+        this.removeParentheses = Boolean.valueOf(config.getProperty(ParserFields.REMOVE_PARENTHESES.getName()));
+        this.removeQuotes = Boolean.valueOf(config.getProperty(ParserFields.REMOVE_QUOTES.getName()));
 
     }
     
@@ -45,17 +44,7 @@ public class Parser {
 
             if (this.removeQuotes) line = QuoteRemover.removeQuotes(line);
 
-            if (this.removeParentheses) {
-                
-                line = TextToolbox.removeParentheses(line.trim(), "(", ")");
-                if (TextToolbox.isReallyEmpty(line)) continue;
-                if (line.length() < 2) continue;
-
-                line = TextToolbox.removeParentheses(line.trim(), "[", "]");
-                if (TextToolbox.isReallyEmpty(line)) continue;
-                if (line.length() < 2) continue;
-
-            }
+            if (this.removeParentheses) line = ParanthesesRemover.removeParantheses(line);
 
             if (!trigger) {
                 if (isTrigger(line)) {
@@ -72,7 +61,7 @@ public class Parser {
                 continue;
             }
             
-            if (this.maxLineLength != null && line.length() > this.maxLineLength) continue;
+            if (this.maxLineLength != null && line.length() > this.maxLineLength) line = line.substring(0, this.maxLineLength);
             
             retVal.add(new Paragraph(line));
             if (this.maxNumParagraphs != null && retVal.size() >= this.maxNumParagraphs) break;

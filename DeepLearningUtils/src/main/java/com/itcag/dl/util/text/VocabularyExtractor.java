@@ -1,6 +1,5 @@
-package com.itcag.dlutil.text;
+package com.itcag.dl.util.text;
 
-import com.itcag.dlutil.Config;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.txt.Split;
 import com.itcag.util.txt.TextToolbox;
@@ -25,9 +24,12 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
  */
 public class VocabularyExtractor {
 
+    private final static int TEXT_FOO_THRESHOLD = 5;
+
     public static void main(String[] args) throws Exception {
         
         VocabularyExtractor extractor = new VocabularyExtractor();
+//        extractor.processFolder("/home/nahum/Desktop/hebrew/wikipedia/");
         extractor.processFile("/home/nahum/Desktop/legaltech/experiments/generic.txt");
         
         for (Map.Entry<Integer, TreeSet<String>> entry : extractor.getInvertedIndex(true).entrySet()) {
@@ -48,9 +50,9 @@ public class VocabularyExtractor {
         this.tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
     }
     
-    public void processFolder() throws Exception {
+    public void processFolder(String folderName) throws Exception {
         
-        File folder = new File(Config.TEXT_SOURCE_FOLDER);
+        File folder = new File(folderName);
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) continue;
             System.out.println(file.getName());
@@ -101,7 +103,7 @@ public class VocabularyExtractor {
         
         for (Map.Entry<String, Integer> entry : index.entrySet()) {
             
-            if (useThreshold && entry.getValue() <= Config.TEXT_FOO_THRESHOLD) continue;
+            if (useThreshold && entry.getValue() <= TEXT_FOO_THRESHOLD) continue;
             
             if (retVal.containsKey(entry.getValue())) {
                 retVal.get(entry.getValue()).add(entry.getKey());

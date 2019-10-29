@@ -1,9 +1,7 @@
 package com.itcag.legalyzer.util.inference;
 
 import com.itcag.dl.eval.Tester;
-import com.itcag.legalyzer.util.Config;
-import com.itcag.legalyzer.util.Tag;
-import com.itcag.legalyzer.util.TopCategory;
+import com.itcag.legalyzer.util.Configuration;
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Document;
@@ -37,6 +35,8 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
  */
 public class AnchorFactory {
 
+    private final static Configuration config = Configuration.getInstance("nahum.properties");
+    
     /**
      * Key = document ID,
      * Value = list of category indices.
@@ -91,8 +91,8 @@ public class AnchorFactory {
         
         loadDocumentIndex(corpusIndexPath, categories);
         
-        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
-        MultiLayerNetwork model = MultiLayerNetwork.load(new File(Config.MODEL_PATH), true);
+        WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(config.getWord2vecPath()));
+        MultiLayerNetwork model = MultiLayerNetwork.load(new File(config.getModelPath()), true);
         
         TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
         tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
@@ -106,13 +106,13 @@ public class AnchorFactory {
                 String fileName = entry.getKey() + ".txt";
                 ArrayList<String> lines = TextFileReader.read(corpusFolder + fileName);
 
-                Properties config = new Properties();
-                config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "300");
-                config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
-                config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
-                config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
-                config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
-                Document document = new Document(lines, new HCRulingParser(config));
+                Properties prop = new Properties();
+                prop.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "300");
+                prop.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
+                prop.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+                prop.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+                prop.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
+                Document document = new Document(lines, new HCRulingParser(prop));
 
                 for (Paragraph paragraph : document.getParagraphs()) {
                     paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
@@ -216,7 +216,7 @@ public class AnchorFactory {
              * In the case that there is no evaluation with the score above the threshold,
              * the document is considered to be generic.
              */
-            if (entry.getKey() < Config.SCORE_THRESHOLD) return;
+            if (entry.getKey() < config.getScoreThreshold()) return;
             
             /**
              * If the first evaluation is 0 generic, ignore it,
@@ -246,7 +246,7 @@ public class AnchorFactory {
             Tag tag = outer.getValue();
             int total = tag.getTotal();
             
-            for (Map.Entry<Integer, TopCategory> inner : tag.getAnchors(Config.MAXIMUM_ANCHORS, Config.EXCLUDE_TAG_FROM_ANCHORS).entrySet()) {
+            for (Map.Entry<Integer, TopCategory> inner : tag.getAnchors(config.getMaximumAnchors(), config.isExcludeTagFromAnchors()).entrySet()) {
                 
                 TopCategory topCategory = inner.getValue();
                 
@@ -301,7 +301,7 @@ public class AnchorFactory {
             int total = tag.getTotal();
             
             System.out.println(tag.getindex() + " " + tag.getLabel());
-            for (Map.Entry<Integer, TopCategory> inner : tag.getAnchors(Config.MAXIMUM_ANCHORS, Config.EXCLUDE_TAG_FROM_ANCHORS).entrySet()) {
+            for (Map.Entry<Integer, TopCategory> inner : tag.getAnchors(config.getMaximumAnchors(), config.isExcludeTagFromAnchors()).entrySet()) {
                 TopCategory topCategory = inner.getValue();
                 System.out.println("\t" + topCategory.getCategory().getIndex() + "\t" + topCategory.getCategory().getLabel());
                 double percentage = 100 * topCategory.getFoo() / total;

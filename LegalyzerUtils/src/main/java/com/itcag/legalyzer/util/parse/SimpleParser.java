@@ -20,7 +20,15 @@ public class SimpleParser extends Parser {
         ArrayList<Paragraph> retVal = new ArrayList<>();
         
         for (String line : lines) {
+
             if (line.isEmpty()) continue;
+
+            if (super.stripOffBullets) line = BulletStripper.stripOffBullet(line);
+
+            if (super.removeQuotes) line = QuoteRemover.removeQuotes(line);
+
+            if (super.removeParentheses) line = ParanthesesRemover.removeParantheses(line);
+
             retVal.add(new Paragraph(line));
         }
         

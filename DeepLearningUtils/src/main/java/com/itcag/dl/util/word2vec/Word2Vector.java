@@ -1,4 +1,4 @@
-package com.itcag.dl.w2v;
+package com.itcag.dl.util.word2vec;
 
 import com.itcag.dl.ConfigurationFields;
 import com.itcag.dl.Config;

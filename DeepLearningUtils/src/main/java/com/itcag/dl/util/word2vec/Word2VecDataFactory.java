@@ -1,6 +1,6 @@
-package com.itcag.dlutil.word2vec;
+package com.itcag.dl.util.word2vec;
 
-import com.itcag.dlutil.Config;
+import com.itcag.dl.Config;
 import com.itcag.util.Converter;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
@@ -23,7 +23,7 @@ public class Word2VecDataFactory {
     public static void main(String[] args) throws Exception {
         
         Word2VecDataFactory factory = new Word2VecDataFactory();
-        factory.processFolder();
+        factory.processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
         
     }
     
@@ -50,9 +50,9 @@ public class Word2VecDataFactory {
 
     }
     
-    public final void processFolder() throws Exception {
+    public final void processFolder(String folderName) throws Exception {
         
-        File folder = new File(Config.WORD_2_VEC_SOURCE_DATA_PATH);
+        File folder = new File(folderName);
         for (File file : folder.listFiles()) {
             processFile(file);
         }
@@ -65,27 +65,12 @@ public class Word2VecDataFactory {
         
         Split split = new Split();
 
-        int count = 0;
-        
         ArrayList<String> lines = TextFileReader.read(file.getPath());
         for (String line : lines) {
-            
-            if (Config.SPLIT_TEXT_INTO_SENTENCES) {
-                
-                ArrayList<String> sentences = split.split(line);
-                for (String sentence : sentences) {
-                    if (sentence.length() < 10) continue;
-                    if (line.startsWith("---")) continue;
-                    if (line.startsWith("___")) continue;
-                    recordLine(sentence);
-                }
-                
-            } else {
-                
-                recordLine(line);
-                
+            ArrayList<String> sentences = split.split(line);
+            for (String sentence : sentences) {
+                recordLine(sentence);
             }
-            
         }
         
     }
