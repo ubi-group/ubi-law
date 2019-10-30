@@ -19,7 +19,7 @@ public class HCRulingParser extends Parser {
     }
     
     private void setTriggers() throws Exception {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hc_ruling_triggers");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("parse/hc_ruling_triggers");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line = reader.readLine();
         while (line != null){
@@ -30,7 +30,7 @@ public class HCRulingParser extends Parser {
     }
     
     private void setSkippers() throws Exception {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hc_ruling_skippers");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("parse/hc_ruling_skippers");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line = reader.readLine();
         while (line != null){
@@ -41,7 +41,7 @@ public class HCRulingParser extends Parser {
     }
     
     private void setStoppers() throws Exception {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hc_ruling_stoppers");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("parse/hc_ruling_stoppers");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line = reader.readLine();
         while (line != null){

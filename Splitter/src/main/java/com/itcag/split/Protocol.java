@@ -60,40 +60,12 @@ public final class Protocol {
         if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after emoticon removal.");
 
         /**
-         * Handle parentheses.
-         */
-        TextToolbox.removeParentheses(input, "(", ")");
-        TextToolbox.removeParentheses(input, "[", "]");
-        TextToolbox.removeParentheses(input, "<", ">");
-        TextToolbox.removeParentheses(input, "{", "}");
-        TextToolbox.trim(input);
-        if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after removal of parentheses.");
-        
-        /**
          * Normalize punctuation.
          */
         Punctuation.normalize(input);
         TextToolbox.trim(input);
         if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after punctuation normalization.");
         
-        /**
-         * Handle quotation marks.
-         */
-        Quotes.remove(input);
-        TextToolbox.trim(input);
-        if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after removal of quotation marks.");
-        
-        /**
-         * Separate dateline.
-         */
-//        Dateline.split(input);
-
-        /**
-         * Transform long lists into separate sentences.
-         */
-//        Lists lists = new Lists(true);
-//        lists.correct(input);
-
         /**
          * Split into sentences.
          */

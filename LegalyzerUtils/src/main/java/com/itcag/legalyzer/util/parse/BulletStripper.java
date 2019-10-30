@@ -20,7 +20,10 @@ public class BulletStripper {
         
         boolean symbol = false;
         
-        for (int i = 0; i < 5; i++) {
+        int length = 5;
+        if (length > line.length()) length = line.length();
+        
+        for (int i = 0; i < length; i++) {
             
             char c = line.charAt(i);
             

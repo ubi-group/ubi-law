@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Sentence implements Text {
 
+    private final int index;
+    
     private final String text;
     
     /**
@@ -21,31 +23,31 @@ public class Sentence implements Text {
      */
     private final ArrayList<Recommendation> recommendations = new ArrayList<>();
     
-    public Sentence(String text) {
+    public Sentence(String text, int index) {
         this.text = text;
+        this.index = index;
     }
     
-    @Override
+    public int getIndex() {
+        return this.index;
+    }
+    
     public String getText() {
         return this.text;
     }
     
-    @Override
     public Result getResult() {
         return this.result;
     }
     
-    @Override
     public void setResult(Result result) {
         this.result = result;
     }
     
-    @Override
     public ArrayList<Recommendation> getRecommendations() {
         return this.recommendations;
     }
     
-    @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
     }

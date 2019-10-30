@@ -1,4 +1,4 @@
-package com.itcag.legalyzer.util.inference;
+package com.itcag.dl.util.inference;
 
 import com.itcag.dl.eval.Tester;
 import com.itcag.legalyzer.util.cat.Categories;
@@ -6,6 +6,7 @@ import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.eval.SigmoidResult;
+import com.itcag.legalyzer.util.inference.Matrix;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.legalyzer.util.parse.SimpleParser;
 import com.itcag.util.io.TextFileReader;

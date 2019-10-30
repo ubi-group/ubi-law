@@ -20,6 +20,12 @@ public class Document {
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
     
+    /**
+     * Key = official name,
+     * Value = law.
+     */
+    private HashMap<String, Law> laws = new HashMap<>();
+    
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
         this.paragraphs = parser.parse(this.lines);
@@ -102,6 +108,14 @@ public class Document {
         
         return retVal;
         
+    }
+    
+    public HashMap<String, Law> getLaws() {
+        return this.laws;
+    }
+    
+    public void addLaw(Law law) {
+        this.laws.put(law.getOfficialName(), law);
     }
     
 }

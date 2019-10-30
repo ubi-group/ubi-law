@@ -5,6 +5,7 @@ import com.itcag.util.Converter;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Parser {
     
@@ -34,11 +35,12 @@ public class Parser {
         
         ArrayList<Paragraph> retVal = new ArrayList<>();
         
+        int count = 0;
+        AtomicInteger sentenceIndex = new AtomicInteger(0);
+        
         boolean trigger = false;
         
-        for (int i = 0; i < lines.size(); i++) {
-
-            String line = lines.get(i);
+        for (String line : lines) {
 
             if (this.stripOffBullets) line = BulletStripper.stripOffBullet(line);
 
@@ -63,7 +65,7 @@ public class Parser {
             
             if (this.maxLineLength != null && line.length() > this.maxLineLength) line = line.substring(0, this.maxLineLength);
             
-            retVal.add(new Paragraph(line));
+            retVal.add(new Paragraph(line, count++, sentenceIndex));
             if (this.maxNumParagraphs != null && retVal.size() >= this.maxNumParagraphs) break;
             
         }

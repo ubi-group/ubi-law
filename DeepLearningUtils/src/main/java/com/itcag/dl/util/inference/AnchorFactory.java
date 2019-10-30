@@ -1,4 +1,4 @@
-package com.itcag.legalyzer.util.inference;
+package com.itcag.dl.util.inference;
 
 import com.itcag.dl.eval.Tester;
 import com.itcag.legalyzer.util.Configuration;
@@ -7,6 +7,9 @@ import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.eval.SigmoidResult;
+import com.itcag.legalyzer.util.inference.Anchor;
+import com.itcag.legalyzer.util.inference.Tag;
+import com.itcag.legalyzer.util.inference.TopCategory;
 import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.MathToolbox;

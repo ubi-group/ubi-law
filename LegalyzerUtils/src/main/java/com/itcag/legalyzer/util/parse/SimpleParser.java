@@ -4,6 +4,7 @@ import com.itcag.legalyzer.util.doc.Paragraph;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Accepts all sentences without inspecting them.
@@ -19,6 +20,9 @@ public class SimpleParser extends Parser {
         
         ArrayList<Paragraph> retVal = new ArrayList<>();
         
+        int count = 0;
+        AtomicInteger sentenceIndex = new AtomicInteger(0);
+        
         for (String line : lines) {
 
             if (line.isEmpty()) continue;
@@ -29,7 +33,7 @@ public class SimpleParser extends Parser {
 
             if (super.removeParentheses) line = ParanthesesRemover.removeParantheses(line);
 
-            retVal.add(new Paragraph(line));
+            retVal.add(new Paragraph(line, count++, sentenceIndex));
         }
         
         return retVal;
