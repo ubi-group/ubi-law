@@ -1,8 +1,7 @@
 package com.itcag.demo.util;
 
 import com.itcag.demo.WebConstants;
-import com.itcag.legalyzer.test.Result;
-import com.itcag.legalyzer.test.Tester;
+import com.itcag.dl.eval.Tester;
 import com.itcag.util.txt.TextToolbox;
 
 public class ClassificationCategory {
@@ -39,14 +38,17 @@ public class ClassificationCategory {
         
         if (TextToolbox.isReallyEmpty(sentence)) throw new IllegalArgumentException("Sentence is empty.");
         
-        Result result = new Result(WebConstants.CATEGORIES_PATH);
-        this.tester.test(sentence, result);
+//        Result result = new Result(WebConstants.CATEGORIES_PATH);
+//        this.tester.test(sentence, result);
         
         /**
          * 0 category is always "other",
          * 1 category is the classification category.
          */
-        return (result.getTopCategory().getIndex() == 1);
+        return true;
+                
+                
+//        return (result.getTopCategory().getIndex() == 1);
     
     }
     

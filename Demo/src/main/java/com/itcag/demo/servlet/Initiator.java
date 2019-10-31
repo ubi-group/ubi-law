@@ -3,13 +3,9 @@ package com.itcag.demo.servlet;
 import com.itcag.demo.WebConstants;
 import com.itcag.demo.util.Categories;
 import com.itcag.demo.util.ClassificationCategory;
-import com.itcag.legalyzer.ConfigurationFields;
-import com.itcag.legalyzer.test.Result.Category;
-import com.itcag.legalyzer.test.Tester;
+import com.itcag.dl.eval.Tester;
 import java.io.File;
 import java.util.Map;
-
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +34,7 @@ public class Initiator extends HttpServlet {
 
                 MultiLayerNetwork model = MultiLayerNetwork.load(new File(entry.getValue()), true);
                 
-                Tester tester = new Tester(wordVectors, model, tokenizerFactory);
+                Tester tester = new Tester();
                 category.setTester(tester);
 
                 Categories.addCategory(category);
