@@ -9,34 +9,42 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.util.AbstractMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * Extracts reference to the Israeli laws (and the specific clauses, if any are given).
+ * Extracts reference to the specific clauses in the Israeli laws.
  * The reference is extracted also from the aliases
  * (shorter references defined in brackets when a law is first mentioned).
- * Assumes a standard reference format.
- * Extracts only recognized laws, which implies that the list of laws must be kept updated.
+ * Validates laws against a complete list of Israeli laws,
+ * which implies that the list of laws must be kept updated.
  */
 public class LawExtractor {
 
     private final HashMap<String, String> laws = new HashMap<>();
     private final HashSet<String> triggers = new HashSet<>();
     private final String[] clauseTriggers = {"סעיף", "סעיפי"};
-        
+
+    private final LinkedList<Law> extractedLaws = new LinkedList<>();
 
     public LawExtractor() throws Exception {
 
+        /**
+         * Load the complete list of Israeli laws.
+         */
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("extr/laws")) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String line = reader.readLine();
-            while (line != null){
+            while (line != null) {
                 line = line.trim();
                 if (!line.isEmpty()) {
+                    if (line.charAt(0) == 8235) line = line.substring(1);
+                    if (line.charAt(line.length() - 1) == 8236) line = line.substring(0, line.length() - 1);
                     String[] elts = line.split("\t");
                     String normalized = normalize(elts[0]);
                     laws.put(normalized, elts[1].trim());
@@ -51,40 +59,14 @@ public class LawExtractor {
 
     public void extract(Document document) {
         
-        /**
-         * Identify laws in the text.
-         * Extract aliases, if any are given.
-         */
         for (Paragraph paragraph : document.getParagraphs()) {
             for (Sentence sentence : paragraph.getSentences()) {
                 insertLawReferences(sentence, document);
+                insertClausesByAlias(sentence, document.getLaws());
+                insertInformalLawReferences(sentence, document);
             }
         }
     
-        /**
-         * Identify clauses for the identified laws, if any given.
-         */
-        for (Paragraph paragraph : document.getParagraphs()) {
-            for (Sentence sentence : paragraph.getSentences()) {
-                insertClauses(sentence, document.getLaws());
-            }
-        }
-
-        /**
-         * Identify clauses using aliases.
-         */
-        for (Paragraph paragraph : document.getParagraphs()) {
-            for (Sentence sentence : paragraph.getSentences()) {
-                insertClausesByAlias(sentence, document.getLaws());
-            }
-        }
-        
-for (Paragraph paragraph : document.getParagraphs()) {
-    for (Sentence sentence : paragraph.getSentences()) {
-        insertClausesOfInformalLawReferences(sentence, document);
-    }
-}
-
     }
     
     private void insertLawReferences(Sentence sentence, Document document) {
@@ -95,30 +77,59 @@ for (Paragraph paragraph : document.getParagraphs()) {
          * validates it against a list of Israeli laws.
          */
         
-        for (String trigger : this.triggers) {
+        String text = sentence.getText();
+        
+        for (String clauseTrigger : this.clauseTriggers) {
             
-            String pattern = trigger + "[^\\d]*\\d{4}";
-            Matcher matcher = Pattern.compile(pattern).matcher(sentence.getText());
-            while (matcher.find()) {
-                String name = matcher.group();
-                String normalized = normalize(name);
-                if (this.laws.containsKey(normalized)) {
-                    String officialName = this.laws.get(normalized);
-                    if (document.getLaws().containsKey(officialName)) continue;
-                    Law law;
-                    if (officialName.equals(name)) {
-                        law = new Law(name);
+            for (String lawTrigger : this.triggers) {
+                
+                String pattern = clauseTrigger + ".{1,30}" + " ל" + lawTrigger  + "[^\\d]*?\\d{4}";
+                Matcher matcher = Pattern.compile(pattern).matcher(text);
+                while (matcher.find()) {
+                    
+                    String reference = matcher.group();
+                    Map.Entry<String, String> entry = parseReference(reference, lawTrigger);
+                    String name = entry.getKey();
+                    String clause = entry.getValue();
+                    
+                    String normalized = normalize(name);
+                    if (this.laws.containsKey(normalized)) {
+                        
+                        String officialName = this.laws.get(normalized);
+                        if (document.getLaws().containsKey(officialName)) {
+                            Law law = document.getLaws().get(officialName);
+                            law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                            law.addClause(clause);
+                            if (law.getAlias() == null) insertAlias(sentence, matcher.end(), law);
+                            this.extractedLaws.add(law);
+                        } else {
+                            Law law = new Law(name);
+                            if (!officialName.equals(reference)) law.setOfficialName(officialName);
+                            law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                            law.addClause(clause);
+                            insertAlias(sentence, matcher.end(), law);
+                            document.addLaw(law);
+                            this.extractedLaws.add(law);
+                        }
+                    
                     } else {
-                        law = new Law(name, officialName);
-                    }
-                    document.addLaw(law);
-                    insertAlias(sentence, matcher.end(), law);
-                } else {
-                    System.out.println("UNKNOWN LAW: " + name);
-                    System.out.println();
-                }
-            }
+                        
+                        if (document.getUnknownLaws().containsKey(name)) {
+                            Law law = document.getUnknownLaws().get(name);
+                            law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                            law.addClause(clause);
+                        } else {
+                            Law law = new Law(name);
+                            law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                            law.addClause(clause);
+                            document.addLaw(law);
+                        }
 
+                    }
+                }
+
+            }
+        
         }
 
     }
@@ -128,93 +139,24 @@ for (Paragraph paragraph : document.getParagraphs()) {
         String text = sentence.getText();
         
         int start = text.indexOf("(", end);
+        if (start == -1) start = text.indexOf("[", end);
         if (start == -1) return;
         
         end = text.indexOf(")", start);
+        if (end == -1) end = text.indexOf("]", start);
         if (end == -1) return;
         
         String alias = text.substring(start + 1, end);
         alias = alias.replace("להלן:", "").trim();
+
+        if (law.getOfficialName() != null) {
+            if (!law.getOfficialName().contains(alias)) return;
+        } else {
+            if (!law.getName().contains(alias)) return;
+        }
         
         law.setAlias(alias, sentence.getIndex());
         
-    }
-    
-    private void insertClauses(Sentence sentence, HashMap<String, Law> laws) {
-        
-        String text = sentence.getText();
-        
-        for (String trigger : this.clauseTriggers) {
-            
-            String pattern = trigger + ".*?\\d{4}";
-            Matcher matcher = Pattern.compile(pattern).matcher(text);
-            while (matcher.find()) {
-                String clause = matcher.group();
-                for (Map.Entry<String, Law> entry : laws.entrySet()) {
-                    String name = entry.getValue().getName();
-                    if (clause.contains(name)) {
-                        clause = clause.replace(name, "");
-                        if (clause.endsWith(" ל")) clause = clause.substring(0, clause.length() - 2);
-                        clause = clause.trim();
-                        entry.getValue().addClause(clause);
-                    }
-                }
-            }
-            
-        }
-
-    }
-    
-    private void insertClausesOfInformalLawReferences(Sentence sentence, Document document) {
-        
-        /**
-         * This is a guessing method to extract a law reference.
-         * It extract mention of a clause followed by a possible
-         * mention of a law, and the extracts the segment until
-         * a punctuation mark.
-         * The part of the segment from the possible mention of
-         * a law until the end is considered to be the name of the law,
-         * and is checked against the list of the laws - hoping to match it
-         * to one of them.
-         */
-        
-        String text = sentence.getText();
-        
-        for (String clauseTrigger : this.clauseTriggers) {
-            
-            for (String lawTrigger : this.triggers) {
-                
-                String pattern = clauseTrigger + ".*?" + " ל" + lawTrigger + ".*?" + "[\\.,:;\\)]";
-                Matcher matcher = Pattern.compile(pattern).matcher(text);
-                while (matcher.find()) {
-                    String clause = matcher.group();
-                    int start = clause.indexOf(lawTrigger);
-                    String law = clause.substring(start, clause.length() - 1);
-                    law = law.trim();
-                    clause = clause.substring(0, start - 1);
-//                    if (clause.endsWith(" ל")) clause = clause.substring(0, clause.length() - 2);
-                    clause = clause.trim();
-                    String officialName = null;
-                    for (Map.Entry<String, String> entry : this.laws.entrySet()) {
-                        if (entry.getKey().contains(law)) {
-                            officialName = entry.getValue();
-                            break;
-                        }
-                    }
-System.out.println(clause);
-if (officialName != null) {
-    System.out.println(law + " (probably: " + officialName + ")");
-} else {
-    System.out.println(law);
-}
-System.out.println();
-
-                }
-
-            }
-            
-        }
-
     }
     
     private void insertClausesByAlias(Sentence sentence, HashMap<String, Law> laws) {
@@ -233,21 +175,129 @@ System.out.println();
             
             for (String trigger : clauseTriggers) {
 
-                String pattern = trigger + ".*?" + normalized;
+                String pattern = trigger + ".{1,30}" + normalized;
 
                 Matcher matcher = Pattern.compile(pattern).matcher(text);
                 while (matcher.find()) {
                     String clause = matcher.group();
                     clause = clause.replace(normalized, "");
                     if (clause.endsWith(" ל")) clause = clause.substring(0, clause.length() - 2);
+                    clause = clause.replace("הנ\"ל", "");
                     clause = clause.trim();
                     entry.getValue().addClause(clause);
+                    entry.getValue().addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                    this.extractedLaws.add(entry.getValue());
                 }
 
             }
 
         }
 
+    }
+    
+    private void insertInformalLawReferences(Sentence sentence, Document document) {
+        
+        /**
+         * This is a guessing method to extract a law reference.
+         * It extract mention of a clause followed by a possible
+         * mention of a law, and the extracts the segment until
+         * a punctuation mark.
+         * The part of the segment from the possible mention of
+         * a law until the end is considered to be the name of the law,
+         * and is checked against the list of the laws - hoping to match it
+         * to one of them.
+         */
+        
+        String text = sentence.getText();
+        
+        for (String clauseTrigger : this.clauseTriggers) {
+            
+            for (String lawTrigger : this.triggers) {
+                
+                String pattern = clauseTrigger + ".{1,30}" + " ל" + lawTrigger + ".*?" + "[\\.,:;\\)]";
+                Matcher matcher = Pattern.compile(pattern).matcher(text);
+                while (matcher.find()) {
+
+                    String reference = matcher.group();
+                    Map.Entry<String, String> entry = parseReference(reference, lawTrigger);
+                    String name = entry.getKey();
+                    String clause = entry.getValue();
+
+                    Law law = new Law(name);
+                    law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
+                    if (isOverlapping(law)) continue;
+                    law.addClause(clause);
+                    validate(law);
+                    if (law.getGuessedOfficialName() == null) infer(law);
+                    document.addLaw(law);
+                    this.extractedLaws.add(law);
+
+                }
+
+            }
+            
+        }
+
+    }
+
+    private boolean isOverlapping(Law law) {
+        /**
+         * This method is necessary, since the a sentence is inspected
+         * by multiple methods, and the methods executed later may
+         * identify laws that were extracted by previous methods.
+         */
+        for (Law extracted : this.extractedLaws) {
+            for (Law.Position extractedPosition : extracted.getPositions()) {
+                Law.Position position = law.getLastPosition();
+                if (extractedPosition.getSentenceIndex() == position.getSentenceIndex()) {
+                    if (position.getStart() >= extractedPosition.getStart() && position.getStart() <= extractedPosition.getEnd()) return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private void validate(Law guess) {
+
+        if (!guess.getName().contains(" ")) return;
+
+        for (Map.Entry<String, String> entry : this.laws.entrySet()) {
+            if (entry.getKey().contains(guess.getName())) {
+                guess.setGuessedOfficialName(entry.getValue());
+                break;
+            }
+        }
+
+    }
+    
+    private void infer(Law guess) {
+        
+        if (extractedLaws.isEmpty()) return;
+        
+        if (extractedLaws.getLast().getOfficialName() != null) {
+            guess.setInferredOfficialName(extractedLaws.getLast().getOfficialName());
+        } else if (extractedLaws.getLast().getGuessedOfficialName() != null) {
+            guess.setInferredOfficialName(extractedLaws.getLast().getGuessedOfficialName());
+        } else if (extractedLaws.getLast().getInferredOfficialName() != null) {
+            guess.setInferredOfficialName(extractedLaws.getLast().getInferredOfficialName());
+        }
+        
+    }
+    
+    private Map.Entry<String, String> parseReference(String reference, String lawTrigger) {
+        
+        int start = reference.indexOf(lawTrigger);
+
+        String law = reference.substring(start, reference.length());
+        char c = law.charAt(law.length() - 1);
+        if (!Character.isLetterOrDigit(c)) law = law.substring(0, law.length() - 1);
+        law = law.trim();
+
+        String clause = reference.substring(0, start - 1);
+        clause = clause.trim();
+        
+        return new AbstractMap.SimpleEntry<>(law, clause);
+        
     }
     
     private String normalize(String name) {

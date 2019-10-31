@@ -24,11 +24,6 @@ public final class Punctuation {
         resolveMultipleHyphens(input);
         if (TextToolbox.isEmpty(input)) return;
         
-        /**
-         * Insert space around slashes.
-         */
-        TextToolbox.replace(input, "/", " / ");
-        
         Cleaner.fixWhiteSpaces(input);
         if (TextToolbox.isEmpty(input)) return;
 

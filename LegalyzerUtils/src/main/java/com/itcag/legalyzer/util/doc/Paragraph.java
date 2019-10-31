@@ -31,7 +31,7 @@ public class Paragraph implements Text {
         this.index = index;
         Splitter splitter = new Splitter();
         for (StringBuilder sentence : splitter.split(new StringBuilder(text))) {
-            this.sentences.add(new Sentence(sentence.toString(), sentenceIndex.addAndGet(1)));
+            this.sentences.add(new Sentence(sentence.toString(), sentenceIndex.addAndGet(1), index));
         }
     }
     

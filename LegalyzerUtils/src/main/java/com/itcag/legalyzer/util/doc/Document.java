@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -24,7 +25,14 @@ public class Document {
      * Key = official name,
      * Value = law.
      */
-    private HashMap<String, Law> laws = new HashMap<>();
+    private LinkedHashMap<String, Law> laws = new LinkedHashMap<>();
+    private LinkedHashMap<String, Law> unknownlaws = new LinkedHashMap<>();
+
+    /**
+     * Key =  code,
+     * Value = ruling.
+     */
+    private LinkedHashMap<String, CourtRuling> rulings = new LinkedHashMap<>();
     
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
@@ -110,12 +118,37 @@ public class Document {
         
     }
     
-    public HashMap<String, Law> getLaws() {
+    public LinkedHashMap<String, Law> getLaws() {
         return this.laws;
     }
     
     public void addLaw(Law law) {
-        this.laws.put(law.getOfficialName(), law);
+        if (law.getOfficialName() == null) {
+            /**
+             * This is a guess, and guesses are kept separate,
+             * even if they have the same name.
+             * Therefore, they get GUIDs just to keep them separate.
+             */
+            this.laws.put(UUID.randomUUID().toString().replace("-", ""), law);
+        } else {
+            this.laws.put(law.getOfficialName(), law);
+        }
+    }
+    
+    public LinkedHashMap<String, Law> getUnknownLaws() {
+        return this.unknownlaws;
+    }
+    
+    public void addUnknownLaw(Law law) {
+        this.unknownlaws.put(law.getName(), law);
+    }
+    
+    public LinkedHashMap<String, CourtRuling> getRulings() {
+        return this.rulings;
+    }
+    
+    public void addRuling(CourtRuling ruling) {
+        this.rulings.put(ruling.getCode(), ruling);
     }
     
 }
