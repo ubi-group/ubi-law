@@ -1,9 +1,17 @@
 package com.itcag.demo.servlet;
 
+import com.itcag.demo.Config;
+import static com.itcag.demo.Config.CATEGORIES_PATH;
+import static com.itcag.demo.Config.DATA_PATH;
+import static com.itcag.demo.Config.MODEL_PATH;
+import static com.itcag.demo.Config.TRAINING_DATA_PATH;
+import static com.itcag.demo.Config.WORD_2_VEC_DATA_PATH;
+import static com.itcag.demo.Config.WORD_2_VEC_PATH;
 import com.itcag.demo.WebConstants;
 import com.itcag.demo.util.Categories;
 import com.itcag.demo.util.ClassificationCategory;
 import com.itcag.dl.eval.Tester;
+import com.itcag.legalyzer.util.MyConfiguration;
 import java.io.File;
 import java.util.Map;
 
@@ -22,8 +30,14 @@ public class Initiator extends HttpServlet {
      public void init() throws ServletException {
 
         try {
-
-            WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(WebConstants.WORD_VECTOR_PATH));
+System.out.println(MyConfiguration.FILE_NAME);            
+System.out.println(WORD_2_VEC_DATA_PATH);
+System.out.println(WORD_2_VEC_PATH);
+System.out.println(CATEGORIES_PATH);
+System.out.println(DATA_PATH);
+System.out.println(TRAINING_DATA_PATH);
+System.out.println(MODEL_PATH);
+            WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
         
             TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
             tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());

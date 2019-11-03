@@ -11,10 +11,6 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 
-/**
- * Auxiliary methods for Elasticsearch JSON formatted responses
- * @author IT Consulting Alicja Grużdź
- */
 public final class DataToolbox {
     
     public static JSONObject getResultSingle(JSONArray arrJSON, String msg) throws Exception  {

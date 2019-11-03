@@ -3,6 +3,7 @@ package com.itcag.demo;
 public enum FormFields {
     
     QUERY("query"),
+    URL("url"),
     
     
     ;

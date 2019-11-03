@@ -16,7 +16,7 @@ public class ElasticsearchRestClient {
         final CredentialsProvider credentialsProvider =
             new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
-            new UsernamePasswordCredentials("user", "passwd"));
+            new UsernamePasswordCredentials("legal", "Th88mffyQg"));
 
         RestClientBuilder builder = org.elasticsearch.client.RestClient.builder(
             new HttpHost("18.184.3.224", 56662))

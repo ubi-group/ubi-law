@@ -33,6 +33,14 @@
         <url-pattern>/Examples</url-pattern>
     </servlet-mapping>
     <!-- -->
+    <servlet>
+        <servlet-name>ProcessDocumentInput</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.ProcessDocumentInput</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessDocumentInput</servlet-name>
+        <url-pattern>/ProcessDocumentInput</url-pattern>
+    </servlet-mapping>    
     <!-- -->
     <session-config>
         <session-timeout>
