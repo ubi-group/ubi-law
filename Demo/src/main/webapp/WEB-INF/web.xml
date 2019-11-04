@@ -3,7 +3,6 @@
     <servlet>
         <servlet-name>Initiator</servlet-name>
         <servlet-class>com.itcag.demo.servlet.Initiator</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <!-- -->
     <servlet>
@@ -42,6 +41,15 @@
         <url-pattern>/ProcessDocumentInput</url-pattern>
     </servlet-mapping>    
     <!-- -->
+    <servlet>
+        <servlet-name>ProcessDocumentOutput</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.ProcessDocumentOutput</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessDocumentOutput</servlet-name>
+        <url-pattern>/ProcessDocumentOutput</url-pattern>
+    </servlet-mapping>  
+    <!-- -->     
     <session-config>
         <session-timeout>
             30

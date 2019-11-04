@@ -5,8 +5,8 @@ public enum Targets {
     ABOUT("אודות", "About"),
     TEST("ניסוי", "Test"),
     EXAMPLES("דוגמאות רב משמעותיות", "Examples"),
-    PROCESS_DOCUMENT_INPUT("עיבוד קלט מסמך", "Process Document Input"),
-    PROCESS_DOCUMENT_OUTPUT("עיבוד פלט מסמך", "Process Document Output"),
+    PROCESS_DOCUMENT_INPUT("עיבוד קלט מסמך", "ProcessDocumentInput"),
+    PROCESS_DOCUMENT_OUTPUT("עיבוד פלט מסמך", "ProcessDocumentOutput"),
 
     ;
     

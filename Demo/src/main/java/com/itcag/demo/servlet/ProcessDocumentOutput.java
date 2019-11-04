@@ -1,6 +1,7 @@
 package com.itcag.demo.servlet;
 
 import com.itcag.demo.FormFields;
+import com.itcag.demo.TesterFactory;
 import com.itcag.util.html.HTTPToolbox;
 import com.itcag.util.txt.TextToolbox;
 import java.io.IOException;
@@ -19,9 +20,10 @@ public class ProcessDocumentOutput extends HttpServlet {
             
             request.setCharacterEncoding("UTF-8");
             
-            String url = request.getParameter(FormFields.URL.getName());
-            System.out.println("url: " + url);
+            String url = request.getParameter(FormFields.URL.getName());        
             
+            TesterFactory.getInstance();
+           
             if (TextToolbox.isReallyEmpty(url)) throw new IllegalArgumentException("Field is missing: " + FormFields.URL.getName());
             
             String html = "";
