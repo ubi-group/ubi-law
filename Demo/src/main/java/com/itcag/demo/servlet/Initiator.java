@@ -38,22 +38,19 @@ System.out.println(DATA_PATH);
 System.out.println(TRAINING_DATA_PATH);
 System.out.println(MODEL_PATH);
             WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
-        
+       
             TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
             tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-            
-            for (Map.Entry<String, String> entry : WebConstants.MODEL_PATHS.entrySet()) {
 
-                ClassificationCategory category = new ClassificationCategory(entry.getKey(), entry.getValue());
+            ClassificationCategory category = new ClassificationCategory("High Court", Config.MODEL_PATH);
 
-                MultiLayerNetwork model = MultiLayerNetwork.load(new File(entry.getValue()), true);
-                
-                Tester tester = new Tester();
-                category.setTester(tester);
+            MultiLayerNetwork model = MultiLayerNetwork.load(new File(Config.MODEL_PATH), true);
 
-                Categories.addCategory(category);
-                
-            }
+            Tester tester = new Tester();
+
+            category.setTester(tester);
+
+            Categories.addCategory(category);
 
             System.out.println("Word embedding and model successfully loaded; categories successfully created.");
 
