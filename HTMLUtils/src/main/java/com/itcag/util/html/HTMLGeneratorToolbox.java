@@ -737,11 +737,11 @@ public final class HTMLGeneratorToolbox {
 
     }
     
-    public final static Element getSearchButton(Document doc) {
+    public final static Element getSearchButton(Document doc, String displayName) {
 
         Element retVal = doc.createElement("input");
         retVal.setAttribute("type", "submit");
-        retVal.setAttribute("value", "Search");
+        retVal.setAttribute("value", displayName);
         retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
 
         return retVal;

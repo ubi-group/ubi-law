@@ -35,7 +35,7 @@ public class HTMLProcessDocumentInput {
 
         subElt.appendChild(HTMLGeneratorToolbox.getInput(null, FormFields.URL.getName(), false, true, doc));
         
-        subElt.appendChild(HTMLGeneratorToolbox.getSearchButton(doc));
+        subElt.appendChild(HTMLGeneratorToolbox.getSearchButton(doc, "Classify"));
 
         elt.appendChild(subElt);
         

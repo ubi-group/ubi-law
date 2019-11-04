@@ -59,7 +59,7 @@ public class HTMLTest {
         
         retVal.appendChild(HTMLGeneratorToolbox.getLabeledInput("הרשת העצבית אומנה בארבע קטגוריות: צבא וביטחון, כדורגל, סלבס וטכנולוגיה. הקלד כותרת חדשות באחת הקטגוריות הללו:", query, FormFields.QUERY.getName(), false, true, doc));
         
-        Element elt = HTMLGeneratorToolbox.getSearchButton(doc);
+        Element elt = HTMLGeneratorToolbox.getSearchButton(doc, "Search");
         elt.setAttribute("value", "נסה");
         elt.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
         retVal.appendChild(elt);
