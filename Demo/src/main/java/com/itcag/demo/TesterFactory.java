@@ -16,7 +16,7 @@ public class TesterFactory {
 
     private static TesterFactory testerFactoryInstance = null; 
   
-    private Tester tester; 
+    private final Tester tester; 
   
     private TesterFactory() throws Exception { 
         
