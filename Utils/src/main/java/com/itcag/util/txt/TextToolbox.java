@@ -2,6 +2,8 @@ package com.itcag.util.txt;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import java.util.ArrayList;
+
 import java.util.Collection;
 
 public final class TextToolbox {
@@ -132,6 +134,21 @@ public final class TextToolbox {
             if (isEmpty(text)) return;
         }
         
+    }
+
+    public final static void fixWhiteSpaces(StringBuilder input) {
+        
+        if (isEmpty(input)) return;
+
+        while (input.indexOf("  ") != -1) {
+            replace(input, "  ", " ");
+            if (isEmpty(input)) break;
+        }
+
+        if (isEmpty(input)) return;
+
+        trim(input);
+            
     }
 
     public final static int indexOfCaIn(StringBuilder text, String searchString) {
@@ -298,17 +315,55 @@ public final class TextToolbox {
                 }
                 
                 stringBuilder.append(text.substring(0, start).trim());
-//                stringBuilder.append(" ");
                 text = text.substring(end + 1);
             } else {
                 stringBuilder.append(text.substring(0, start).trim());
-//                stringBuilder.append(" ");
                 text = text.substring(start + 1);
             }
         }
         
         stringBuilder.append(text);
         String retVal = stringBuilder.toString();
+        
+        return retVal;
+    
+    }
+
+    public final static ArrayList<String> extractParentheses(String text, String left, String right) {
+        
+        ArrayList<String> retVal = new ArrayList<>();
+        
+        if (isReallyEmpty(text)) return retVal;
+        
+        if (!text.contains(left)) return retVal;
+        if (!text.contains(right)) return retVal;
+        
+        while (text.contains(left)) {
+            int start = text.indexOf(left);
+            int end = text.indexOf(right);
+            if (end == -1) break;
+            if (end > start) {
+                
+                /**
+                 * Check if there are parentheses within parentheses.
+                 */
+                int testStart = text.indexOf(left, start + 1);
+                while (testStart > -1 && testStart < end) {
+                    int testEnd = text.indexOf(right, end + 1);
+                    if (testEnd == -1) break;
+                    end = testEnd;
+                    testStart = text.indexOf(left, testStart + 1);
+                }
+
+                retVal.add(text.substring(start + 1, end).trim());
+                text = text.substring(end + 1);
+            
+            } else {
+
+                return retVal;
+                
+            }
+        }
         
         return retVal;
     

@@ -4,18 +4,21 @@ import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Law;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Sentence;
+import com.itcag.util.txt.TextToolbox;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Extracts reference to the specific clauses in the Israeli laws.
@@ -38,6 +41,7 @@ public class LawExtractor {
          * Load the complete list of Israeli laws.
          */
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("extr/laws")) {
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String line = reader.readLine();
             while (line != null) {
@@ -53,6 +57,7 @@ public class LawExtractor {
                 }
                 line = reader.readLine();
             }
+        
         }
 
     }
@@ -120,6 +125,7 @@ public class LawExtractor {
                             law.addClause(clause);
                         } else {
                             Law law = new Law(name);
+                            lastResort(name, law);
                             law.addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
                             law.addClause(clause);
                             document.addLaw(law);
@@ -134,20 +140,43 @@ public class LawExtractor {
 
     }
     
+    private void lastResort(String name, Law law) {
+        
+        if (!name.contains(" התש")) return;
+        
+        int pos = name.indexOf(" התש");
+        name = name.substring(0, pos);
+        String normalized = normalize(name);
+        if (this.laws.containsKey(normalized)) {
+            String officialName = this.laws.get(normalized);
+            law.setOfficialName(officialName);
+        }
+        
+    }
+    
     private void insertAlias(Sentence sentence, int end, Law law) {
         
         String text = sentence.getText();
+        /**
+         * Extract only the section following the law.
+         */
+        text = text.substring(end).trim();
+        /**
+         * If the law is not immediately followed by an opening parenthesis, there is no alias.
+         */
+        if (!text.startsWith("(") && !text.startsWith("[")) return;
         
-        int start = text.indexOf("(", end);
-        if (start == -1) start = text.indexOf("[", end);
-        if (start == -1) return;
+        ArrayList<String> parentheses = TextToolbox.extractParentheses(text, "(", ")");
+        if (parentheses.isEmpty()) parentheses = TextToolbox.extractParentheses(text, "[", "]");
+        if (parentheses.isEmpty()) return;
         
-        end = text.indexOf(")", start);
-        if (end == -1) end = text.indexOf("]", start);
-        if (end == -1) return;
+        /**
+         * Only the first parenthesis immediately following the law is of interest.
+         */
+        String alias = parentheses.get(0);
         
-        String alias = text.substring(start + 1, end);
         alias = alias.replace("להלן:", "").trim();
+        if (alias.startsWith("ה")) alias = alias.substring(1);
 
         if (law.getOfficialName() != null) {
             if (!law.getOfficialName().contains(alias)) return;
@@ -172,6 +201,11 @@ public class LawExtractor {
             
             String normalized = alias;
             if (normalized.startsWith("ה")) normalized = normalized.substring(1);
+            /**
+             * If alias contains parentheses insert escape characters.
+             */
+            normalized = normalized.replace("(", "\\(").replace(")", "\\)");
+            normalized = normalized.replace("[", "\\[").replace("]", "\\]");
             
             for (String trigger : clauseTriggers) {
 
@@ -179,7 +213,13 @@ public class LawExtractor {
 
                 Matcher matcher = Pattern.compile(pattern).matcher(text);
                 while (matcher.find()) {
+                    
                     String clause = matcher.group();
+                    /**
+                     * Remove the escape characters if any were inserted.
+                     */
+                    normalized = normalized.replace("\\", "");
+                    
                     clause = clause.replace(normalized, "");
                     if (clause.endsWith(" ל")) clause = clause.substring(0, clause.length() - 2);
                     clause = clause.replace("הנ\"ל", "");
@@ -187,6 +227,7 @@ public class LawExtractor {
                     entry.getValue().addClause(clause);
                     entry.getValue().addPosition(sentence.getParagraphIndex(), sentence.getIndex(), matcher.start(), matcher.end());
                     this.extractedLaws.add(entry.getValue());
+                
                 }
 
             }
@@ -300,7 +341,7 @@ public class LawExtractor {
         
     }
     
-    private String normalize(String name) {
+    public static String normalize(String name) {
         
         String retVal = name;
         
@@ -310,6 +351,7 @@ public class LawExtractor {
         retVal = retVal.replace(")", " ");
         retVal = retVal.replace("[", " ");
         retVal = retVal.replace("]", " ");
+//        retVal = retVal.replace("", "");
         
         while (retVal.contains("  ")) retVal = retVal.replace("  ", " ");
         

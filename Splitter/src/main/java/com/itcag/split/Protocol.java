@@ -1,7 +1,6 @@
 package com.itcag.split;
 
 import com.itcag.util.punct.Punctuation;
-import com.itcag.util.txt.Cleaner;
 import com.itcag.util.txt.TextToolbox;
 
 import java.util.ArrayList;
@@ -25,14 +24,6 @@ public final class Protocol {
         if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after Unicode standardization.");
 
         /**
-         * Sanitize input: remove characters that are neither alphanumeric,
-         * nor punctuation, nor white spaces.
-         */
-        Cleaner.sanitize(input);
-        TextToolbox.trim(input);
-        if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after sanitation.");
-
-        /**
          * Replace HTML special characters with the Unicode.
          * Remove HTML tags of any were left by the collection.
          * Break the text on tags that imply text display in a new line. 
@@ -48,15 +39,6 @@ public final class Protocol {
          */
         Locker locker = new Locker();
         locker.lock(input);
-
-        /**
-         * Remove emoticons.
-         * Emoticons must be removed before normalizing punctuation.
-         */
-        Emoticons emoticons = new Emoticons();
-        emoticons.remove(input);
-        TextToolbox.trim(input);
-        if (TextToolbox.isEmpty(input)) throw new SplitterException("Input is empty after emoticon removal.");
 
         /**
          * Normalize punctuation.
@@ -85,7 +67,7 @@ public final class Protocol {
             locker.unlock(sentence);
 
             /**
-             * Remove left overs originating in erroneous punctuation.
+             * Remove leftovers originating in erroneous punctuation.
              */
             Punctuation.removePunctuationAtBeginning(sentence);
 
@@ -109,4 +91,16 @@ public final class Protocol {
         
     }
     
+    public static void main(String[] args) throws Exception {
+   
+        StringBuilder text = new StringBuilder("הושתו על המערערבע\"פ 4907/17 אורן חי נחום נ מדינת ישראל [11.3.18] נדחה ערעורו של המערער (הנקרא בפסק הדין מערער 2, שכן נדונו במאוחד ערעורם של שני המורשעים באותו מקרה). ");
+        
+        Protocol protocol = new Protocol();
+        for (StringBuilder sentence : protocol.execute(text)) {
+            System.out.println(sentence.toString());
+        }
+        
+    
+    }
+        
 }

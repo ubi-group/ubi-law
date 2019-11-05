@@ -2,6 +2,7 @@ package com.itcag.legalyzer.util.doc;
 
 import com.itcag.legalyzer.util.eval.Result;
 import com.itcag.split.Splitter;
+import com.itcag.split.SplitterException;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,8 +31,12 @@ public class Paragraph implements Text {
         this.text = text;
         this.index = index;
         Splitter splitter = new Splitter();
-        for (StringBuilder sentence : splitter.split(new StringBuilder(text))) {
-            this.sentences.add(new Sentence(sentence.toString(), sentenceIndex.addAndGet(1), index));
+        try {
+            for (StringBuilder sentence : splitter.split(new StringBuilder(text))) {
+                this.sentences.add(new Sentence(sentence.toString(), sentenceIndex.addAndGet(1), index));
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof SplitterException)) throw ex;
         }
     }
     

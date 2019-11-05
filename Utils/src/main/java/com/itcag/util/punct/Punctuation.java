@@ -1,6 +1,5 @@
 package com.itcag.util.punct;
 
-import com.itcag.util.txt.Cleaner;
 import com.itcag.util.txt.TextToolbox;
 
 public final class Punctuation {
@@ -24,7 +23,7 @@ public final class Punctuation {
         resolveMultipleHyphens(input);
         if (TextToolbox.isEmpty(input)) return;
         
-        Cleaner.fixWhiteSpaces(input);
+        TextToolbox.fixWhiteSpaces(input);
         if (TextToolbox.isEmpty(input)) return;
 
         for (PunctuationSigns sign : PunctuationSigns.values()) {

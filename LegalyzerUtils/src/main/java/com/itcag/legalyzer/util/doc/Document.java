@@ -15,11 +15,20 @@ import java.util.UUID;
 
 public class Document {
 
+    public enum Type {
+        HIGH_COURT_RULING,
+        CRIMINAL_RULING,
+    }
+    
     private final String id = UUID.randomUUID().toString().replace("-", "");
     
     private final ArrayList<String> lines;
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
+    
+    private ArrayList<Person> judges = new ArrayList<>();
+    private ArrayList<Person> plaintiffAttorneys = new ArrayList<>();
+    private ArrayList<Person> defendantAttorneys = new ArrayList<>();
     
     /**
      * Key = official name,
@@ -33,6 +42,8 @@ public class Document {
      * Value = ruling.
      */
     private LinkedHashMap<String, CourtRuling> rulings = new LinkedHashMap<>();
+    
+    private ArrayList<String> penalties = new ArrayList<>();
     
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
@@ -117,6 +128,30 @@ public class Document {
         return retVal;
         
     }
+
+    public ArrayList<Person> getJudges() {
+        return judges;
+    }
+
+    public void addJudge(Person judge) {
+        this.judges.add(judge);
+    }
+
+    public ArrayList<Person> getPlaintiffAttorneys() {
+        return plaintiffAttorneys;
+    }
+
+    public void addPlaintiffAttorney(Person plaintiffAttorney) {
+        this.plaintiffAttorneys.add(plaintiffAttorney);
+    }
+
+    public ArrayList<Person> getDefendantAttorneys() {
+        return defendantAttorneys;
+    }
+
+    public void addDefendantAttorney(Person defendantAttorney) {
+        this.defendantAttorneys.add(defendantAttorney);
+    }
     
     public LinkedHashMap<String, Law> getLaws() {
         return this.laws;
@@ -149,6 +184,14 @@ public class Document {
     
     public void addRuling(CourtRuling ruling) {
         this.rulings.put(ruling.getCode(), ruling);
+    }
+    
+    public ArrayList<String> getPenalties() {
+        return this.penalties;
+    }
+    
+    public void addPenalty(String penalty) {
+        this.penalties.add(penalty);
     }
     
 }

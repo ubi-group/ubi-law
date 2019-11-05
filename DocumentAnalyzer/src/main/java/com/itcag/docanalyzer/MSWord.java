@@ -9,9 +9,11 @@ import java.util.List;
 
 import org.apache.poi.xwpf.usermodel.BodyElementType;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.ISDTContent;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFHeader;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFSDT;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -73,13 +75,26 @@ public class MSWord {
         
         ArrayList<String> retVal = new ArrayList<>();
         
-        if (BodyElementType.PARAGRAPH.equals(element.getElementType())) {
-            XWPFParagraph paragraph = (XWPFParagraph) element;
-            String text = paragraph.getText().trim();
-            if (!text.isEmpty()) retVal.add(text);
-        } else if (BodyElementType.TABLE.equals(element.getElementType())) {
-            XWPFTable table = (XWPFTable) element;
-            retVal.addAll(parseTable(table));
+        if (null != element.getElementType()) switch (element.getElementType()) {
+            case PARAGRAPH:{
+                XWPFParagraph paragraph = (XWPFParagraph) element;
+                String text = paragraph.getText().trim();
+                if (!text.isEmpty()) retVal.add(text);
+                    break;
+                }
+            case CONTENTCONTROL:{
+                XWPFSDT paragraph = (XWPFSDT) element;
+                ISDTContent content = paragraph.getContent();
+                String text = content.getText();
+                if (!text.isEmpty()) retVal.add(text);
+                    break;
+                }
+            case TABLE:
+                XWPFTable table = (XWPFTable) element;
+                retVal.addAll(parseTable(table));
+                break;
+            default:
+                break;
         }
     
         return retVal;
