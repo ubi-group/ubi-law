@@ -8,6 +8,7 @@ import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.dl.Config;
+import com.itcag.legalyzer.util.doc.Sentence;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.io.TextFileReader;
 
@@ -93,8 +94,10 @@ public class Tester {
     
     public void test(Document document) throws Exception {
         for (Paragraph paragraph : document.getParagraphs()) {
-            paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
-            test(paragraph.getText(), paragraph.getResult());
+            for (Sentence sentence : paragraph.getSentences()) {
+                sentence.setResult(new SigmoidResult(categories.get(), 0.00));
+                test(sentence.getText(), sentence.getResult());
+            }
         }
     }
     

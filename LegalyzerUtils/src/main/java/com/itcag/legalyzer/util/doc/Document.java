@@ -1,6 +1,7 @@
 package com.itcag.legalyzer.util.doc;
 
 import com.itcag.legalyzer.util.cat.Category;
+import com.itcag.legalyzer.util.doc.penalty.Penalty;
 import com.itcag.legalyzer.util.parse.Parser;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Document {
      */
     private LinkedHashMap<String, CourtRuling> rulings = new LinkedHashMap<>();
     
-    private ArrayList<String> penalties = new ArrayList<>();
+    private ArrayList<Penalty> penalties = new ArrayList<>();
     
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
         this.lines = lines;
@@ -186,11 +187,11 @@ public class Document {
         this.rulings.put(ruling.getCode(), ruling);
     }
     
-    public ArrayList<String> getPenalties() {
+    public ArrayList<Penalty> getPenalties() {
         return this.penalties;
     }
     
-    public void addPenalty(String penalty) {
+    public void addPenalty(Penalty penalty) {
         this.penalties.add(penalty);
     }
     

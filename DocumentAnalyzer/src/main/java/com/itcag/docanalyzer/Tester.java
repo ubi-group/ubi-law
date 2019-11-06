@@ -4,6 +4,7 @@ import com.itcag.legalyzer.util.doc.CourtRuling;
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Law;
 import com.itcag.legalyzer.util.doc.Person;
+import com.itcag.legalyzer.util.doc.penalty.Penalty;
 import com.itcag.legalyzer.util.extract.LawExtractor;
 import com.itcag.legalyzer.util.extract.PenaltyExtractor;
 import com.itcag.legalyzer.util.extract.PersonnelExtractor;
@@ -22,7 +23,7 @@ public class Tester {
 
     public static void main(String[] args) throws Exception {
         
-        String filePath = "/home/nahum/Desktop/hebrew/high court rulings/1303103.txt";
+        String filePath = "/home/nahum/Desktop/legaltech/test cases for Gai/גזר דין.docx";
 
 //        String filePath = "/home/nahum/Desktop/legaltech/test cases for Gai/גזר דין.docx";
 //        String filePath = "/home/nahum/Desktop/legaltech/test cases for Gai/גזר דין 2.docx";
@@ -31,9 +32,9 @@ public class Tester {
 //        String filePath = "/home/nahum/Desktop/legaltech/test cases for Gai/פסד מזכה.docx";
 
 //        testPlainTextDocument(filePath);
-//        testMSWordDocument(filePath);
+        testMSWordDocument(filePath);
 
-        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
+//        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
 //        processFolder("/home/nahum/Desktop/legaltech/test cases for Gai/");
 
     }
@@ -44,8 +45,8 @@ public class Tester {
             if (file.isDirectory()) continue;
             if (file.getName().startsWith(".~")) continue;
             System.out.println(file.getName());
-            testPlainTextDocument(file.getPath());
-//            testMSWordDocument(file.getPath());
+//            testPlainTextDocument(file.getPath());
+            testMSWordDocument(file.getPath());
             System.out.println();
         }
 
@@ -78,10 +79,10 @@ public class Tester {
 
         Document document = new Document(lines, new SimpleParser(config));
         
-        extractPersonnel(document, Document.Type.CRIMINAL_RULING);
+//        extractPersonnel(document, Document.Type.CRIMINAL_RULING);
 //        extractLaws(document);
 //        extractRulings(document);
-//        extractPenalties(document);
+        extractPenalties(document);
         
     }
     
@@ -135,8 +136,8 @@ public class Tester {
         
         extractor.extract(document);
         
-        for (String penalty : document.getPenalties()) {
-            System.out.println(penalty);
+        for (Penalty penalty : document.getPenalties()) {
+            System.out.println(penalty.toString());
         }
 
     }
