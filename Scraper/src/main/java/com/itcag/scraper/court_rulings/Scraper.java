@@ -62,7 +62,7 @@ public class Scraper {
         
     }
     
-    private String getPage(String location) throws Exception {
+    public static String getPage(String location) throws Exception {
 
         StringBuilder retVal = new StringBuilder();
         
@@ -91,7 +91,7 @@ public class Scraper {
         
     }
     
-    private StringBuilder extractText(Document doc) throws Exception {
+    public static StringBuilder extractText(Document doc) throws Exception {
 
         StringBuilder retVal = new StringBuilder();
         

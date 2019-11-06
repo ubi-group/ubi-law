@@ -1,5 +1,6 @@
 package com.itcag.demo.servlet;
 
+import com.itcag.demo.DocumentProcessor;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.TesterFactory;
 import com.itcag.util.html.HTTPToolbox;
@@ -22,7 +23,7 @@ public class ProcessDocumentOutput extends HttpServlet {
             
             String url = request.getParameter(FormFields.URL.getName());        
             
-            TesterFactory.getInstance();
+            DocumentProcessor.classify(url);
            
             if (TextToolbox.isReallyEmpty(url)) throw new IllegalArgumentException("Field is missing: " + FormFields.URL.getName());
             
@@ -41,6 +42,12 @@ public class ProcessDocumentOutput extends HttpServlet {
             throw new ServletException(ex);
             
         }
+
+    }
+    
+    @Override
+    public void destroy() {
+
 
     }
 }

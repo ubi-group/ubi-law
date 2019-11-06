@@ -1,5 +1,6 @@
 package com.itcag.scraper.court_rulings;
 
+
 import com.itcag.util.MathToolbox;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
