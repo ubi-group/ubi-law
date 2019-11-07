@@ -1,5 +1,7 @@
 package com.itcag.demo;
 
+import com.itcag.datatier.ElasticsearchRestClient;
+import com.itcag.datatier.IndexDocument;
 import com.itcag.dl.eval.Tester;
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
@@ -11,6 +13,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.itcag.scraper.court_rulings.Scraper;
+
+import com.itcag.datatier.meta.Indices;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -27,6 +31,7 @@ public class DocumentProcessor {
 
             String strDoc = Scraper.getPage(url);
             Document doc = Jsoup.parse(strDoc);
+            
             String txt = Scraper.extractText(doc).toString();
 
             if(txt == null) throw new Exception("Nothing to process");
@@ -40,6 +45,8 @@ public class DocumentProcessor {
             config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
             config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
             com.itcag.legalyzer.util.doc.Document document = new com.itcag.legalyzer.util.doc.Document(new ArrayList(lines), new HCRulingParser(config));           
+
+            IndexDocument.indexDocument(ElasticsearchRestClient.getClient(), Indices.COURT_RULINGS.getFieldName(), document.getJSON().toString());
             
             TesterFactory testerFactory = TesterFactory.getInstance();
             Tester tester = testerFactory.getTester();
@@ -56,6 +63,7 @@ public class DocumentProcessor {
                 tester.test(paragraph.getText(), paragraph.getResult());
                 for (Map.Entry<Integer, Category> entry : paragraph.getResult().getCategoriesSortedByScore().entrySet()) {
                     System.out.println(paragraph.getText());
+                    paragraph.getSentences();
                     System.out.println("\t" + entry.getKey() + "\t" + entry.getValue().getIndex() + "\t" + entry.getValue().getLabel());
                     System.out.println();
                 }

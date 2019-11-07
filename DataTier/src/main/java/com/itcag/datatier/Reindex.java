@@ -1,7 +1,5 @@
 package com.itcag.datatier;
 
-import com.itcag.datatier.meta.Indices;
-import com.itcag.datatier.schema.CorrectionsSchema;
 import org.elasticsearch.client.RestHighLevelClient;
 
 public class Reindex {

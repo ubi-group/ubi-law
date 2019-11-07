@@ -1,20 +1,19 @@
 package com.itcag.datatier.schema;
 
-public enum SentenceFields {
+public enum DocumentFields {
 
-    sentence("sentence"),
-    categoryId("categoryId"),
+    url("url"),
     
     ;
 
     private final String fieldName;
 
-    SentenceFields(String fieldValue) {
+    DocumentFields(String fieldValue) {
         this.fieldName = fieldValue;
     }
 
     public final String getFieldName() {
         return fieldName;
     }
-
+    
 }

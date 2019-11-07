@@ -7,6 +7,7 @@ public class Tester {
         CorrectionsCleaner.cleanIndex();
         DataTrainingCleaner.cleanIndex();
         CategoriesCleaner.cleanIndex();
+        CourtRulingsCleaner.cleanIndex();
 
     }   
     

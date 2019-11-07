@@ -7,7 +7,7 @@ import com.itcag.datatier.meta.IndexOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CorrectionsSchema {
+public class CourtRulingsSchema {
 
     public final static JSONObject get() throws JSONException {
 
@@ -15,13 +15,11 @@ public class CorrectionsSchema {
 
         JSONObject properties = new JSONObject();
         properties.put(SentenceFields.sentence.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
-        properties.put(SentenceFields.categoryId.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
  
         retVal.put(Constants.PROPERTIES, properties);
 
         return retVal;
 
     }
-    
     
 }
