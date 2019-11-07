@@ -1,16 +1,16 @@
 package com.itcag.legalyzer.util.extract;
 
-import com.itcag.legalyzer.util.doc.penalty.CommunityService;
-import com.itcag.legalyzer.util.doc.penalty.Compensation;
+import com.itcag.legalyzer.util.doc.extr.penalty.CommunityService;
+import com.itcag.legalyzer.util.doc.extr.penalty.Compensation;
 import com.itcag.legalyzer.util.doc.Document;
-import com.itcag.legalyzer.util.doc.penalty.Fine;
+import com.itcag.legalyzer.util.doc.extr.penalty.Fine;
 import com.itcag.legalyzer.util.doc.Paragraph;
-import com.itcag.legalyzer.util.doc.penalty.Penalty;
+import com.itcag.legalyzer.util.doc.extr.penalty.Penalty;
 import com.itcag.legalyzer.util.doc.Sentence;
-import com.itcag.legalyzer.util.doc.penalty.Incarceration;
-import com.itcag.legalyzer.util.doc.penalty.Period;
-import com.itcag.legalyzer.util.doc.penalty.Probation;
-import com.itcag.legalyzer.util.doc.penalty.Term;
+import com.itcag.legalyzer.util.doc.extr.penalty.Incarceration;
+import com.itcag.legalyzer.util.doc.extr.penalty.Period;
+import com.itcag.legalyzer.util.doc.extr.penalty.Probation;
+import com.itcag.legalyzer.util.doc.extr.penalty.Term;
 
 import java.util.HashSet;
 import java.util.regex.Matcher;

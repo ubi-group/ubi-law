@@ -1,6 +1,6 @@
 package com.itcag.legalyzer.util.extract;
 
-import com.itcag.legalyzer.util.doc.CourtRuling;
+import com.itcag.legalyzer.util.doc.extr.CourtRuling;
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Sentence;

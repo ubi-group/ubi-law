@@ -1,7 +1,10 @@
 package com.itcag.legalyzer.util.doc;
 
+import com.itcag.legalyzer.util.doc.extr.CourtRuling;
+import com.itcag.legalyzer.util.doc.extr.Person;
+import com.itcag.legalyzer.util.doc.extr.Law;
 import com.itcag.legalyzer.util.cat.Category;
-import com.itcag.legalyzer.util.doc.penalty.Penalty;
+import com.itcag.legalyzer.util.doc.extr.penalty.Penalty;
 import com.itcag.legalyzer.util.parse.Parser;
 
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Document {
+public class Document extends Aggregator {
 
     private enum Fields {
 
@@ -110,77 +113,6 @@ public class Document {
         return this.paragraphs;
     }
     
-    public TreeMap<Double, ArrayList<Category>> evaluate(TreeMap<Integer, Category> categories) {
-        
-        TreeMap<Double, ArrayList<Category>> retVal = new TreeMap<>(Collections.reverseOrder());
-
-        /**
-         * Key is the category index, and the value is the category score (incremented).
-         */
-        HashMap<Integer, Double> scores = aggregateScores();
-        TreeMap<Double, HashSet<Integer>> inverted = invertScores(scores);
-        
-        for (Map.Entry<Double, HashSet<Integer>> entry : inverted.entrySet()) {
-            for (Integer index : entry.getValue()) {
-                Category category = categories.get(index);
-                if (retVal.containsKey(entry.getKey())) {
-                    retVal.get(entry.getKey()).add(category);
-                } else {
-                    retVal.put(entry.getKey(), new ArrayList<>(Arrays.asList(category)));
-                }
-            }
-        }
-        
-        return retVal;
-        
-    }
-    
-    private HashMap<Integer, Double> aggregateScores() {
-        
-        HashMap<Integer, Double> retVal = new HashMap<>();
-        
-        for (Paragraph paragraph : this.paragraphs) {
-            
-            for (Map.Entry<Integer, Category> entry : paragraph.getResult().getCategories().entrySet()) {
-        
-                Category category = entry.getValue();
-                
-                if (category.getScore() != null) {
-                    
-                    if (retVal.containsKey(category.getIndex())) {
-                        retVal.put(category.getIndex(), retVal.get(category.getIndex()) + category.getScore());
-                    } else {
-                        retVal.put(category.getIndex(), category.getScore());
-                    }
-                    
-                }
-                
-            }
-        
-        }
-        
-        return retVal;
-
-    }
-    
-    private TreeMap<Double, HashSet<Integer>> invertScores(HashMap<Integer, Double> scores) {
-        
-        TreeMap<Double, HashSet<Integer>> retVal = new TreeMap<>(Collections.reverseOrder());
-        
-        for (Map.Entry<Integer, Double> entry : scores.entrySet()) {
-            
-            if (retVal.containsKey(entry.getValue())) {
-                retVal.get(entry.getValue()).add(entry.getKey());
-            } else {
-                retVal.put(entry.getValue(), new HashSet<>(Arrays.asList(entry.getKey())));
-            }
-            
-        }
-        
-        return retVal;
-        
-    }
-
     public ArrayList<Person> getJudges() {
         return judges;
     }
@@ -244,6 +176,10 @@ public class Document {
     
     public void addPenalty(Penalty penalty) {
         this.penalties.add(penalty);
+    }
+    
+    public LinkedHashMap<Integer, Category> getEvaluation(TreeMap<Integer, Category> categories) {
+        return this.aggregate(new ArrayList<>(this.paragraphs), categories);
     }
     
     public JSONObject getJSON() {

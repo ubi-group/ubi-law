@@ -1,4 +1,4 @@
-package com.itcag.legalyzer.util.doc.penalty;
+package com.itcag.legalyzer.util.doc.extr.penalty;
 
 public class CommunityService implements Penalty {
     

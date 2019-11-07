@@ -10,6 +10,7 @@ import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.dl.Config;
 import com.itcag.legalyzer.util.doc.Sentence;
 import com.itcag.legalyzer.util.parse.ParserFields;
+import com.itcag.util.Printer;
 import com.itcag.util.io.TextFileReader;
 
 import java.io.BufferedReader;
@@ -20,10 +21,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
@@ -60,14 +61,21 @@ public class Tester {
         Document document = new Document(lines, new HCRulingParser(config));
 
         Tester tester = new Tester();
-        tester.test(document);
+        
+        /**
+         * Example of testing at the sentence level.
+         * All categories are retrieved and printed.
+         * No inference is applied.
+         */
+        tester.testSentences(document);
         
         Categories categories = new Categories(categoryFilePath);
         
-        TreeMap<Double, ArrayList<Category>> evaluation = document.evaluate(categories.get());
-        for (Map.Entry<Double, ArrayList<Category>> entry : evaluation.entrySet()) {
-            for (Category category : entry.getValue()) {
-                System.out.println(entry.getKey() + "\t" + category.toString());
+        for (Paragraph paragraph : document.getParagraphs()) {
+            Printer.print(paragraph.getText());
+            LinkedHashMap<Integer, Category> evaluation = paragraph.getEvaluation(categories.get());
+            for (Map.Entry<Integer, Category> entry : evaluation.entrySet()) {
+                Printer.print("\t" + entry.getValue().toString());
             }
         }
 
@@ -92,7 +100,14 @@ public class Tester {
         
     }
     
-    public void test(Document document) throws Exception {
+    public void testParagraphs(Document document) throws Exception {
+        for (Paragraph paragraph : document.getParagraphs()) {
+            paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
+            test(paragraph.getText(), paragraph.getResult());
+        }
+    }
+    
+    public void testSentences(Document document) throws Exception {
         for (Paragraph paragraph : document.getParagraphs()) {
             for (Sentence sentence : paragraph.getSentences()) {
                 sentence.setResult(new SigmoidResult(categories.get(), 0.00));

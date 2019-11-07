@@ -1,16 +1,19 @@
 package com.itcag.legalyzer.util.doc;
 
+import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.eval.Result;
 import com.itcag.split.Splitter;
 import com.itcag.split.SplitterException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Paragraph implements Text {
+public class Paragraph extends Aggregator implements Text {
 
     private enum Fields {
         
@@ -110,6 +113,10 @@ public class Paragraph implements Text {
     @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
+    }
+    
+    public LinkedHashMap<Integer, Category> getEvaluation(TreeMap<Integer, Category> categories) {
+        return this.aggregate(new ArrayList<>(this.sentences), categories);
     }
     
     @Override

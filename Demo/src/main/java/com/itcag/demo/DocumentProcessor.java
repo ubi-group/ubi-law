@@ -43,7 +43,7 @@ public class DocumentProcessor {
             
             TesterFactory testerFactory = TesterFactory.getInstance();
             Tester tester = testerFactory.getTester();
-            tester.test(document);
+            tester.testSentences(document);
             
             Categories categories = new Categories(Config.CATEGORIES_PATH); 
             

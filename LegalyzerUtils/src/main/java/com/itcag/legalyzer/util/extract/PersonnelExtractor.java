@@ -2,7 +2,7 @@ package com.itcag.legalyzer.util.extract;
 
 import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
-import com.itcag.legalyzer.util.doc.Person;
+import com.itcag.legalyzer.util.doc.extr.Person;
 import com.itcag.legalyzer.util.doc.Sentence;
 
 import java.util.HashMap;

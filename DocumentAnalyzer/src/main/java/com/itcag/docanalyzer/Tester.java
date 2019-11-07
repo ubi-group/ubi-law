@@ -1,10 +1,10 @@
 package com.itcag.docanalyzer;
 
-import com.itcag.legalyzer.util.doc.CourtRuling;
+import com.itcag.legalyzer.util.doc.extr.CourtRuling;
 import com.itcag.legalyzer.util.doc.Document;
-import com.itcag.legalyzer.util.doc.Law;
-import com.itcag.legalyzer.util.doc.Person;
-import com.itcag.legalyzer.util.doc.penalty.Penalty;
+import com.itcag.legalyzer.util.doc.extr.Law;
+import com.itcag.legalyzer.util.doc.extr.Person;
+import com.itcag.legalyzer.util.doc.extr.penalty.Penalty;
 import com.itcag.legalyzer.util.extract.LawExtractor;
 import com.itcag.legalyzer.util.extract.PenaltyExtractor;
 import com.itcag.legalyzer.util.extract.PersonnelExtractor;

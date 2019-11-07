@@ -1,12 +1,15 @@
 package com.itcag.legalyzer.util.doc;
 
+import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.eval.Result;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 import org.json.JSONObject;
 
-public class Sentence implements Text {
+public class Sentence extends Scorer implements Text {
 
     private enum Fields {
         
@@ -90,6 +93,10 @@ public class Sentence implements Text {
     @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
+    }
+    
+    public LinkedHashMap<Integer, Category> getEvaluation(TreeMap<Integer, Category> categories) {
+        return this.getEvaluation(this.result, categories);
     }
     
     @Override

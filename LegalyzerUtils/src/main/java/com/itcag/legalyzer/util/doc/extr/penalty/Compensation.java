@@ -1,4 +1,4 @@
-package com.itcag.legalyzer.util.doc.penalty;
+package com.itcag.legalyzer.util.doc.extr.penalty;
 
 import java.text.NumberFormat;
 

@@ -85,7 +85,7 @@ System.out.println();
         config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
         Document document = new Document(lines, new HCRulingParser(config));
         
-        legalyzer.insertRecommendations(document);
+        legalyzer.evaluate(document);
 
         for (Paragraph paragraph : document.getParagraphs()) {
 

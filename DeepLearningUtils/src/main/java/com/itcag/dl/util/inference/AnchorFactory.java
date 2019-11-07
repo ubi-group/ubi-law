@@ -18,6 +18,7 @@ import com.itcag.util.io.TextFileWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -110,7 +111,7 @@ public class AnchorFactory {
                     tester.test(paragraph.getText(), paragraph.getResult());
                 }
 
-                TreeMap<Double, ArrayList<Category>> evaluation = document.evaluate(categories.get());
+                LinkedHashMap<Integer, Category> evaluation = document.getEvaluation(categories.get());
                 processEvaluation(entry.getKey(), categories, evaluation);
                 
             } catch (Exception ex) {
@@ -171,7 +172,7 @@ public class AnchorFactory {
      * @param categories Instance of the class Categories that holds all categories used in evaluation.
      * @param evaluation A map that holds all categories - each with the corresponding evaluation score.
      */
-    private static void processEvaluation(String documentId, Categories categories, TreeMap<Double, ArrayList<Category>> evaluation) {
+    private static void processEvaluation(String documentId, Categories categories, LinkedHashMap<Integer, Category> evaluation) {
         
         ArrayList<Integer> tags = DOCS.get(documentId);
         if (tags.isEmpty()) return;
@@ -197,7 +198,7 @@ public class AnchorFactory {
         /**
          * Identify the top category in the evaluation.
          */
-        for (Map.Entry<Double, ArrayList<Category>> entry : evaluation.entrySet()) {
+        for (Map.Entry<Integer, Category> entry : evaluation.entrySet()) {
             
             /**
              * Ignore all evaluations with the score below the threshold.
@@ -210,8 +211,8 @@ public class AnchorFactory {
              * If the first evaluation is 0 generic, ignore it,
              * and continue iterating to select the next.
              */
-            if (entry.getValue().get(0).getIndex() > 0) {
-                tagCategory.addAnchor(entry.getValue().get(0), entry.getKey());
+            if (entry.getValue().getIndex() > 0) {
+                tagCategory.addAnchor(entry.getValue(), entry.getKey());
                 break;
             }
             

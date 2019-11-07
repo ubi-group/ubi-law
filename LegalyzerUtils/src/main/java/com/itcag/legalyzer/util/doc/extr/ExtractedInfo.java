@@ -1,4 +1,4 @@
-package com.itcag.legalyzer.util.doc;
+package com.itcag.legalyzer.util.doc.extr;
 
 import java.util.LinkedList;
 
