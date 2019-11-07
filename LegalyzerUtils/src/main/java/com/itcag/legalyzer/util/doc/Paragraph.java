@@ -7,10 +7,34 @@ import com.itcag.split.SplitterException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Paragraph implements Text {
 
-    private final String text;
+    private enum Fields {
+        
+        INDEX("index"),
+        TEXT("text"),
+        SENTENCES("sentences"),
+        
+        ;
+        
+        private final String name;
+        
+        private Fields(String name) {
+            this.name = name;
+        }
+        
+        private String getName() {
+            return this.name;
+        }
+        
+    }
+    
     private final int index;
+
+    private final String text;
     
     private final ArrayList<Sentence> sentences = new ArrayList<>();
     
@@ -40,10 +64,22 @@ public class Paragraph implements Text {
         }
     }
     
-    public int getIndex() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Paragraph(JSONObject jsonObject) throws Exception {
+        this.text = jsonObject.getString(Fields.TEXT.getName());
+        this.index = jsonObject.getInt(Fields.INDEX.getName());
+        JSONArray jsonArray = jsonObject.getJSONArray(Fields.SENTENCES.getName());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Sentence sentence = new Sentence(jsonArray.getJSONObject(i));
+            this.sentences.add(sentence);
+        }
     }
     
+    @Override
+    public int getIndex() {
+        return this.index;
+    }
+    
+    @Override
     public String getText() {
         return this.text;
     }
@@ -56,20 +92,42 @@ public class Paragraph implements Text {
         this.sentences.add(sentence);
     }
 
+    @Override
     public Result getResult() {
         return this.result;
     }
     
+    @Override
     public void setResult(Result result) {
         this.result = result;
     }
     
+    @Override
     public ArrayList<Recommendation> getRecommendations() {
         return this.recommendations;
     }
     
+    @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
+    }
+    
+    @Override
+    public JSONObject getJSON() {
+        
+        JSONObject retVal = new JSONObject();
+        
+        retVal.put(Fields.INDEX.getName(), this.index);
+        retVal.put(Fields.TEXT.getName(), this.text);
+        
+        JSONArray jsonArray = new JSONArray();
+        for (Sentence sentence : this.sentences) {
+            jsonArray.put(sentence.getJSON());
+        }
+        retVal.put(Fields.SENTENCES.getName(), jsonArray);
+        
+        return retVal;
+        
     }
     
 }

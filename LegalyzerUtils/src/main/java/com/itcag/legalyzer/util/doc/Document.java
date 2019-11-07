@@ -14,43 +14,94 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Document {
 
+    private enum Fields {
+
+        ID("id"),
+        LINES("lines"),
+        PARAGRAPHS("paragraphs"),
+        
+        ;
+        
+        private final String name;
+        
+        private Fields(String name) {
+            this.name = name;
+        }
+        
+        private String getName() {
+            return this.name;
+        }
+        
+    }
+    
     public enum Type {
         HIGH_COURT_RULING,
         CRIMINAL_RULING,
     }
     
-    private final String id = UUID.randomUUID().toString().replace("-", "");
+    private final String id;
     
     private final ArrayList<String> lines;
     
     private ArrayList<Paragraph> paragraphs = new ArrayList<>();
     
-    private ArrayList<Person> judges = new ArrayList<>();
-    private ArrayList<Person> plaintiffAttorneys = new ArrayList<>();
-    private ArrayList<Person> defendantAttorneys = new ArrayList<>();
+    private final ArrayList<Person> judges = new ArrayList<>();
+    private final ArrayList<Person> plaintiffAttorneys = new ArrayList<>();
+    private final ArrayList<Person> defendantAttorneys = new ArrayList<>();
     
     /**
      * Key = official name,
      * Value = law.
      */
-    private LinkedHashMap<String, Law> laws = new LinkedHashMap<>();
-    private LinkedHashMap<String, Law> unknownlaws = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Law> laws = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Law> unknownlaws = new LinkedHashMap<>();
 
     /**
      * Key =  code,
      * Value = ruling.
      */
-    private LinkedHashMap<String, CourtRuling> rulings = new LinkedHashMap<>();
+    private final LinkedHashMap<String, CourtRuling> rulings = new LinkedHashMap<>();
     
-    private ArrayList<Penalty> penalties = new ArrayList<>();
+    private final ArrayList<Penalty> penalties = new ArrayList<>();
     
     public Document(ArrayList<String> lines, Parser parser) throws Exception {
+        this.id = UUID.randomUUID().toString().replace("-", "");
         this.lines = lines;
         this.paragraphs = parser.parse(this.lines);
     }
 
+    public Document(String id, ArrayList<String> lines, Parser parser) throws Exception {
+        this.id = id;
+        this.lines = lines;
+        this.paragraphs = parser.parse(this.lines);
+    }
+
+    public Document(JSONObject jsonObject) throws Exception {
+        this.id = jsonObject.getString(Fields.ID.getName());
+        
+        {
+            this.lines = new ArrayList<>();
+            JSONArray jsonArray = jsonObject.getJSONArray(Fields.LINES.getName());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                this.lines.add(jsonArray.getString(i));
+            }
+        }
+        
+        {
+            JSONArray jsonArray = jsonObject.getJSONArray(Fields.PARAGRAPHS.getName());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Paragraph paragraph = new Paragraph(jsonArray.getJSONObject(i));
+                this.paragraphs.add(paragraph);
+            }
+        }
+        
+    }
+    
     public String getId() {
         return this.id;
     }
@@ -193,6 +244,32 @@ public class Document {
     
     public void addPenalty(Penalty penalty) {
         this.penalties.add(penalty);
+    }
+    
+    public JSONObject getJSON() {
+        
+        JSONObject retVal = new JSONObject();
+        
+        retVal.put(Fields.ID.getName(), this.id);
+        
+        {
+            JSONArray jsonArray = new JSONArray();
+            for (String line : lines) {
+                jsonArray.put(line);
+            }
+            retVal.put(Fields.LINES.getName(), jsonArray);
+        }
+        
+        {
+            JSONArray jsonArray = new JSONArray();
+            for (Paragraph paragraph : paragraphs) {
+                jsonArray.put(paragraph.getJSON());
+            }
+            retVal.put(Fields.PARAGRAPHS.getName(), jsonArray);
+        }
+        
+        return retVal;
+        
     }
     
 }

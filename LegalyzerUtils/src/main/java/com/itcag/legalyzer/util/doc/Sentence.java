@@ -4,8 +4,30 @@ import com.itcag.legalyzer.util.eval.Result;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 public class Sentence implements Text {
 
+    private enum Fields {
+        
+        INDEX("index"),
+        PARAGRAPH_INDEX("paragraphIndex"),
+        TEXT("text"),
+        
+        ;
+        
+        private final String name;
+        
+        private Fields(String name) {
+            this.name = name;
+        }
+        
+        private String getName() {
+            return this.name;
+        }
+        
+    }
+    
     private final int index;
     private final int paragraphIndex;
     
@@ -30,6 +52,13 @@ public class Sentence implements Text {
         this.paragraphIndex = paragraphIndex;
     }
     
+    public Sentence(JSONObject jsonObject) {
+        this.text = jsonObject.getString(Fields.TEXT.getName());
+        this.index = jsonObject.getInt(Fields.INDEX.getName());
+        this.paragraphIndex = jsonObject.getInt(Fields.PARAGRAPH_INDEX.getName());
+    }
+    
+    @Override
     public int getIndex() {
         return this.index;
     }
@@ -77,6 +106,19 @@ public class Sentence implements Text {
         }
         
         return retVal.toString();
+        
+    }
+    
+    @Override
+    public JSONObject getJSON() {
+     
+        JSONObject retVal = new JSONObject();
+        
+        retVal.put(Fields.INDEX.getName(), this.index);
+        retVal.put(Fields.PARAGRAPH_INDEX.getName(), this.paragraphIndex);
+        retVal.put(Fields.TEXT.getName(), this.text);
+        
+        return retVal;
         
     }
     
