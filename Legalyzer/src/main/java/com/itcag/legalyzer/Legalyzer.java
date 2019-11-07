@@ -1,5 +1,6 @@
 package com.itcag.legalyzer;
 
+import com.itcag.legalyzer.util.inference.Inference;
 import com.itcag.dl.eval.Tester;
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
@@ -8,6 +9,7 @@ import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Recommendation;
 import com.itcag.legalyzer.util.doc.Sentence;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,12 +22,12 @@ public class Legalyzer {
     
     private final Inference inference;
     
-    public Legalyzer(Categories categories, Inference inference) throws Exception {
+    public Legalyzer(Categories categories) throws Exception {
         
         this.tester = new Tester();
         this.categories = categories;
 
-        this.inference = inference;
+        this.inference = new Inference(categories);
         
     }
     

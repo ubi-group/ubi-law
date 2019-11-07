@@ -1,5 +1,6 @@
-package com.itcag.legalyzer;
+package com.itcag.legalyzer.util.inference;
 
+import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.util.MathToolbox;
 
@@ -14,17 +15,19 @@ import java.util.TreeMap;
 
 public class Inference {
 
+    private double scoreThreshold = 0.5;
+    private double thematicSiblingFactor = 1.2;
+    
     private final Anchors anchors;
     private final Siblings siblings;
     
-    public Inference(Anchors anchors, Siblings siblings) {
-        this.anchors= anchors;
-        this.siblings = siblings;
+    public Inference(Categories categories) throws Exception {
+        this.anchors = new Anchors(categories);
+        this.siblings = new Siblings(categories);
     }
     
     public boolean isAnchor(int index) {
-        return false;
-//        return this.anchors.containsIndex(index);
+        return this.anchors.containsIndex(index);
     }
     
     public TreeMap<Double, Category> getAnchorTags(int index) {
@@ -32,8 +35,7 @@ public class Inference {
     }
     
     public boolean isThematicSibling(int index1, int index2) {
-        return false;
-//        return this.siblings.isThematicSibling(index1, index2);
+        return this.siblings.isThematicSibling(index1, index2);
     }
     
     public ArrayList<Integer> getThematicSiblings(int index) {
@@ -53,7 +55,7 @@ public class Inference {
         while (categoryIterator.hasNext()) {
             
             Category category = categoryIterator.next().getValue();
-            if (category.getScore() < Config.SCORE_THRESHOLD) break;
+            if (category.getScore() < this.scoreThreshold) break;
             
             HashMap<Integer, Category> index = getRecommendationIndex(category, categories);
             for (Map.Entry<Integer, Category> entry : index.entrySet()) {
@@ -108,7 +110,7 @@ public class Inference {
                 }
                 
                 if (isThematicSibling(category.getIndex(), entry.getValue().getIndex())) {
-                    weight *= Config.THEMATIC_SIBLING_FACTOR;
+                    weight *= this.thematicSiblingFactor;
                 }
                 
                 entry.getValue().setSignificance(convertScoreIntoSignificance(weight));
@@ -150,6 +152,22 @@ public class Inference {
         
         return retVal;
         
+    }
+
+    public double getScoreThreshold() {
+        return scoreThreshold;
+    }
+
+    public void setScoreThreshold(double scoreThreshold) {
+        this.scoreThreshold = scoreThreshold;
+    }
+
+    public double getThematicSiblingFactor() {
+        return thematicSiblingFactor;
+    }
+
+    public void setThematicSiblingFactor(double thematicSiblingFactor) {
+        this.thematicSiblingFactor = thematicSiblingFactor;
     }
     
 }

@@ -1,4 +1,4 @@
-package com.itcag.legalyzer;
+package com.itcag.legalyzer.util.inference;
 
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;

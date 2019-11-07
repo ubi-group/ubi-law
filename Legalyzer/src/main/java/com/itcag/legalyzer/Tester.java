@@ -20,20 +20,11 @@ public class Tester {
         String corpusIndexPath = "/home/nahum/Desktop/legaltech/verdicts";
         String corpusFolder = "/home/nahum/Desktop/hebrew/high court rulings/";
 
-        String word2vecFilePath = "/home/nahum/Desktop/legaltech/experiments/wordvec.txt";
-        String modelPath = "/home/nahum/Desktop/legaltech/experiments/Model.net";
-        
         String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
-        String anchorFilePath = "/home/nahum/Desktop/legaltech/application/anchors";
         
         Categories categories = new Categories(categoryFilePath);
 
-        Anchors anchors = new Anchors(categories, anchorFilePath);
-        Siblings siblings = new Siblings(categories);
-        
-        Inference inference = new Inference(anchors, siblings);
-        
-        Legalyzer legalyzer = new Legalyzer(categories, inference);
+        Legalyzer legalyzer = new Legalyzer(categories);
 
         processFolder(corpusIndexPath, corpusFolder, categories, legalyzer);
 
