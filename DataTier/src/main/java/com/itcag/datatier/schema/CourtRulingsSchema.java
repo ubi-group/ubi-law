@@ -14,7 +14,7 @@ public class CourtRulingsSchema {
         JSONObject retVal = new JSONObject();
 
         JSONObject properties = new JSONObject();
-        properties.put(SentenceFields.sentence.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
+        properties.put(DocumentFields.id.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
  
         retVal.put(Constants.PROPERTIES, properties);
 

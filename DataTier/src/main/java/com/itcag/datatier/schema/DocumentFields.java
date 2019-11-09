@@ -2,7 +2,7 @@ package com.itcag.datatier.schema;
 
 public enum DocumentFields {
 
-    url("url"),
+    id("id"),
     
     ;
 
