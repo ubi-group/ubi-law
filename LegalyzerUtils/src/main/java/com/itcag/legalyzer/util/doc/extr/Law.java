@@ -93,8 +93,8 @@ public class Law extends ExtractedInfo {
             retVal.append(this.guessedOfficialName).append("*").append("\n");
         } else if (this.inferredOfficialName != null) {
             retVal.append(this.inferredOfficialName).append("**").append("\n");
-        } else {
-            retVal.append(this.name).append("^").append("\n");
+//        } else {
+//            retVal.append(this.name).append("^").append("\n");
         }
         this.clauses.stream().forEach((clause) -> { retVal.append("\t").append(clause).append("\n");});
         

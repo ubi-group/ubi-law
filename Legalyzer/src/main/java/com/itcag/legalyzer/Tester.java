@@ -12,6 +12,7 @@ import com.itcag.legalyzer.util.doc.extr.Person;
 import com.itcag.legalyzer.util.doc.extr.penalty.Penalty;
 import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.legalyzer.util.parse.ParserFields;
+import com.itcag.legalyzer.util.parse.SimpleParser;
 import com.itcag.util.Printer;
 import com.itcag.util.io.TextFileReader;
 import java.io.File;
@@ -53,6 +54,13 @@ public class Tester {
         ArrayList<String> lines = TextFileReader.read(file.getPath());
         
         String id = file.getName().replace(".txt", "");
+        
+        evaluate(id, lines, legalyzer);
+        extract(id, lines, legalyzer);
+        
+    }
+    
+    private static void evaluate(String id, ArrayList<String> lines, Legalyzer legalyzer) throws Exception {
         
         Properties config = new Properties();
         config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "1000");
@@ -97,6 +105,15 @@ public class Tester {
             
         }
         
+    }
+
+    private static void extract(String id, ArrayList<String> lines, Legalyzer legalyzer) throws Exception {
+        
+        Properties config = new Properties();
+        config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+        config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+        Document document = new Document(id, lines, new SimpleParser(config));
+
         Properties extractionConfig = new Properties();
         extractionConfig.put(Legalyzer.ExtractionOptions.LAW.getName(), Boolean.TRUE);
         extractionConfig.put(Legalyzer.ExtractionOptions.RULINGS.getName(), Boolean.TRUE);
@@ -104,26 +121,17 @@ public class Tester {
         extractionConfig.put(Legalyzer.ExtractionOptions.PENALTY.getName(), Boolean.TRUE);
         legalyzer.extract(document, extractionConfig);
 
-        if (!document.getJudges().isEmpty()) {
-            Printer.print("Judges:");
+        
+        if (!document.getJudges().isEmpty() || !document.getPlaintiffAttorneys().isEmpty() || !document.getDefendantAttorneys().isEmpty()) {
+            Printer.print("Personnel:");
             for (Person person : document.getJudges()) {
-                Printer.print(person.toString());
+                Printer.print("\t" + person.toString());
             }
-            Printer.print();
-        }
-        
-        if (!document.getPlaintiffAttorneys().isEmpty()) {
-            Printer.print("Plaintiff attorneys:");
             for (Person person : document.getPlaintiffAttorneys()) {
-                Printer.print(person.toString());
+                Printer.print("\t" + person.toString());
             }
-            Printer.print();
-        }
-        
-        if (!document.getDefendantAttorneys().isEmpty()) {
-            Printer.print("Defendant attorneys:");
             for (Person person : document.getDefendantAttorneys()) {
-                Printer.print(person.toString());
+                Printer.print("\t" + person.toString());
             }
             Printer.print();
         }
@@ -131,7 +139,7 @@ public class Tester {
         if (!document.getLaws().isEmpty()) {
             Printer.print("Referenced laws:");
             for (Map.Entry<String, Law> entry : document.getLaws().entrySet()) {
-                Printer.print(entry.getValue().toString());
+                Printer.print("\t" + entry.getValue().toString());
             }
             Printer.print();
         }
@@ -139,7 +147,7 @@ public class Tester {
         if (!document.getRulings().isEmpty()) {
             Printer.print("Referenced court rulings:");
             for (Map.Entry<String, CourtRuling> entry : document.getRulings().entrySet()) {
-                Printer.print(entry.getValue().toString());
+                Printer.print("\t" + entry.getValue().toString());
             }
             Printer.print();
         }
@@ -147,7 +155,7 @@ public class Tester {
         if (!document.getPenalties().isEmpty()) {
             Printer.print("Referenced court rulings:");
             for (Penalty penalty : document.getPenalties()) {
-                Printer.print(penalty.toString());
+                Printer.print("\t" + penalty.toString());
             }
             Printer.print();
         }

@@ -11,6 +11,7 @@ import com.itcag.legalyzer.util.doc.extr.penalty.Incarceration;
 import com.itcag.legalyzer.util.doc.extr.penalty.Period;
 import com.itcag.legalyzer.util.doc.extr.penalty.Probation;
 import com.itcag.legalyzer.util.doc.extr.penalty.Term;
+import com.itcag.util.Printer;
 
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -280,6 +281,8 @@ public class PenaltyExtractor {
             digits = digits.replace(",", "");
             pos = digits.indexOf(".");
             if (pos > -1) digits = digits.substring(0,  pos);
+            digits = digits.trim();
+            if (digits.isEmpty()) return null;
             return Integer.parseInt(digits);
         }
         
