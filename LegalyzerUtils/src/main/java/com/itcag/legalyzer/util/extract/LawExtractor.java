@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.TreeSet;
 
 /**
  * Extracts reference to the specific clauses in the Israeli laws.

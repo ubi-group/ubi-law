@@ -6,6 +6,10 @@ import com.itcag.legalyzer.util.doc.Document;
 import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Recommendation;
 import com.itcag.legalyzer.util.doc.Sentence;
+import com.itcag.legalyzer.util.doc.extr.CourtRuling;
+import com.itcag.legalyzer.util.doc.extr.Law;
+import com.itcag.legalyzer.util.doc.extr.Person;
+import com.itcag.legalyzer.util.doc.extr.penalty.Penalty;
 import com.itcag.legalyzer.util.parse.HCRulingParser;
 import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.util.Printer;
@@ -60,7 +64,7 @@ public class Tester {
         
 //        legalyzer.evaluate(document);
         legalyzer.recommend(document);
-
+        
         for (Paragraph paragraph : document.getParagraphs()) {
 
             for (Sentence sentence : paragraph.getSentences()) {
@@ -91,6 +95,61 @@ public class Tester {
                 
             }
             
+        }
+        
+        Properties extractionConfig = new Properties();
+        extractionConfig.put(Legalyzer.ExtractionOptions.LAW.getName(), Boolean.TRUE);
+        extractionConfig.put(Legalyzer.ExtractionOptions.RULINGS.getName(), Boolean.TRUE);
+        extractionConfig.put(Legalyzer.ExtractionOptions.PERSONNEL.getName(), Boolean.TRUE);
+        extractionConfig.put(Legalyzer.ExtractionOptions.PENALTY.getName(), Boolean.TRUE);
+        legalyzer.extract(document, extractionConfig);
+
+        if (!document.getJudges().isEmpty()) {
+            Printer.print("Judges:");
+            for (Person person : document.getJudges()) {
+                Printer.print(person.toString());
+            }
+            Printer.print();
+        }
+        
+        if (!document.getPlaintiffAttorneys().isEmpty()) {
+            Printer.print("Plaintiff attorneys:");
+            for (Person person : document.getPlaintiffAttorneys()) {
+                Printer.print(person.toString());
+            }
+            Printer.print();
+        }
+        
+        if (!document.getDefendantAttorneys().isEmpty()) {
+            Printer.print("Defendant attorneys:");
+            for (Person person : document.getDefendantAttorneys()) {
+                Printer.print(person.toString());
+            }
+            Printer.print();
+        }
+        
+        if (!document.getLaws().isEmpty()) {
+            Printer.print("Referenced laws:");
+            for (Map.Entry<String, Law> entry : document.getLaws().entrySet()) {
+                Printer.print(entry.getValue().toString());
+            }
+            Printer.print();
+        }
+        
+        if (!document.getRulings().isEmpty()) {
+            Printer.print("Referenced court rulings:");
+            for (Map.Entry<String, CourtRuling> entry : document.getRulings().entrySet()) {
+                Printer.print(entry.getValue().toString());
+            }
+            Printer.print();
+        }
+        
+        if (!document.getPenalties().isEmpty()) {
+            Printer.print("Referenced court rulings:");
+            for (Penalty penalty : document.getPenalties()) {
+                Printer.print(penalty.toString());
+            }
+            Printer.print();
         }
         
     }
