@@ -1,6 +1,7 @@
-package com.itcag.scraper.court_rulings;
+package com.itcag.dl.util.train;
 
 
+import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.util.MathToolbox;
 import com.itcag.util.io.TextFileReader;
 import com.itcag.util.io.TextFileWriter;
@@ -93,7 +94,7 @@ public class TrainingDataFactory {
             
             if (file.isDirectory()) continue;
 
-            String category = file.getName().replace(".txt", "").replace(",", "").replace(" ", "_");
+            String category = Category.normalizeLabel(file.getName().replace(".txt", ""));
             
             ArrayList<String> lines = TextFileReader.read(file.getPath());
             for (String line : lines) {

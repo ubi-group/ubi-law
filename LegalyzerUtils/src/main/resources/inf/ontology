@@ -1,0 +1,850 @@
+National_security_military_and_the_territories	Criminal_-_White_collar	0.17
+National_security_military_and_the_territories	Administrative_-_Citizenship	0.11
+Criminal_-_Appeal_on_sentence	Criminal_-_Security	0.20
+Criminal_-_Appeal_on_sentence	Criminal_-_Traffic	0.08
+Civil_-_Land	Civil_-_Contracts	0.12
+Civil_-_Fiscal-Tax	Criminal_-_Violence	0.14
+Civil_-_Fiscal-Tax	Civil_-_Land	0.11
+Criminal_-_Traffic	Criminal_-_Security	0.09
+Social_security_Health_Insurance_Pension	Labor_and_Employment	0.10
+Social_security_Health_Insurance_Pension	Civil_-_Torts	0.09
+Administrative_-_Licenses_planning_and_construction	Criminal_-_Violence	0.13
+Administrative_-_Licenses_planning_and_construction	Administrative_-_Tender	0.08
+Criminal_-_Sex	Labor_and_Employment	0.11
+Civil_-_Corporate-Commercial	Civil_-_Bankruptcy	0.16
+Administrative_-_Tender	Administrative_-_Licenses_planning_and_construction	0.10
+Criminal_-_White_collar	National_security_military_and_the_territories	0.40
+Criminal_-_White_collar	Criminal_-_Appeal_on_sentence	0.12
+Criminal_-_White_collar	Administrative_-_Citizenship	0.05
+Criminal_-_Security	Criminal_-_Appeal_on_sentence	0.23
+Criminal_-_Security	Criminal_-_Sex	0.13
+Criminal_-_Security	Criminal_-_White_collar	0.09
+Criminal_-_Security	Criminal_-_Traffic	0.07
+Criminal_-_Violence	Administrative_-_Licenses_planning_and_construction	0.16
+Criminal_-_Violence	Administrative_-_Municipalities	0.13
+Criminal_-_Violence	Administrative_-_Tender	0.03
+Administrative_-_Citizenship	National_security_military_and_the_territories	0.08
+Civil_-_Contracts	Civil_-_Bankruptcy	0.21
+Civil_-_Contracts	Civil_-_Land	0.12
+Civil_-_Contracts	Civil_-_Torts	0.08
+Labor_and_Employment	Social_security_Health_Insurance_Pension	0.09
+Labor_and_Employment	Administrative_-_Municipalities	0.08
+Civil_-_Torts	Civil_-_Contracts	0.10
+Civil_-_Torts	Social_security_Health_Insurance_Pension	0.08
+Civil_-_Torts	Criminal_-_Sex	0.07
+Administrative - Citizenship	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Citizenship	Administrative - Education	0.05
+Administrative - Citizenship	Administrative - Environmental	0.05
+Administrative - Citizenship	Administrative - Licenses, planning and construction	0.05
+Administrative - Citizenship	Administrative - Media	0.05
+Administrative - Citizenship	Administrative - Municipalities	0.05
+Administrative - Citizenship	Administrative - Tender	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Citizenship	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Education	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Environmental	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Licenses, planning and construction	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Media	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Municipalities	0.05
+Administrative - Commercial and Economic Regulation	Administrative - Tender	0.05
+Administrative - Education	Administrative - Citizenship	0.05
+Administrative - Education	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Education	Administrative - Environmental	0.05
+Administrative - Education	Administrative - Licenses, planning and construction	0.05
+Administrative - Education	Administrative - Media	0.05
+Administrative - Education	Administrative - Municipalities	0.05
+Administrative - Education	Administrative - Tender	0.05
+Administrative - Environmental	Administrative - Citizenship	0.05
+Administrative - Environmental	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Environmental	Administrative - Education	0.05
+Administrative - Environmental	Administrative - Licenses, planning and construction	0.05
+Administrative - Environmental	Administrative - Media	0.05
+Administrative - Environmental	Administrative - Municipalities	0.05
+Administrative - Environmental	Administrative - Tender	0.05
+Administrative - Licenses, planning and construction	Administrative - Citizenship	0.05
+Administrative - Licenses, planning and construction	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Licenses, planning and construction	Administrative - Education	0.05
+Administrative - Licenses, planning and construction	Administrative - Environmental	0.05
+Administrative - Licenses, planning and construction	Administrative - Media	0.05
+Administrative - Licenses, planning and construction	Administrative - Municipalities	0.05
+Administrative - Licenses, planning and construction	Administrative - Tender	0.05
+Administrative - Media	Administrative - Citizenship	0.05
+Administrative - Media	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Media	Administrative - Education	0.05
+Administrative - Media	Administrative - Environmental	0.05
+Administrative - Media	Administrative - Licenses, planning and construction	0.05
+Administrative - Media	Administrative - Municipalities	0.05
+Administrative - Media	Administrative - Tender	0.05
+Administrative - Municipalities	Administrative - Citizenship	0.05
+Administrative - Municipalities	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Municipalities	Administrative - Education	0.05
+Administrative - Municipalities	Administrative - Environmental	0.05
+Administrative - Municipalities	Administrative - Licenses, planning and construction	0.05
+Administrative - Municipalities	Administrative - Media	0.05
+Administrative - Municipalities	Administrative - Tender	0.05
+Administrative - Tender	Administrative - Citizenship	0.05
+Administrative - Tender	Administrative - Commercial and Economic Regulation	0.05
+Administrative - Tender	Administrative - Education	0.05
+Administrative - Tender	Administrative - Environmental	0.05
+Administrative - Tender	Administrative - Licenses, planning and construction	0.05
+Administrative - Tender	Administrative - Media	0.05
+Administrative - Tender	Administrative - Municipalities	0.05
+Civil - Bankruptcy	Civil - Contracts	0.05
+Civil - Bankruptcy	Civil - Corporate/Commercial	0.05
+Civil - Bankruptcy	Civil - Equity and Trusts	0.05
+Civil - Bankruptcy	Civil - Fiscal/Tax	0.05
+Civil - Bankruptcy	Civil - Intellectual Property	0.05
+Civil - Bankruptcy	Civil - Land	0.05
+Civil - Bankruptcy	Civil - Procedure and Evidence	0.05
+Civil - Bankruptcy	Civil - Property	0.05
+Civil - Bankruptcy	Civil - Torts	0.05
+Civil - Contracts	Civil - Bankruptcy	0.05
+Civil - Contracts	Civil - Corporate/Commercial	0.05
+Civil - Contracts	Civil - Equity and Trusts	0.05
+Civil - Contracts	Civil - Fiscal/Tax	0.05
+Civil - Contracts	Civil - Intellectual Property	0.05
+Civil - Contracts	Civil - Land	0.05
+Civil - Contracts	Civil - Procedure and Evidence	0.05
+Civil - Contracts	Civil - Property	0.05
+Civil - Contracts	Civil - Torts	0.05
+Civil - Corporate/Commercial	Civil - Bankruptcy	0.05
+Civil - Corporate/Commercial	Civil - Contracts	0.05
+Civil - Corporate/Commercial	Civil - Equity and Trusts	0.05
+Civil - Corporate/Commercial	Civil - Fiscal/Tax	0.05
+Civil - Corporate/Commercial	Civil - Intellectual Property	0.05
+Civil - Corporate/Commercial	Civil - Land	0.05
+Civil - Corporate/Commercial	Civil - Procedure and Evidence	0.05
+Civil - Corporate/Commercial	Civil - Property	0.05
+Civil - Corporate/Commercial	Civil - Torts	0.05
+Civil - Equity and Trusts	Civil - Bankruptcy	0.05
+Civil - Equity and Trusts	Civil - Contracts	0.05
+Civil - Equity and Trusts	Civil - Corporate/Commercial	0.05
+Civil - Equity and Trusts	Civil - Fiscal/Tax	0.05
+Civil - Equity and Trusts	Civil - Intellectual Property	0.05
+Civil - Equity and Trusts	Civil - Land	0.05
+Civil - Equity and Trusts	Civil - Procedure and Evidence	0.05
+Civil - Equity and Trusts	Civil - Property	0.05
+Civil - Equity and Trusts	Civil - Torts	0.05
+Civil - Fiscal/Tax	Civil - Bankruptcy	0.05
+Civil - Fiscal/Tax	Civil - Contracts	0.05
+Civil - Fiscal/Tax	Civil - Corporate/Commercial	0.05
+Civil - Fiscal/Tax	Civil - Equity and Trusts	0.05
+Civil - Fiscal/Tax	Civil - Intellectual Property	0.05
+Civil - Fiscal/Tax	Civil - Land	0.05
+Civil - Fiscal/Tax	Civil - Procedure and Evidence	0.05
+Civil - Fiscal/Tax	Civil - Property	0.05
+Civil - Fiscal/Tax	Civil - Torts	0.05
+Civil - Intellectual Property	Civil - Bankruptcy	0.05
+Civil - Intellectual Property	Civil - Contracts	0.05
+Civil - Intellectual Property	Civil - Corporate/Commercial	0.05
+Civil - Intellectual Property	Civil - Equity and Trusts	0.05
+Civil - Intellectual Property	Civil - Fiscal/Tax	0.05
+Civil - Intellectual Property	Civil - Land	0.05
+Civil - Intellectual Property	Civil - Procedure and Evidence	0.05
+Civil - Intellectual Property	Civil - Property	0.05
+Civil - Intellectual Property	Civil - Torts	0.05
+Civil - Land	Civil - Bankruptcy	0.05
+Civil - Land	Civil - Contracts	0.05
+Civil - Land	Civil - Corporate/Commercial	0.05
+Civil - Land	Civil - Equity and Trusts	0.05
+Civil - Land	Civil - Fiscal/Tax	0.05
+Civil - Land	Civil - Intellectual Property	0.05
+Civil - Land	Civil - Procedure and Evidence	0.05
+Civil - Land	Civil - Property	0.05
+Civil - Land	Civil - Torts	0.05
+Civil - Procedure and Evidence	Civil - Bankruptcy	0.05
+Civil - Procedure and Evidence	Civil - Contracts	0.05
+Civil - Procedure and Evidence	Civil - Corporate/Commercial	0.05
+Civil - Procedure and Evidence	Civil - Equity and Trusts	0.05
+Civil - Procedure and Evidence	Civil - Fiscal/Tax	0.05
+Civil - Procedure and Evidence	Civil - Intellectual Property	0.05
+Civil - Procedure and Evidence	Civil - Land	0.05
+Civil - Procedure and Evidence	Civil - Property	0.05
+Civil - Procedure and Evidence	Civil - Torts	0.05
+Civil - Property	Civil - Bankruptcy	0.05
+Civil - Property	Civil - Contracts	0.05
+Civil - Property	Civil - Corporate/Commercial	0.05
+Civil - Property	Civil - Equity and Trusts	0.05
+Civil - Property	Civil - Fiscal/Tax	0.05
+Civil - Property	Civil - Intellectual Property	0.05
+Civil - Property	Civil - Land	0.05
+Civil - Property	Civil - Procedure and Evidence	0.05
+Civil - Property	Civil - Torts	0.05
+Civil - Torts	Civil - Bankruptcy	0.05
+Civil - Torts	Civil - Contracts	0.05
+Civil - Torts	Civil - Corporate/Commercial	0.05
+Civil - Torts	Civil - Equity and Trusts	0.05
+Civil - Torts	Civil - Fiscal/Tax	0.05
+Civil - Torts	Civil - Intellectual Property	0.05
+Civil - Torts	Civil - Land	0.05
+Civil - Torts	Civil - Procedure and Evidence	0.05
+Civil - Torts	Civil - Property	0.05
+Family - Alimony and assets	Family - Custody and guardiandship	0.05
+Family - Alimony and assets	Family - Wills and successions	0.05
+Family - Custody and guardiandship	Family - Alimony and assets	0.05
+Family - Custody and guardiandship	Family - Wills and successions	0.05
+Family - Wills and successions	Family - Alimony and assets	0.05
+Family - Wills and successions	Family - Custody and guardiandship	0.05
+Religious - Other religions	Religious - Rabbinical courts	0.05
+Religious - Rabbinical courts	Religious - Other religions	0.05
+Criminal - Appeal on sentence	Criminal - Arrests	0.05
+Criminal - Appeal on sentence	Criminal - Corruption	0.05
+Criminal - Appeal on sentence	Criminal - Drugs	0.05
+Criminal - Appeal on sentence	Criminal - Prisioner's petitions	0.05
+Criminal - Appeal on sentence	Criminal - Procedure & Evidence	0.05
+Criminal - Appeal on sentence	Criminal - Security	0.05
+Criminal - Appeal on sentence	Criminal - Sex	0.05
+Criminal - Appeal on sentence	Criminal - Traffic	0.05
+Criminal - Appeal on sentence	Criminal - Violence	0.05
+Criminal - Appeal on sentence	Criminal - White collar	0.05
+Criminal - Arrests	Criminal - Appeal on sentence	0.05
+Criminal - Arrests	Criminal - Corruption	0.05
+Criminal - Arrests	Criminal - Drugs	0.05
+Criminal - Arrests	Criminal - Prisioner's petitions	0.05
+Criminal - Arrests	Criminal - Procedure & Evidence	0.05
+Criminal - Arrests	Criminal - Security	0.05
+Criminal - Arrests	Criminal - Sex	0.05
+Criminal - Arrests	Criminal - Traffic	0.05
+Criminal - Arrests	Criminal - Violence	0.05
+Criminal - Arrests	Criminal - White collar	0.05
+Criminal - Corruption	Criminal - Appeal on sentence	0.05
+Criminal - Corruption	Criminal - Arrests	0.05
+Criminal - Corruption	Criminal - Drugs	0.05
+Criminal - Corruption	Criminal - Prisioner's petitions	0.05
+Criminal - Corruption	Criminal - Procedure & Evidence	0.05
+Criminal - Corruption	Criminal - Security	0.05
+Criminal - Corruption	Criminal - Sex	0.05
+Criminal - Corruption	Criminal - Traffic	0.05
+Criminal - Corruption	Criminal - Violence	0.05
+Criminal - Corruption	Criminal - White collar	0.05
+Criminal - Drugs	Criminal - Appeal on sentence	0.05
+Criminal - Drugs	Criminal - Arrests	0.05
+Criminal - Drugs	Criminal - Corruption	0.05
+Criminal - Drugs	Criminal - Prisioner's petitions	0.05
+Criminal - Drugs	Criminal - Procedure & Evidence	0.05
+Criminal - Drugs	Criminal - Security	0.05
+Criminal - Drugs	Criminal - Sex	0.05
+Criminal - Drugs	Criminal - Traffic	0.05
+Criminal - Drugs	Criminal - Violence	0.05
+Criminal - Drugs	Criminal - White collar	0.05
+Criminal - Prisioner's petitions	Criminal - Appeal on sentence	0.05
+Criminal - Prisioner's petitions	Criminal - Arrests	0.05
+Criminal - Prisioner's petitions	Criminal - Corruption	0.05
+Criminal - Prisioner's petitions	Criminal - Drugs	0.05
+Criminal - Prisioner's petitions	Criminal - Procedure & Evidence	0.05
+Criminal - Prisioner's petitions	Criminal - Security	0.05
+Criminal - Prisioner's petitions	Criminal - Sex	0.05
+Criminal - Prisioner's petitions	Criminal - Traffic	0.05
+Criminal - Prisioner's petitions	Criminal - Violence	0.05
+Criminal - Prisioner's petitions	Criminal - White collar	0.05
+Criminal - Procedure & Evidence	Criminal - Appeal on sentence	0.05
+Criminal - Procedure & Evidence	Criminal - Arrests	0.05
+Criminal - Procedure & Evidence	Criminal - Corruption	0.05
+Criminal - Procedure & Evidence	Criminal - Drugs	0.05
+Criminal - Procedure & Evidence	Criminal - Prisioner's petitions	0.05
+Criminal - Procedure & Evidence	Criminal - Security	0.05
+Criminal - Procedure & Evidence	Criminal - Sex	0.05
+Criminal - Procedure & Evidence	Criminal - Traffic	0.05
+Criminal - Procedure & Evidence	Criminal - Violence	0.05
+Criminal - Procedure & Evidence	Criminal - White collar	0.05
+Criminal - Security	Criminal - Appeal on sentence	0.05
+Criminal - Security	Criminal - Arrests	0.05
+Criminal - Security	Criminal - Corruption	0.05
+Criminal - Security	Criminal - Drugs	0.05
+Criminal - Security	Criminal - Prisioner's petitions	0.05
+Criminal - Security	Criminal - Procedure & Evidence	0.05
+Criminal - Security	Criminal - Sex	0.05
+Criminal - Security	Criminal - Traffic	0.05
+Criminal - Security	Criminal - Violence	0.05
+Criminal - Security	Criminal - White collar	0.05
+Criminal - Sex	Criminal - Appeal on sentence	0.05
+Criminal - Sex	Criminal - Arrests	0.05
+Criminal - Sex	Criminal - Corruption	0.05
+Criminal - Sex	Criminal - Drugs	0.05
+Criminal - Sex	Criminal - Prisioner's petitions	0.05
+Criminal - Sex	Criminal - Procedure & Evidence	0.05
+Criminal - Sex	Criminal - Security	0.05
+Criminal - Sex	Criminal - Traffic	0.05
+Criminal - Sex	Criminal - Violence	0.05
+Criminal - Sex	Criminal - White collar	0.05
+Criminal - Traffic	Criminal - Appeal on sentence	0.05
+Criminal - Traffic	Criminal - Arrests	0.05
+Criminal - Traffic	Criminal - Corruption	0.05
+Criminal - Traffic	Criminal - Drugs	0.05
+Criminal - Traffic	Criminal - Prisioner's petitions	0.05
+Criminal - Traffic	Criminal - Procedure & Evidence	0.05
+Criminal - Traffic	Criminal - Security	0.05
+Criminal - Traffic	Criminal - Sex	0.05
+Criminal - Traffic	Criminal - Violence	0.05
+Criminal - Traffic	Criminal - White collar	0.05
+Criminal - Violence	Criminal - Appeal on sentence	0.05
+Criminal - Violence	Criminal - Arrests	0.05
+Criminal - Violence	Criminal - Corruption	0.05
+Criminal - Violence	Criminal - Drugs	0.05
+Criminal - Violence	Criminal - Prisioner's petitions	0.05
+Criminal - Violence	Criminal - Procedure & Evidence	0.05
+Criminal - Violence	Criminal - Security	0.05
+Criminal - Violence	Criminal - Sex	0.05
+Criminal - Violence	Criminal - Traffic	0.05
+Criminal - Violence	Criminal - White collar	0.05
+Criminal - White collar	Criminal - Appeal on sentence	0.05
+Criminal - White collar	Criminal - Arrests	0.05
+Criminal - White collar	Criminal - Corruption	0.05
+Criminal - White collar	Criminal - Drugs	0.05
+Criminal - White collar	Criminal - Prisioner's petitions	0.05
+Criminal - White collar	Criminal - Procedure & Evidence	0.05
+Criminal - White collar	Criminal - Security	0.05
+Criminal - White collar	Criminal - Sex	0.05
+Criminal - White collar	Criminal - Traffic	0.05
+Criminal - White collar	Criminal - Violence	0.05
+Constitutional - Election law	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Election law	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Election law	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Election law	Constitutional - Human Rights - Due process	0.05
+Constitutional - Election law	Constitutional - Human Rights - Education	0.05
+Constitutional - Election law	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Election law	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Election law	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Election law	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Election law	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Election law	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Election law	Constitutional - Human Rights - Interest	0.05
+Constitutional - Election law	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Election law	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Election law	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Election law	Constitutional - Human Rights - Property	0.05
+Constitutional - Election law	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Election law	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Election law	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Election law	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Election law	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Election law	Constitutional - Religion and State	0.05
+Constitutional - Election law	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Election law	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Access to courts	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Election law	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Autonomy	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Election law	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Dignity	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Due process	Constitutional - Election law	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Due process	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Due process	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Due process	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Education	Constitutional - Election law	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Education	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Education	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Education	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Election law	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Equality/ Discrimination	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Election law	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Freedom of association	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Election law	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Freedom of/from religion	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Election law	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Freedom of movement	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Election law	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Freedom of occupation	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Election law	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Freedom of speech	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Interest	Constitutional - Election law	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Interest	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Interest	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Interest	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Election law	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Liberty	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Election law	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Minimal conditions for existence in Dignity	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Election law	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Privacy	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Property	Constitutional - Election law	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Property	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Property	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Property	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Election law	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Right to family life	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Election law	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Right to health	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Election law	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - Right to life	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Election law	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - The right to a nationality	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Election law	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Due process	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Education	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Interest	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Property	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Religion and State	0.05
+Constitutional - Human Rights - The right to elect and to be elected	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Religion and State	Constitutional - Election law	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Due process	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Education	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Interest	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Property	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Religion and State	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Religion and State	Constitutional - Separation of powers and judicial power	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Election law	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Access to courts	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Autonomy	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Dignity	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Due process	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Education	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Equality/ Discrimination	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Freedom of association	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Freedom of/from religion	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Freedom of movement	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Freedom of occupation	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Freedom of speech	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Interest	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Liberty	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Minimal conditions for existence in Dignity	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Privacy	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Property	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Right to family life	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Right to health	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - Right to life	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - The right to a nationality	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Human Rights - The right to elect and to be elected	0.05
+Constitutional - Separation of powers and judicial power	Constitutional - Religion and State	0.05

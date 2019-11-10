@@ -2,6 +2,7 @@ package com.itcag.legalyzer.util.doc;
 
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.eval.Result;
+import com.itcag.util.MathToolbox;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -104,12 +105,22 @@ public class Sentence extends Scorer implements Text {
         
         StringBuilder retVal = new StringBuilder();
         
-        retVal.append(this.text);
+        retVal.append(this.text).append("\n");
+        
+        if (this.result.getHighestRanking() != null) {
+            retVal.append("Top: ").append(this.result.getHighestRanking().toString()).append("\n");
+            if (this.result.getHighestRanking().getIndex() == 0) {
+                if (this.result.getHighestRankingNotGeneric() != null) {
+                    retVal.append("Next: ").append(this.result.getHighestRankingNotGeneric().toString()).append("\n");
+                }
+            }
+        }
+        
         for (Recommendation recommendation : this.recommendations) {
             retVal.append("\n");
             retVal.append("\t").append(recommendation.getStrength());
-            retVal.append(" (").append(Integer.toString(recommendation.getValue())).append(")");
-            retVal.append("\t").append(recommendation.getCategory().getIndex()).append(" ").append(recommendation.getCategory().getLabel());
+            retVal.append(" (").append(Double.toString(MathToolbox.roundDouble(recommendation.getValue(), 2))).append(")");
+            retVal.append("\t").append(Integer.toString(recommendation.getCategory().getIndex())).append(" ").append(recommendation.getCategory().getLabel());
         }
         
         return retVal.toString();

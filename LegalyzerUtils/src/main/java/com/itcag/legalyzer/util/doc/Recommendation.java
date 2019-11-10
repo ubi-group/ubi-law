@@ -4,8 +4,8 @@ import com.itcag.legalyzer.util.cat.Category;
 
 public class Recommendation {
 
-    private final static int STRONG_UPPER_THRESHOLD = 75;
-    private final static int STRONG_LOWER_THRESHOLD = 25;
+    private final static double STRONG_UPPER_THRESHOLD = 0.95;
+    private final static double STRONG_LOWER_THRESHOLD = 0.85;
 
     public enum Strength {
         
@@ -29,9 +29,9 @@ public class Recommendation {
     
     private final Category category;
     private final Strength strength;
-    private final int value;
+    private final double value;
     
-    public Recommendation(Category category, int value) {
+    public Recommendation(Category category, double value) {
         this.category = category;
         this.value = value;
         if (value >= STRONG_UPPER_THRESHOLD) {
@@ -51,8 +51,13 @@ public class Recommendation {
         return strength;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
+    }
+    
+    @Override
+    public String toString() {
+        return this.strength + " (" + this.value + ") " + this.category.getIndex() + " " + this.category.getLabel();
     }
     
 }
