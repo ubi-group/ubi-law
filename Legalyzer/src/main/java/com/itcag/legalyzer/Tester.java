@@ -15,9 +15,11 @@ import com.itcag.legalyzer.util.parse.ParserFields;
 import com.itcag.legalyzer.util.parse.SimpleParser;
 import com.itcag.util.Printer;
 import com.itcag.util.io.TextFileReader;
+
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -26,6 +28,7 @@ public class Tester {
     public static void main(String[] args) throws Exception {
 
         String folderPath = "/home/nahum/Desktop/hebrew/high court rulings/";
+        String filePath = "/home/nahum/Desktop/hebrew/high court rulings/1000037.txt";
 
         String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
         
@@ -33,9 +36,9 @@ public class Tester {
 
         Legalyzer legalyzer = new Legalyzer(categories);
 
-        processFolder(folderPath, legalyzer);
+//        processFolder(folderPath, legalyzer);
+        processFile(new File(filePath), legalyzer);
 
-//        processDocument("", legalyzer);
         
     }
 
@@ -55,8 +58,13 @@ public class Tester {
         
         String id = file.getName().replace(".txt", "");
         
+        Printer.print("----------------------------------------------------------------");
+        Printer.print(id);
         evaluate(id, lines, legalyzer);
-        extract(id, lines, legalyzer);
+//        extract(id, lines, legalyzer);
+        Printer.print("----------------------------------------------------------------");
+        Printer.print();
+        Printer.print();
         
     }
     
@@ -84,7 +92,6 @@ public class Tester {
                         if (sentence.getResult().getHighestRanking().getIndex() != 0) {
                             
                             Printer.print(sentence.getText());
-                            Printer.print(document.getId());
                             Printer.print(sentence.getResult().getHighestRanking().toString());
 
                             for (Recommendation recommendation : sentence.getRecommendations()) {
@@ -102,6 +109,16 @@ public class Tester {
                 }
                 
             }
+            
+            /*
+            LinkedHashMap<Integer, Category> aggregated = paragraph.getEvaluation(legalyzer.getCategories().get());
+            Printer.print("Aggregated at the paragraph level:");
+            Printer.print(paragraph.getText());
+            for (Map.Entry<Integer, Category> entry : aggregated.entrySet()) {
+                Printer.print("\t" + entry.getValue().toString());
+            }
+            Printer.print();
+            */
             
         }
         

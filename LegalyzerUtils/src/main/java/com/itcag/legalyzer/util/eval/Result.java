@@ -1,18 +1,21 @@
 package com.itcag.legalyzer.util.eval;
 
 import com.itcag.legalyzer.util.cat.Category;
+import java.util.Map;
 
 import java.util.TreeMap;
 
 public class Result {
 
-    protected final TreeMap<Integer, Category> categories;
+    protected final TreeMap<Integer, Category> categories = new TreeMap<>();
     
     private Category highestRanking = null; 
     private Category highestRankingNotGeneric = null; 
     
     public Result(TreeMap<Integer, Category> categories) {
-        this.categories = categories;
+        categories.entrySet().forEach((entry) -> {
+            this.categories.put(entry.getKey(), new Category(entry.getValue().getIndex(), entry.getValue().getLabel()));
+        });
     }
     
     public TreeMap<Integer, Category> getCategories() {
