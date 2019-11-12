@@ -48,7 +48,16 @@
     <servlet-mapping>
         <servlet-name>ProcessDocumentOutput</servlet-name>
         <url-pattern>/ProcessDocumentOutput</url-pattern>
-    </servlet-mapping>  
+    </servlet-mapping> 
+    <!-- -->  
+    <servlet>
+        <servlet-name>EditSentencesClassification</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.EditSentencesClassification</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditSentencesClassification</servlet-name>
+        <url-pattern>/EditSentencesClassification</url-pattern>
+    </servlet-mapping>      
     <!-- -->     
     <session-config>
         <session-timeout>

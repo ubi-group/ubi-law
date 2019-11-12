@@ -8,9 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-
 public final class DataToolbox {
     
     public static JSONObject getResultSingle(JSONArray arrJSON, String msg) throws Exception  {

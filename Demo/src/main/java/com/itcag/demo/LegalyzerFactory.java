@@ -13,7 +13,7 @@ public class LegalyzerFactory {
     private LegalyzerFactory() throws Exception { 
         
         categories = new Categories(Config.CATEGORIES_PATH);
-        legalyzer = new Legalyzer(categories);
+        legalyzer = new Legalyzer(getCategories());
     } 
   
     public static LegalyzerFactory getInstance() throws Exception {
@@ -27,6 +27,13 @@ public class LegalyzerFactory {
     public Legalyzer getLegalyzer() {
         
         return legalyzer;
+    }
+
+    /**
+     * @return the categories
+     */
+    public static Categories getCategories() {
+        return categories;
     }
     
 }

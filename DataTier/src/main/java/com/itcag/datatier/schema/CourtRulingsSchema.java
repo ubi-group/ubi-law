@@ -15,11 +15,34 @@ public class CourtRulingsSchema {
 
         JSONObject properties = new JSONObject();
         properties.put(DocumentFields.id.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
+        properties.put(DocumentFields.paragraphs.getFieldName(), SchemaToolbox.getNestedSettings(geSentencesSchema()));
  
         retVal.put(Constants.PROPERTIES, properties);
 
         return retVal;
 
     }
+
+    public static JSONObject geSentencesSchema() throws JSONException {
+
+        JSONObject retVal = new JSONObject();
+
+        retVal.put(DocumentFields.sentences.getFieldName(), SchemaToolbox.getNestedSettings(geSentenceSchema()));
+
+        return retVal;
+
+    }     
+
+    public static JSONObject geSentenceSchema() throws JSONException {
+
+        JSONObject retVal = new JSONObject();
+
+        retVal.put(DocumentFields.paragraphIndex.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
+        retVal.put(DocumentFields.index.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.KEYWORD, IndexOptions.TRUE));
+        retVal.put(DocumentFields.text.getFieldName(), SchemaToolbox.getFieldSettings(ESDataTypes.TEXT, IndexOptions.FALSE));
+        
+        return retVal;
+
+    }       
     
 }

@@ -3,6 +3,11 @@ package com.itcag.datatier.schema;
 public enum DocumentFields {
 
     id("id"),
+    paragraphs("paragraphs"),
+    sentences("sentences"),
+    paragraphIndex("paragraphIndex"),
+    index("index"),
+    text("text"),
     
     ;
 
