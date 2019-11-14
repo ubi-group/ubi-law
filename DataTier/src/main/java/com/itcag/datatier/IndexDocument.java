@@ -3,6 +3,7 @@ package com.itcag.datatier;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 
 public class IndexDocument {
@@ -12,7 +13,11 @@ public class IndexDocument {
         IndexRequest request = new IndexRequest(indexName); 
         request.source(content, XContentType.JSON); 
         
-        IndexResponse indexResponse = ElasticsearchRestClient.getClient().index(request, RequestOptions.DEFAULT);
+        RestHighLevelClient client = ElasticsearchRestClient.getClient();
+        
+        IndexResponse indexResponse = client.index(request, RequestOptions.DEFAULT);
+        
+        client.close();
 
         return indexResponse.getId();
    

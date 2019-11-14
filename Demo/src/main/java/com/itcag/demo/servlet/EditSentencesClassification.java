@@ -11,9 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.w3c.dom.Document;
 
-public class ProcessDocumentOutput extends HttpServlet {
+public class EditSentencesClassification extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,21 +21,26 @@ public class ProcessDocumentOutput extends HttpServlet {
             
             request.setCharacterEncoding("UTF-8");
             
-            String url = request.getParameter(FormFields.ID.getName());        
-           
-            if (TextToolbox.isReallyEmpty(url)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
+            String id = request.getParameter(FormFields.ID.getName());     
+            String paragraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
+System.out.println(id);
+System.out.println("paragraphIndex:" + paragraphIndex);
+
+            if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
+            if (TextToolbox.isReallyEmpty(paragraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());
             
-            com.itcag.legalyzer.util.doc.Document doc = DocumentProcessor.classify(url);
+            com.itcag.legalyzer.util.doc.Document doc = DocumentProcessor.classify(id);
             
             HTTPToolbox.prepareResponse(response);
-            
-            String html = HTMLProcessDocumentOutput.get(doc);
+           
+//            String html = HTMLProcessDocumentOutput.get(doc);
+            String html = "";
             try (PrintWriter out = response.getWriter()) {
                 out.println(html);
             } catch (Exception ex) {
                 throw ex;
             }
-
+            
         } catch (Exception ex) {
             
             throw new ServletException(ex);
@@ -50,4 +54,6 @@ public class ProcessDocumentOutput extends HttpServlet {
 
 
     }
+    
+    
 }

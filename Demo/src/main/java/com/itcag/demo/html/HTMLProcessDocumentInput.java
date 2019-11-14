@@ -33,7 +33,7 @@ public class HTMLProcessDocumentInput {
 
         subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_INPUT.getTitle(), doc));
 
-        subElt.appendChild(HTMLGeneratorToolbox.getInput(null, FormFields.URL.getName(), false, true, doc));
+        subElt.appendChild(HTMLGeneratorToolbox.getInput(null, FormFields.ID.getName(), false, true, doc));
         
         subElt.appendChild(HTMLGeneratorToolbox.getSearchButton(doc, "Classify"));
 

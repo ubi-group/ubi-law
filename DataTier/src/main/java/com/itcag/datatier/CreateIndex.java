@@ -14,6 +14,7 @@ public class CreateIndex {
       
         request.mapping(mapping, XContentType.JSON);
         CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT); 
+        
         return createIndexResponse.index();
    
     }

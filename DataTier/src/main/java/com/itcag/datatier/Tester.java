@@ -1,13 +1,15 @@
 package com.itcag.datatier;
 
-import org.apache.lucene.search.TotalHits;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RequestOptions;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.json.JSONObject;
 
 public class Tester {
 
@@ -16,30 +18,51 @@ public class Tester {
 //        CorrectionsCleaner.cleanIndex();
 //        DataTrainingCleaner.cleanIndex();
 //        CategoriesCleaner.cleanIndex();
-//        CourtRulingsCleaner.cleanIndex();
+//       CourtRulingsCleaner.cleanIndex();
+       
+Map<String, String> propertyValues = new HashMap<String, String>();
+propertyValues.put("paragraphs.sentences.paragraphIndex", 0+"");
+propertyValues.put("paragraphs.sentences.index", 1+"");
 
-SearchRequest searchRequest = new SearchRequest("court_rulings");
+NestedQueryBuilder nested = SearchIndex.nestedBoolQuery(propertyValues, "paragraphs.sentences");
 
-SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); 
-sourceBuilder.query(QueryBuilders.termQuery("id", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\18\\400\\077\\z04&fileName=18077400.Z04&type=2"));
-sourceBuilder.from(0); 
-sourceBuilder.size(5);
+NestedQueryBuilder outside = QueryBuilders.nestedQuery("paragraphs", nested, ScoreMode.None);
 
-SearchResponse searchResponse = ElasticsearchRestClient.getClient().search(searchRequest, RequestOptions.DEFAULT);
 
-SearchHits hits = searchResponse.getHits();
-TotalHits totalHits = hits.getTotalHits();
-// the total number of hits, must be interpreted in the context of totalHits.relation
-long numHits = totalHits.value;
-SearchHit[] searchHits = hits.getHits();
+ 
+        ArrayList<JSONObject> arr = SearchIndex.searchIndex2("court_rulings", 0,10, propertyValues,"paragraphs.sentences", "paragraphs", "id", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\17\\320\\084\\g16&fileName=17084320.G16&type=2");
+        System.out.println(arr.size());
+        
+//IndexDocument.indexDocument("court_rulings","{ \"id\": \"xxx\"}");
+        
 
-System.out.println("WYNIKI:");
-for (SearchHit hit : searchHits) {
-String sourceAsString = hit.getSourceAsString();
-System.out.println(sourceAsString);
-}
-System.out.println("~~~~~~~~~~~~~~~~");
+//            ArrayList<JSONObject> results = SearchIndex.searchIndex(Indices.COURT_RULINGS.getFieldName(), 0, 1, DocumentFields.id.getFieldName(), "/Home/Download?path=HebrewVerdicts\\18\\400\\077\\z04&fileName=18077400.Z04&type=2");
+//System.out.println(results);
+
 
     }   
+    
+    /*
+{
+    "query" : {
+        "nested" : {
+            "path" : "paragraphs",
+            "query" : {
+                "nested" : {
+                    "path" :  "paragraphs.sentences",
+                    "query" :  {
+                        "bool" : {
+                            "must" : [
+                                { "match" : { "paragraphs.sentences.paragraphIndex" : 1 } },
+                                { "match" : { "paragraphs.sentences.index" : 3 } }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}    
+    */
     
 }

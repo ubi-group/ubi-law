@@ -9,10 +9,6 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 
-/**
- * ProxyManager provides connection to Elasticsearch via proxy server
- * @author IT Consulting Alicja Grużdź
- */
 public class ProxyManager {
     
     protected static HttpURLConnection getConnection(URL serverAddress) throws Exception {

@@ -10,10 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Transporter uses Elasticsearch RESTful API with JSON over HTTP to send requests and receive Elasticsearch responses.
- * @author IT Consulting Alicja Grużdź
- */
 public class Transporter {
    
     public static HttpURLConnection getConnetion(String path, String method) throws Exception {
