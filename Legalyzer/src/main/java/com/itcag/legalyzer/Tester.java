@@ -1,5 +1,7 @@
 package com.itcag.legalyzer;
 
+import com.itcag.legalyzer.util.Configuration;
+import com.itcag.legalyzer.util.MyConfiguration;
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Document;
@@ -25,10 +27,12 @@ import java.util.Properties;
 
 public class Tester {
     
+    private final static Configuration configuration = Configuration.getInstance(MyConfiguration.FILE_NAME);
+    
     public static void main(String[] args) throws Exception {
 
         String folderPath = "/home/nahum/Desktop/hebrew/high court rulings/";
-        String filePath = "/home/nahum/Desktop/hebrew/high court rulings/1000037.txt";
+        String filePath = "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Licenses, planning and construction.txt";
 
         String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
         
@@ -58,13 +62,13 @@ public class Tester {
         
         String id = file.getName().replace(".txt", "");
         
-        Printer.print("----------------------------------------------------------------");
-        Printer.print(id);
+//        Printer.print("----------------------------------------------------------------");
+//        Printer.print(id);
         evaluate(id, lines, legalyzer);
 //        extract(id, lines, legalyzer);
-        Printer.print("----------------------------------------------------------------");
-        Printer.print();
-        Printer.print();
+//        Printer.print("----------------------------------------------------------------");
+//        Printer.print();
+//        Printer.print();
         
     }
     
@@ -76,20 +80,25 @@ public class Tester {
         config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
         config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
         config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
-        Document document = new Document(id, lines, new HCRulingParser(config));
+//        Document document = new Document(id, lines, new HCRulingParser(config));
+        Document document = new Document(id, lines, new SimpleParser(config));
         
-//        legalyzer.evaluate(document);
-        legalyzer.recommend(document);
+        legalyzer.evaluate(document);
+//        legalyzer.recommend(document);
         
         for (Paragraph paragraph : document.getParagraphs()) {
 
             for (Sentence sentence : paragraph.getSentences()) {
                 
                 if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
-                    
-                    if (sentence.getResult().getHighestRanking().getScore() > 0.5) {
 
-                        if (sentence.getResult().getHighestRanking().getIndex() != 0) {
+                    if (sentence.getResult().getHighestRanking().getIndex() == 14) {
+                        Printer.print(sentence.getText());
+                    }
+                    /*
+                    if (sentence.getResult().getHighestRanking().getScore() > configuration.getScoreThreshold()) {
+
+                        if (sentence.getResult().getHighestRanking().getIndex() > configuration.getLastGenericIndex()) {
                             
                             Printer.print(sentence.getText());
                             Printer.print(sentence.getResult().getHighestRanking().toString());
@@ -105,7 +114,8 @@ public class Tester {
                         }
 
                     }
-
+                    */
+                    
                 }
                 
             }

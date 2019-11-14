@@ -95,6 +95,10 @@ public class Trainer {
                 .activation(Activation.TANH).build())
             .layer( new LSTM.Builder().nIn(200).nOut(200)
                 .activation(Activation.TANH).build())
+            .layer( new LSTM.Builder().nIn(200).nOut(200)
+                .activation(Activation.TANH).build())
+            .layer( new LSTM.Builder().nIn(200).nOut(200)
+                .activation(Activation.TANH).build())
             .layer(new RnnOutputLayer.Builder().activation(Activation.SIGMOID)
                 .lossFunction(LossFunctions.LossFunction.XENT).nIn(200).nOut(outputs).build())
             .build();
@@ -113,7 +117,7 @@ public class Trainer {
         log.info("Evaluating...");
 
         Evaluation eval = net.evaluate(testData);
-        log.info(eval.stats(false, true));
+        log.info(eval.stats());
 
 //        ROC roc = net.evaluateROC(testData, 0);
 //        log.info(roc.stats());
@@ -132,7 +136,7 @@ public class Trainer {
         config.setProperty(ConfigurationFields.TEST_DATA_PATH.getName(), Config.TEST_DATA_PATH);
         
         config.setProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName(), "300");
-        config.setProperty(ConfigurationFields.BATCH_SIZE.getName(), "25");
+        config.setProperty(ConfigurationFields.BATCH_SIZE.getName(), "50");
         config.setProperty(ConfigurationFields.EPOCHS.getName(), "100");
         
         config.setProperty(ConfigurationFields.LEARNING_RATE.getName(), "0.0018");

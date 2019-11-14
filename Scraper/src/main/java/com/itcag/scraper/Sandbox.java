@@ -16,38 +16,7 @@ public class Sandbox {
         
         
         processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
-//        processFile("/home/nahum/Desktop/legaltech/experiments/original/Criminal - Prisioner's petitions.txt");
-        
-//        removeConfusedSentences("/home/nahum/Desktop/legaltech/experiments/confused_sentences", "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Commercial and Economic Regulation.txt");
-
-    }
-    
-    private static void removeConfusedSentences(String sourcePath, String targetPath) throws Exception {
-        
-        HashSet<String> filter = new HashSet<>();
-        
-        ArrayList<String> lines = TextFileReader.read(sourcePath);
-        lines.forEach((line) -> {
-            filter.add(line);
-        });
-        
-        HashSet<String> outputLines = new HashSet<>();
-        
-        lines = TextFileReader.read(targetPath);
-        System.out.println("Before removal: " + lines.size());
-        System.out.println("To be removed: " + filter.size());
-        for (String line : lines) {
-            if (!filter.contains(line)) outputLines.add(line);
-        }
-        
-        TextFileWriter writer = new TextFileWriter(targetPath);
-        for (String outputLine : outputLines) {
-            writer.write(outputLine);
-        }
-        writer.close();
-        
-        System.out.println("After removal: " + outputLines.size());
-        System.out.println("Removed: " + (lines.size() - outputLines.size()));
+//        processFile("/home/nahum/Desktop/legaltech/experiments/tmp");
         
     }
     
@@ -68,7 +37,7 @@ public class Sandbox {
     
     private static void processFile(String filePath) throws Exception {
     
-        String filter = "עתירת";
+        String filter = "מעמד";
         
         ArrayList<String> lines = TextFileReader.read(filePath);
 

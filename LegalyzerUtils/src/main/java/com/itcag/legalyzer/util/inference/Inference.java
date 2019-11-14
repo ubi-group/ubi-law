@@ -1,5 +1,7 @@
 package com.itcag.legalyzer.util.inference;
 
+import com.itcag.legalyzer.util.Configuration;
+import com.itcag.legalyzer.util.MyConfiguration;
 import com.itcag.legalyzer.util.cat.Categories;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Document;
@@ -7,7 +9,6 @@ import com.itcag.legalyzer.util.doc.Paragraph;
 import com.itcag.legalyzer.util.doc.Recommendation;
 import com.itcag.legalyzer.util.doc.Sentence;
 import com.itcag.util.MathToolbox;
-import com.itcag.util.Printer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -16,6 +17,8 @@ import java.util.TreeMap;
 public class Inference {
 
     private final Ontology ontology;
+
+    private final Configuration config = Configuration.getInstance(MyConfiguration.FILE_NAME);
     
     public Inference(Categories categories) throws Exception {
         this.ontology = new Ontology(categories);
@@ -34,7 +37,7 @@ public class Inference {
                 Category highestRanking = sentence.getResult().getHighestRanking();
                 if (highestRanking == null) continue;
                 
-                if (highestRanking.getIndex() == 0) {
+                if (highestRanking.getIndex() <= config.getLastGenericIndex()) {
                     highestRanking = sentence.getResult().getHighestRankingNotGeneric();
                     if (highestRanking == null) continue;
                     if (highestRanking.getScore() < threshold) return retVal;

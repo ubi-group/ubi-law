@@ -47,7 +47,7 @@ public class Tester {
          * Example how to test a document.
          */
         
-        String documentFilePath = "/home/nahum/Desktop/hebrew/high court rulings/1108295.txt";
+        String documentFilePath = "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Citizenship.txt";
         String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
         
         ArrayList<String> lines = TextFileReader.read(documentFilePath);
@@ -72,7 +72,6 @@ public class Tester {
         Categories categories = new Categories(categoryFilePath);
         
         for (Paragraph paragraph : document.getParagraphs()) {
-            Printer.print(paragraph.getText());
             LinkedHashMap<Integer, Category> evaluation = paragraph.getEvaluation(categories.get());
             for (Map.Entry<Integer, Category> entry : evaluation.entrySet()) {
                 Printer.print("\t" + entry.getValue().toString());

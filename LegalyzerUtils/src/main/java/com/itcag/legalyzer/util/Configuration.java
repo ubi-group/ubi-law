@@ -20,10 +20,8 @@ public class Configuration {
 
         MODEL_PATH("modelPath"),
 
+        LAST_GENERIC_INDEX("lastGenericIndex"),
         SCORE_THRESHOLD("scoreThreshold"),
-
-        MAXIMUM_ANCHORS("maxAnchors"),
-        EXCLUDE_TAG_FROM_ANCHORS("excludeTagsFromAnchors"),
 
         ;
 
@@ -56,10 +54,8 @@ public class Configuration {
     
     private final String modelPath;
     
+    private final int lastGenericIndex;
     private final double scoreThreshold;
-    
-    private final int maximumAnchors;
-    private final boolean excludeTagFromAnchors;
     
     private Configuration(String fileName) {
         
@@ -80,12 +76,10 @@ public class Configuration {
             this.testDataPath = this.dataPath + prop.getProperty(Fields.TEST_DATA_FOLDER.getName());
             
             this.modelPath = prop.getProperty(Fields.MODEL_PATH.getName());
-            
+
+            this.lastGenericIndex = Integer.parseInt(prop.getProperty(Fields.LAST_GENERIC_INDEX.getName()));
             this.scoreThreshold = Double.parseDouble(prop.getProperty(Fields.SCORE_THRESHOLD.getName()));
             
-            this.maximumAnchors = Integer.parseInt(prop.getProperty(Fields.MAXIMUM_ANCHORS.getName()));
-            this.excludeTagFromAnchors = Boolean.valueOf(prop.getProperty(Fields.EXCLUDE_TAG_FROM_ANCHORS.getName()));
-        
         } catch (IOException ex) {
             throw new IllegalArgumentException(ex);
         }
@@ -93,43 +87,39 @@ public class Configuration {
     }
 
     public String getWord2vecDataPath() {
-        return word2vecDataPath;
+        return this.word2vecDataPath;
     }
 
     public String getWord2vecPath() {
-        return word2vecPath;
+        return this.word2vecPath;
     }
 
     public String getCategoriesPath() {
-        return categoriesPath;
+        return this.categoriesPath;
     }
 
     public String getDataPath() {
-        return dataPath;
+        return this.dataPath;
     }
 
     public String getTrainingDataPath() {
-        return trainingDataPath;
+        return this.trainingDataPath;
     }
 
     public String getTestDataPath() {
-        return testDataPath;
+        return this.testDataPath;
     }
 
     public String getModelPath() {
-        return modelPath;
+        return this.modelPath;
     }
 
     public double getScoreThreshold() {
-        return scoreThreshold;
+        return this.scoreThreshold;
     }
 
-    public int getMaximumAnchors() {
-        return maximumAnchors;
-    }
-
-    public boolean isExcludeTagFromAnchors() {
-        return excludeTagFromAnchors;
+    public int getLastGenericIndex() {
+        return this.lastGenericIndex;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.itcag.dl.util.train;
 
-
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.util.MathToolbox;
 import com.itcag.util.io.TextFileReader;
@@ -42,8 +41,9 @@ public class TrainingDataFactory {
     
     private final static String CATEGORIES_FILE = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
 
-    private final static int TRAIN_DATA_SIZE = 100;
-    private final static int TEST_DATA_SIZE = 50;
+    private final static int TRAIN_DATA_SIZE = 300;
+    private final static int TEST_DATA_SIZE = 100;
+    private final static int GENERIC_CATEGORIES = 8;
     
     private final static ArrayList<String> CATEGORIES = new ArrayList<>();
     
@@ -137,15 +137,18 @@ System.out.println();
 
     private static void processCategories() throws Exception {
         
-        CATEGORIES.add("0,Generic");
+        for (int i = 0; i < GENERIC_CATEGORIES; i++) {
+//            CATEGORIES.add(Integer.toString(i) + ",Generic" + Integer.toString(i));
+            CATEGORIES.add(Integer.toString(i) + ",Generic");
+        }
         
-        int count = 1;
+        int count = GENERIC_CATEGORIES;
         
         for (Map.Entry<String, HashSet<String>>entry : DATA.entrySet()) {
 
-            ArrayList<ArrayList<String>> data = splitData(new ArrayList<>(entry.getValue()));
+            ArrayList<ArrayList<String>> data = splitData(new ArrayList<>(entry.getValue()), false);
             if (data.get(0).size() < TRAIN_DATA_SIZE) continue;
-            if (data.get(0).size() < TEST_DATA_SIZE) continue;
+            if (data.get(1).size() < TEST_DATA_SIZE) continue;
             
             ArrayList<String> train = new ArrayList<>();
             while (train.size() < TRAIN_DATA_SIZE) {
@@ -171,38 +174,46 @@ System.out.println();
     
     private static void processGeneric() throws Exception {
         
-        ArrayList<ArrayList<String>> data = splitData(new ArrayList<>(GENERIC));
-        if (data.get(0).size() < TRAIN_DATA_SIZE) throw new InsufficientDataException("Insuffcient train data for generic.");
-        if (data.get(0).size() < TEST_DATA_SIZE) throw new InsufficientDataException("Insuffcient test data for generic.");
+        ArrayList<ArrayList<String>> data = splitData(new ArrayList<>(GENERIC), true);
 
-        ArrayList<String> train = new ArrayList<>();
-        while (train.size() < TRAIN_DATA_SIZE) {
-            createData(data.get(0), train, TRAIN_DATA_SIZE);
+        for (int i = 0; i < GENERIC_CATEGORIES; i++) {
+            
+            if (data.get(0).size() < TRAIN_DATA_SIZE) throw new InsufficientDataException("Insuffcient train data for generic.");
+            if (data.get(1).size() < TEST_DATA_SIZE) throw new InsufficientDataException("Insuffcient test data for generic.");
+
+            ArrayList<String> train = new ArrayList<>();
+            while (train.size() < TRAIN_DATA_SIZE) {
+                createData(data.get(0), train, TRAIN_DATA_SIZE);
+            }
+
+            ArrayList<String> test = new ArrayList<>();
+            while (test.size() < TEST_DATA_SIZE) {
+                createData(data.get(1), test, TEST_DATA_SIZE);
+            }
+
+            recordData(train, TARGET_DATA_FOLDER + TRAIN_DATA_FOLDER + Integer.toString(i) + ".txt");
+            recordData(test, TARGET_DATA_FOLDER + TEST_DATA_FOLDER + Integer.toString(i) + ".txt");
+
         }
-
-        ArrayList<String> test = new ArrayList<>();
-        while (test.size() < TEST_DATA_SIZE) {
-            createData(data.get(1), test, TEST_DATA_SIZE);
-        }
-
-        recordData(train, TARGET_DATA_FOLDER + TRAIN_DATA_FOLDER + "0.txt");
-        recordData(test, TARGET_DATA_FOLDER + TEST_DATA_FOLDER + "0.txt");
         
     }
     
-    private static ArrayList<ArrayList<String>> splitData(ArrayList<String> data) {
+    private static ArrayList<ArrayList<String>> splitData(ArrayList<String> data, boolean generic) {
         
         ArrayList<ArrayList<String>> retVal = new ArrayList<>();
         
         ArrayList<String> train = new ArrayList<>();
         ArrayList<String> test = new ArrayList<>();
 
+        int maxTestDataSize = TEST_DATA_SIZE;
+        if (generic) maxTestDataSize = GENERIC_CATEGORIES * TEST_DATA_SIZE;
+        
         int count = 0;
         
         for (String datum : data) {
             if (count%2 == 0) {
                 
-                if (test.size() < TEST_DATA_SIZE) {
+                if (test.size() < maxTestDataSize) {
                     test.add(datum);
                 } else {
                     train.add(datum);
