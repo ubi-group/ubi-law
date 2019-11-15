@@ -36,7 +36,7 @@ public class DocumentProcessor {
             if(txt == null) throw new Exception("Nothing to process");
             
             List<String> lines = new BufferedReader(new StringReader(txt)).lines().collect(Collectors.toList());
-
+          
             Properties config = new Properties();
             config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "1000");
             config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
@@ -59,7 +59,7 @@ public class DocumentProcessor {
             Legalyzer legalyzer = legalyzerFactory.getLegalyzer();
             
             legalyzer.evaluate(document);
-            
+       
             
         } catch(Exception ex) {
             

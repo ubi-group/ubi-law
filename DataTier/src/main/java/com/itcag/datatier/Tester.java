@@ -18,20 +18,20 @@ public class Tester {
 //        CorrectionsCleaner.cleanIndex();
 //        DataTrainingCleaner.cleanIndex();
 //        CategoriesCleaner.cleanIndex();
-//       CourtRulingsCleaner.cleanIndex();
+       CourtRulingsCleaner.cleanIndex();
        
-Map<String, String> propertyValues = new HashMap<String, String>();
-propertyValues.put("paragraphs.sentences.paragraphIndex", 0+"");
-propertyValues.put("paragraphs.sentences.index", 1+"");
+//Map<String, String> propertyValues = new HashMap<String, String>();
+//propertyValues.put("paragraphs.sentences.paragraphIndex", 0+"");
+//propertyValues.put("paragraphs.sentences.index", 1+"");
 
-NestedQueryBuilder nested = SearchIndex.nestedBoolQuery(propertyValues, "paragraphs.sentences");
+//NestedQueryBuilder nested = SearchIndex.nestedBoolQuery(propertyValues, "paragraphs.sentences");
 
-NestedQueryBuilder outside = QueryBuilders.nestedQuery("paragraphs", nested, ScoreMode.None);
+//NestedQueryBuilder outside = QueryBuilders.nestedQuery("paragraphs", nested, ScoreMode.None);
 
 
  
-        ArrayList<JSONObject> arr = SearchIndex.searchIndex2("court_rulings", 0,10, propertyValues,"paragraphs.sentences", "paragraphs", "id", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\17\\320\\084\\g16&fileName=17084320.G16&type=2");
-        System.out.println(arr.size());
+//        ArrayList<JSONObject> arr = SearchIndex.searchIndex2("court_rulings", 0,10, propertyValues,"paragraphs.sentences", "paragraphs", "id", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\17\\320\\084\\g16&fileName=17084320.G16&type=2");
+//        System.out.println(arr.size());
         
 //IndexDocument.indexDocument("court_rulings","{ \"id\": \"xxx\"}");
         

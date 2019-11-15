@@ -5,6 +5,7 @@ public enum FormFields {
     QUERY("query"),
     ID("id"),
     PARAGRAPH_INDEX("paragraphIndex"),
+    SENTENCE_TEXT("sentenceText"),
     
     
     ;

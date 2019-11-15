@@ -2,7 +2,7 @@ package com.itcag.demo.servlet;
 
 import com.itcag.demo.DocumentProcessor;
 import com.itcag.demo.FormFields;
-import com.itcag.demo.html.HTMLProcessDocumentOutput;
+import com.itcag.demo.html.HTMLEditSentencesClassification;
 import com.itcag.util.html.HTTPToolbox;
 import com.itcag.util.txt.TextToolbox;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class EditSentencesClassification extends HttpServlet {
-
+      
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -22,25 +22,26 @@ public class EditSentencesClassification extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             
             String id = request.getParameter(FormFields.ID.getName());     
-            String paragraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
+            String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 	
 System.out.println(id);
-System.out.println("paragraphIndex:" + paragraphIndex);
+System.out.println("paragraphIndex:" + strParagraphIndex);
 
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
-            if (TextToolbox.isReallyEmpty(paragraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());
+            if (TextToolbox.isReallyEmpty(strParagraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());
+            
+            int paragraphIndex = Integer.parseInt(strParagraphIndex);
             
             com.itcag.legalyzer.util.doc.Document doc = DocumentProcessor.classify(id);
             
             HTTPToolbox.prepareResponse(response);
-           
-//            String html = HTMLProcessDocumentOutput.get(doc);
-            String html = "";
+            
+            String html = HTMLEditSentencesClassification.get(doc, id, paragraphIndex);
             try (PrintWriter out = response.getWriter()) {
                 out.println(html);
             } catch (Exception ex) {
                 throw ex;
             }
-            
+
         } catch (Exception ex) {
             
             throw new ServletException(ex);
@@ -53,7 +54,6 @@ System.out.println("paragraphIndex:" + paragraphIndex);
     public void destroy() {
 
 
-    }
-    
+    }   
     
 }

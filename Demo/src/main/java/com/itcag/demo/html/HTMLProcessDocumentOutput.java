@@ -6,11 +6,14 @@ import com.itcag.demo.Targets;
 import com.itcag.demo.WebConstants;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.doc.Sentence;
+import com.itcag.util.Printer;
 import com.itcag.util.XMLProcessor;
 import com.itcag.util.html.HTMLGeneratorToolbox;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class HTMLProcessDocumentOutput {
@@ -22,7 +25,7 @@ public class HTMLProcessDocumentOutput {
         
         root.appendChild(HTMLGeneratorToolbox.getHead(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), WebConstants.VERSION, htmlDoc));
 
-        root.appendChild(getBody(document, htmlDoc));
+        root.appendChild(getBody(document, htmlDoc));        
 
         return XMLProcessor.convertDocumentToString(htmlDoc);
         
@@ -67,11 +70,16 @@ public class HTMLProcessDocumentOutput {
         Element elt = HTMLGeneratorToolbox.getBody(htmlDoc);
         
         Element breadcrumbs = HTMLGeneratorToolbox.getBreadcrumbs(null, "Home", WebConstants.CONTEXT_PATH, htmlDoc);
+        
         elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_OUTPUT.getUrl(), htmlDoc));
+        
+        Element subElt = HTMLGeneratorToolbox.getForm(Targets.EDIT_CLASSIFICATION_RESULT.getUrl(), true, htmlDoc);
+        
+        subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc));
 
-        elt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc));
-
-        elt.appendChild(getList(document, htmlDoc));
+        subElt.appendChild(getList(document, htmlDoc));
+        
+        elt.appendChild(subElt);
         
         return elt;
         
@@ -105,18 +113,34 @@ public class HTMLProcessDocumentOutput {
         
         retVal.appendChild(HTMLGeneratorToolbox.getBlockSpan(paragraph.getText(), htmlDoc));
         
-        TreeMap<Integer, Category> mapScoreCat = LegalyzerFactory.getCategories().get();        
-        for(Map.Entry<Integer, Category> entry : mapScoreCat.entrySet()) {
-          Category cat = entry.getValue();
-          retVal.appendChild(HTMLGeneratorToolbox.getInlineSpan(cat.getLabel(), false, htmlDoc));
+        TreeMap<Integer, Category> mapScoreCat = LegalyzerFactory.getCategories().get();  
+        LinkedHashMap<Integer, Category> map = paragraph.getEvaluation(mapScoreCat);
+        
+        ArrayList<String> arrCats = new ArrayList();
+        paragraph.getSentences().stream().filter((sentence) -> (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null)).filter((sentence) -> (sentence.getResult().getHighestRanking().getScore() > 0.5)).filter((sentence) -> (sentence.getResult().getHighestRanking().getIndex() != 0)).forEachOrdered((sentence) -> {
+            arrCats.add(sentence.getResult().getHighestRanking().getLabel());
+        });        
+
+        int size = map.entrySet().size();
+        int pos = 0;
+        boolean indent = false;
+        for(String catLabl : arrCats) {           
+            String catLabel = catLabl.replace("_", " ");
+            if(size != 0 && pos != size -1)
+              catLabel = catLabel + ",";
+
+
+            retVal.appendChild(HTMLGeneratorToolbox.getInlineSpan(catLabel, indent, htmlDoc));
+            pos++;
+            indent = true;
         }
         
- //       retVal.appendChild(HTMLGeneratorToolbox.getBlockLink(url.toString(), "Edit", "left", htmlDoc));
         retVal.appendChild(HTMLGeneratorToolbox.getHiddenInput(docId, FormFields.ID.getName(), htmlDoc));
-        retVal.appendChild(HTMLGeneratorToolbox.getHiddenInput(paragraph.getIndex()+"", FormFields.PARAGRAPH_INDEX.getName(), htmlDoc));
-        retVal.appendChild(HTMLGeneratorToolbox.getSearchButton(htmlDoc, "Edit"));
+        
+        Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
+        edit.appendChild(HTMLGeneratorToolbox.getSearchButton(htmlDoc, FormFields.PARAGRAPH_INDEX.getName(), "Edit", paragraph.getIndex()+""));
 
-
+        retVal.appendChild(edit);
         
         return retVal;
         

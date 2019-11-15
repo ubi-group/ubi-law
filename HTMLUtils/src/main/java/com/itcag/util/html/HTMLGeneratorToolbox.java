@@ -748,6 +748,20 @@ public final class HTMLGeneratorToolbox {
 
     }
     
+    public final static Element getSearchButton(Document doc, String name, String displayName, String value) {
+
+        Element retVal = doc.createElement("input");
+        retVal.setAttribute("type", "submit");
+        retVal.setAttribute("name", name);
+        retVal.setAttribute("value", value);
+        retVal.setTextContent(displayName);
+        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+
+        return retVal;
+
+    }
+        
+    
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       EMBEDDED LIST
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
