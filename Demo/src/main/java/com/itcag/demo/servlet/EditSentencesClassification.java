@@ -23,8 +23,6 @@ public class EditSentencesClassification extends HttpServlet {
             
             String id = request.getParameter(FormFields.ID.getName());     
             String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 	
-System.out.println(id);
-System.out.println("paragraphIndex:" + strParagraphIndex);
 
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
             if (TextToolbox.isReallyEmpty(strParagraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());
@@ -48,12 +46,6 @@ System.out.println("paragraphIndex:" + strParagraphIndex);
             
         }
 
-    }
-    
-    @Override
-    public void destroy() {
-
-
-    }   
+    } 
     
 }

@@ -760,6 +760,19 @@ public final class HTMLGeneratorToolbox {
         return retVal;
 
     }
+    
+    public final static Element getButton(Document doc, String name, String displayName, String value) {
+
+        Element retVal = doc.createElement("button");
+        retVal.setAttribute("type", "submit");
+        retVal.setAttribute("name", name);
+        retVal.setAttribute("value", value);
+        retVal.setTextContent(displayName);
+        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+
+        return retVal;
+
+    }    
         
     
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

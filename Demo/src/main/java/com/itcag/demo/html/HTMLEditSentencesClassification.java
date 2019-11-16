@@ -41,15 +41,17 @@ public class HTMLEditSentencesClassification {
         Element subElt = HTMLGeneratorToolbox.getForm(Targets.EDIT_CLASSIFICATION_RESULT.getUrl(), true, htmlDoc);
         
         subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc));
-System.out.println(document.getJSON());
+
         ArrayList<Paragraph> arrParagraphs = document.getParagraphs();
         Paragraph selectedParagraph = null;
-System.out.println("paragraphIndex = " + paragraphIndex);        
+     
         for(Paragraph paragraph: arrParagraphs) {
-System.out.println("paragraph.getIndex() = " + paragraph.getIndex());
             if(paragraphIndex == paragraph.getIndex())
                 selectedParagraph = paragraph;
         }
+        
+        subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput(id, FormFields.ID.getName(), htmlDoc));
+        subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput(selectedParagraph.getIndex()+"", FormFields.PARAGRAPH_INDEX.getName(), htmlDoc));        
         
         subElt.appendChild(getList(selectedParagraph, htmlDoc, id, paragraphIndex));
         
@@ -64,14 +66,10 @@ System.out.println("paragraph.getIndex() = " + paragraph.getIndex());
         Element retVal = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
 
         for (Sentence sentence : paragraph.getSentences()) {
-System.out.println("sentence.getText(): "  + sentence.getText());
             retVal.appendChild(getListItem(sentence, htmlDoc, id, paragraphIndex));
             if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
-System.out.println("sentence.getResult() != null && sentence.getResult().getHighestRanking() != null -->" + sentence.getResult().getHighestRanking());
                 if (sentence.getResult().getHighestRanking().getScore() > 0.5) {
-System.out.println("sentence.getResult().getHighestRanking().getScore() > 0.5 --> " + sentence.getResult().getHighestRanking().getScore());
                     if (sentence.getResult().getHighestRanking().getIndex() != 0) {                      
-System.out.println("sentence.getResult().getHighestRanking().getIndex() != 0 --> " + sentence.getResult().getHighestRanking().getIndex());                        
 //                        retVal.appendChild(getListItem(sentence, htmlDoc, id, paragraphIndex));
 
                     }
@@ -98,8 +96,8 @@ System.out.println("sentence.getResult().getHighestRanking().getIndex() != 0 -->
         
         Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
         
-        edit.appendChild(HTMLGeneratorToolbox.getSearchButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Reject", sentence.getText()+""));
-
+        edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Reject", sentence.getText()));
+        
         retVal.appendChild(edit);
         
         return retVal;

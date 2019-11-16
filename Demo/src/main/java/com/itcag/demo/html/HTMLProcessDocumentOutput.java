@@ -138,7 +138,7 @@ public class HTMLProcessDocumentOutput {
         retVal.appendChild(HTMLGeneratorToolbox.getHiddenInput(docId, FormFields.ID.getName(), htmlDoc));
         
         Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
-        edit.appendChild(HTMLGeneratorToolbox.getSearchButton(htmlDoc, FormFields.PARAGRAPH_INDEX.getName(), "Edit", paragraph.getIndex()+""));
+        edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.PARAGRAPH_INDEX.getName(), "Edit", paragraph.getIndex()+""));
 
         retVal.appendChild(edit);
         
