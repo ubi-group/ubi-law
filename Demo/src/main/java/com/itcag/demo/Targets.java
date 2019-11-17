@@ -8,6 +8,7 @@ public enum Targets {
     PROCESS_DOCUMENT_INPUT("עיבוד קלט מסמך", "ProcessDocumentInput"),
     PROCESS_DOCUMENT_OUTPUT("עיבוד פלט מסמך", "ProcessDocumentOutput"),
     EDIT_CLASSIFICATION_RESULT("ערוך סיווג", "EditSentencesClassification"),
+    REJECT_CLASSIFICATION("לדחות סיווג", "RejectClassification"),
 
     ;
     

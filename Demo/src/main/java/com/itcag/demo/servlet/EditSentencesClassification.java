@@ -1,5 +1,6 @@
 package com.itcag.demo.servlet;
 
+import com.itcag.demo.DataTierAPI;
 import com.itcag.demo.DocumentProcessor;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.html.HTMLEditSentencesClassification;
@@ -22,7 +23,15 @@ public class EditSentencesClassification extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             
             String id = request.getParameter(FormFields.ID.getName());     
-            String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 	
+            String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
+            String sentenceText = request.getParameter(FormFields.SENTENCE_TEXT.getName()); 
+            
+System.out.println("id=" + id);
+System.out.println("strParagraphIndex=" + strParagraphIndex);
+System.out.println("sentenceText=" + sentenceText);
+            if(sentenceText != null && !sentenceText.isEmpty()) {
+                DataTierAPI.rejectClassification(sentenceText, id);
+            }
 
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
             if (TextToolbox.isReallyEmpty(strParagraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());

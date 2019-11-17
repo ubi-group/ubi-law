@@ -38,9 +38,9 @@ public class HTMLEditSentencesClassification {
         
         elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_OUTPUT.getUrl(), htmlDoc));
         
-        Element subElt = HTMLGeneratorToolbox.getForm(Targets.EDIT_CLASSIFICATION_RESULT.getUrl(), true, htmlDoc);
+        Element subElt = HTMLGeneratorToolbox.getForm(Targets.REJECT_CLASSIFICATION.getUrl(), true, htmlDoc);
         
-        subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc));
+        subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), htmlDoc));
 
         ArrayList<Paragraph> arrParagraphs = document.getParagraphs();
         Paragraph selectedParagraph = null;
