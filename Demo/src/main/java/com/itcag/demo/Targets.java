@@ -7,7 +7,8 @@ public enum Targets {
     EXAMPLES("דוגמאות רב משמעותיות", "Examples"),
     PROCESS_DOCUMENT_INPUT("עיבוד קלט מסמך", "ProcessDocumentInput"),
     PROCESS_DOCUMENT_OUTPUT("עיבוד פלט מסמך", "ProcessDocumentOutput"),
-    EDIT_CLASSIFICATION_RESULT("ערוך סיווג", "EditClassificationResult"),
+    EDIT_CLASSIFICATION_RESULT("ערוך סיווג", "EditSentencesClassification"),
+    REJECT_CLASSIFICATION("לדחות סיווג", "RejectClassification"),
 
     ;
     

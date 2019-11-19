@@ -58,7 +58,15 @@
         <servlet-name>EditSentencesClassification</servlet-name>
         <url-pattern>/EditSentencesClassification</url-pattern>
     </servlet-mapping>      
-    <!-- -->     
+    <!-- -->    
+    <servlet>
+        <servlet-name>RejectClassification</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.RejectClassification</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RejectClassification</servlet-name>
+        <url-pattern>/RejectClassification</url-pattern>
+    </servlet-mapping>     
     <session-config>
         <session-timeout>
             30
