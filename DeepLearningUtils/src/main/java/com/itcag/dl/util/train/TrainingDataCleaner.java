@@ -14,7 +14,7 @@ public class TrainingDataCleaner {
     
     public static void main(String[] args) throws Exception {
         
-        String fileToBeCleaned = "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Licenses, planning and construction.txt";
+        String fileToBeCleaned = "/home/nahum/Desktop/legaltech/experiments/original/Criminal - Traffic.txt";
         String fileWithDuplicates = "/home/nahum/Desktop/legaltech/experiments/generic.txt";
         removeConfusedSentences(fileWithDuplicates, fileToBeCleaned);
 

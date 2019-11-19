@@ -43,7 +43,7 @@ public class TrainingDataFactory {
 
     private final static int TRAIN_DATA_SIZE = 300;
     private final static int TEST_DATA_SIZE = 100;
-    private final static int GENERIC_CATEGORIES = 8;
+    private final static int GENERIC_CATEGORIES = 11;
     
     private final static ArrayList<String> CATEGORIES = new ArrayList<>();
     
