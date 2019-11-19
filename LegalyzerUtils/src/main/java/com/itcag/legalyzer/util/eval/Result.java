@@ -1,7 +1,6 @@
 package com.itcag.legalyzer.util.eval;
 
 import com.itcag.legalyzer.util.cat.Category;
-import java.util.Map;
 
 import java.util.TreeMap;
 

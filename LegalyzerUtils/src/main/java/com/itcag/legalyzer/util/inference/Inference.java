@@ -44,6 +44,7 @@ public class Inference {
                 }
                 
                 ArrayList<Ontology.Relation> related = this.ontology.getRelations(highestRanking.getIndex());
+                if (related == null) continue;
                 for (Ontology.Relation relation : related) {
                     if (relation.getIndex() == -1) {
                         /**

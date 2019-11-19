@@ -53,6 +53,7 @@ public class Paragraph extends Aggregator implements Text {
      * 
      */
     private final ArrayList<Recommendation> recommendations = new ArrayList<>();
+    private Recommendation highestRanking = null; 
     
     public Paragraph(String text, int index, AtomicInteger sentenceIndex) throws Exception {
         this.text = text;
@@ -113,6 +114,12 @@ public class Paragraph extends Aggregator implements Text {
     @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
+        if (this.highestRanking == null || this.highestRanking.getValue() < recommendation.getValue()) this.highestRanking = recommendation;
+    }
+    
+    @Override
+    public Recommendation getHighestRanking() {
+        return this.highestRanking;
     }
     
     public LinkedHashMap<Integer, Category> getEvaluation(TreeMap<Integer, Category> categories) {

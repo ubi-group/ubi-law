@@ -3,6 +3,7 @@ package com.itcag.legalyzer.util.doc;
 import com.itcag.legalyzer.util.eval.Result;
 
 import java.util.ArrayList;
+
 import org.json.JSONObject;
 
 public interface Text {
@@ -16,6 +17,8 @@ public interface Text {
     public ArrayList<Recommendation> getRecommendations();
     public void addRecommendation(Recommendation recommendation);
 
+    public Recommendation getHighestRanking();
+    
     public JSONObject getJSON();
     
 }

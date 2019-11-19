@@ -53,30 +53,12 @@ public class Legalyzer {
     }
     
     public void evaluate(Document document) throws Exception {
-        
-        for (Paragraph paragraph : document.getParagraphs()) {
-            
-            for (Sentence sentence : paragraph.getSentences()) {
-                
-                try {
-                    
-                    sentence.setResult(new SigmoidResult(categories.get(), 0.00));
-                    tester.test(sentence.getText(), sentence.getResult());
-
-                } catch (Exception ex) {
-                    Printer.print(ex.getMessage());
-                }
-            }
-
-        }
-
+        this.tester.testSentences(document);
     }
     
     public void recommend(Document document) throws Exception {
-
         this.tester.testSentences(document);
         this.inference.getRecommendations(document, 0);
-            
     }
 
     public void extract(Document document, Properties config) throws Exception {

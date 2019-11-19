@@ -40,8 +40,8 @@ public class Tester {
 
         Legalyzer legalyzer = new Legalyzer(categories);
 
-//        processFolder(folderPath, legalyzer);
-        processFile(new File(filePath), legalyzer);
+        processFolder(folderPath, legalyzer);
+//        processFile(new File(filePath), legalyzer);
 
         
     }
@@ -80,11 +80,11 @@ public class Tester {
         config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
         config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
         config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());
-//        Document document = new Document(id, lines, new HCRulingParser(config));
-        Document document = new Document(id, lines, new SimpleParser(config));
+        Document document = new Document(id, lines, new HCRulingParser(config));
+//        Document document = new Document(id, lines, new SimpleParser(config));
         
-        legalyzer.evaluate(document);
-//        legalyzer.recommend(document);
+//        legalyzer.evaluate(document);
+        legalyzer.recommend(document);
         
         for (Paragraph paragraph : document.getParagraphs()) {
 
@@ -92,10 +92,14 @@ public class Tester {
                 
                 if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
 
+                    /*
                     if (sentence.getResult().getHighestRanking().getIndex() == 14) {
                         Printer.print(sentence.getText());
                     }
+                    */
+                    
                     /*
+                    */
                     if (sentence.getResult().getHighestRanking().getScore() > configuration.getScoreThreshold()) {
 
                         if (sentence.getResult().getHighestRanking().getIndex() > configuration.getLastGenericIndex()) {
@@ -103,18 +107,13 @@ public class Tester {
                             Printer.print(sentence.getText());
                             Printer.print(sentence.getResult().getHighestRanking().toString());
 
-                            for (Recommendation recommendation : sentence.getRecommendations()) {
-                                if (recommendation.getValue() > 0.70) {
-                                    Printer.print("\t" + recommendation.toString());
-                                }
-                            }
+                            Printer.print("\t" + sentence.getHighestRanking().toString());
 
                             Printer.print();
                         
                         }
 
                     }
-                    */
                     
                 }
                 

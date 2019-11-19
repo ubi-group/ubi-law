@@ -49,6 +49,7 @@ public class Sentence extends Scorer implements Text {
      * 
      */
     private final ArrayList<Recommendation> recommendations = new ArrayList<>();
+    private Recommendation highestRanking = null; 
     
     public Sentence(String text, int index, int paragraphIndex) {
         this.text = text;
@@ -94,6 +95,12 @@ public class Sentence extends Scorer implements Text {
     @Override
     public void addRecommendation(Recommendation recommendation) {
         this.recommendations.add(recommendation);
+        if (this.highestRanking == null || this.highestRanking.getValue() < recommendation.getValue()) this.highestRanking = recommendation;
+    }
+    
+    @Override
+    public Recommendation getHighestRanking() {
+        return this.highestRanking;
     }
     
     public LinkedHashMap<Integer, Category> getEvaluation(TreeMap<Integer, Category> categories) {

@@ -1,8 +1,10 @@
+Administrative_-_Municipalities Administrative_-_Licenses_planning_and_construction 0.25
 National_security_military_and_the_territories	Criminal_-_White_collar	0.17
 National_security_military_and_the_territories	Administrative_-_Citizenship	0.11
 Criminal_-_Appeal_on_sentence	Criminal_-_Security	0.20
 Criminal_-_Appeal_on_sentence	Criminal_-_Traffic	0.08
 Civil_-_Land	Civil_-_Contracts	0.12
+Civil_-_Land    Civil_-_Torts   0.25
 Civil_-_Fiscal-Tax	Criminal_-_Violence	0.14
 Civil_-_Fiscal-Tax	Civil_-_Land	0.11
 Criminal_-_Traffic	Criminal_-_Security	0.09
@@ -20,9 +22,6 @@ Criminal_-_Security	Criminal_-_Appeal_on_sentence	0.23
 Criminal_-_Security	Criminal_-_Sex	0.13
 Criminal_-_Security	Criminal_-_White_collar	0.09
 Criminal_-_Security	Criminal_-_Traffic	0.07
-Criminal_-_Violence	Administrative_-_Licenses_planning_and_construction	0.16
-Criminal_-_Violence	Administrative_-_Municipalities	0.13
-Criminal_-_Violence	Administrative_-_Tender	0.03
 Administrative_-_Citizenship	National_security_military_and_the_territories	0.08
 Civil_-_Contracts	Civil_-_Bankruptcy	0.21
 Civil_-_Contracts	Civil_-_Land	0.12
@@ -30,6 +29,7 @@ Civil_-_Contracts	Civil_-_Torts	0.08
 Labor_and_Employment	Social_security_Health_Insurance_Pension	0.09
 Labor_and_Employment	Administrative_-_Municipalities	0.08
 Civil_-_Torts	Civil_-_Contracts	0.10
+Civil_-_Torts	Civil_-_Land	0.25
 Civil_-_Torts	Social_security_Health_Insurance_Pension	0.08
 Civil_-_Torts	Criminal_-_Sex	0.07
 Administrative - Citizenship	Administrative - Commercial and Economic Regulation	0.05

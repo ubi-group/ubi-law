@@ -102,7 +102,11 @@ public class Tester {
     public void testParagraphs(Document document) throws Exception {
         for (Paragraph paragraph : document.getParagraphs()) {
             paragraph.setResult(new SigmoidResult(categories.get(), 0.00));
-            test(paragraph.getText(), paragraph.getResult());
+            try {
+                test(paragraph.getText(), paragraph.getResult());
+            } catch (Exception ex) {
+                Printer.print(ex.getMessage());
+            }
         }
     }
     
@@ -110,7 +114,11 @@ public class Tester {
         for (Paragraph paragraph : document.getParagraphs()) {
             for (Sentence sentence : paragraph.getSentences()) {
                 sentence.setResult(new SigmoidResult(categories.get(), 0.00));
-                test(sentence.getText(), sentence.getResult());
+                try {
+                    test(sentence.getText(), sentence.getResult());
+                } catch (Exception ex) {
+                    Printer.print(ex.getMessage());
+                }
             }
         }
     }
