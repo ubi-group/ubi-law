@@ -92,28 +92,32 @@ public class Tester {
                 
                 if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
 
-                    /*
-                    if (sentence.getResult().getHighestRanking().getIndex() == 14) {
+                    if (sentence.getResult().getHighestRanking().getIndex() == 16) {
                         Printer.print(sentence.getText());
                     }
+                    /*
                     */
                     
                     /*
-                    */
                     if (sentence.getResult().getHighestRanking().getScore() > configuration.getScoreThreshold()) {
 
                         if (sentence.getResult().getHighestRanking().getIndex() > configuration.getLastGenericIndex()) {
                             
-                            Printer.print(sentence.getText());
-                            Printer.print(sentence.getResult().getHighestRanking().toString());
+                            if (sentence.getHighestRanking().getValue() >= 0.60) {
+                                
+                                Printer.print(sentence.getText());
+                                Printer.print(sentence.getResult().getHighestRanking().toString());
 
-                            Printer.print("\t" + sentence.getHighestRanking().toString());
+                                Printer.print("\t" + sentence.getHighestRanking().toString());
 
-                            Printer.print();
+                                Printer.print();
+
+                            }
                         
                         }
 
                     }
+                    */
                     
                 }
                 

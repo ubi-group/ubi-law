@@ -80,25 +80,27 @@ public class Ontology {
                      */
                     String[] elts = line.split("\t");
                     
-                    if (elts.length != 3) continue;
-                    
-                    String label = Category.normalizeLabel(elts[0].trim());
-                    if (isValidCategory(label)) {
+                    if (elts.length == 3) {
                         
-                        String related = Category.normalizeLabel(elts[1].trim());
-                        int index = getIndex(related);
+                        String label = Category.normalizeLabel(elts[0].trim());
+                        if (isValidCategory(label)) {
 
-                        double weight = Double.parseDouble(elts[2].trim());
+                            String related = Category.normalizeLabel(elts[1].trim());
+                            int index = getIndex(related);
 
-                        Relation relation = new Relation(related, index, weight);
-                        if (this.relations.containsKey(label)) {
-                            this.relations.get(label).add(relation);
-                        } else {
-                            this.relations.put(label, new ArrayList<>(Arrays.asList(relation)));
+                            double weight = Double.parseDouble(elts[2].trim());
+
+                            Relation relation = new Relation(related, index, weight);
+                            if (this.relations.containsKey(label)) {
+                                this.relations.get(label).add(relation);
+                            } else {
+                                this.relations.put(label, new ArrayList<>(Arrays.asList(relation)));
+                            }
+
                         }
 
                     }
-                    
+                     
                 }
 
                 line = reader.readLine();
