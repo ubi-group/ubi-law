@@ -4,16 +4,12 @@
         <servlet-name>Initiator</servlet-name>
         <servlet-class>com.itcag.demo.servlet.Initiator</servlet-class>
     </servlet>
-    <!-- -->
-    <servlet>
-        <servlet-name>About</servlet-name>
-        <servlet-class>com.itcag.demo.servlet.About</servlet-class>
-    </servlet>
+    <!-- 
     <servlet-mapping>
-        <servlet-name>About</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <!-- -->
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping> 
+    -->  
     <servlet>
         <servlet-name>Test</servlet-name>
         <servlet-class>com.itcag.demo.servlet.Test</servlet-class>
@@ -21,6 +17,15 @@
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
+    </servlet-mapping>
+    <!-- -->
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/Controller</url-pattern>
     </servlet-mapping>
     <!-- -->
     <servlet>
@@ -39,7 +44,7 @@
     <servlet-mapping>
         <servlet-name>ProcessDocumentInput</servlet-name>
         <url-pattern>/ProcessDocumentInput</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <!-- -->
     <servlet>
         <servlet-name>ProcessDocumentOutput</servlet-name>
@@ -48,8 +53,8 @@
     <servlet-mapping>
         <servlet-name>ProcessDocumentOutput</servlet-name>
         <url-pattern>/ProcessDocumentOutput</url-pattern>
-    </servlet-mapping> 
-    <!-- -->  
+    </servlet-mapping>
+    <!-- -->
     <servlet>
         <servlet-name>EditSentencesClassification</servlet-name>
         <servlet-class>com.itcag.demo.servlet.EditSentencesClassification</servlet-class>
@@ -57,8 +62,8 @@
     <servlet-mapping>
         <servlet-name>EditSentencesClassification</servlet-name>
         <url-pattern>/EditSentencesClassification</url-pattern>
-    </servlet-mapping>      
-    <!-- -->    
+    </servlet-mapping>
+    <!-- -->
     <servlet>
         <servlet-name>RejectClassification</servlet-name>
         <servlet-class>com.itcag.demo.servlet.RejectClassification</servlet-class>
@@ -66,7 +71,7 @@
     <servlet-mapping>
         <servlet-name>RejectClassification</servlet-name>
         <url-pattern>/RejectClassification</url-pattern>
-    </servlet-mapping>     
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

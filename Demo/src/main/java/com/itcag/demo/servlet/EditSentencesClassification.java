@@ -43,6 +43,7 @@ System.out.println("sentenceText=" + sentenceText);
             HTTPToolbox.prepareResponse(response);
             
             String html = HTMLEditSentencesClassification.get(doc, id, paragraphIndex);
+System.out.println(html);            
             try (PrintWriter out = response.getWriter()) {
                 out.println(html);
             } catch (Exception ex) {

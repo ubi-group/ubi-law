@@ -10,6 +10,7 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="resources/js/example.js"></script>
  <style>
     .container{
     padding: 10%;
@@ -21,37 +22,42 @@
  
 <div class="container">
     <div class="row">
-        <div class="col-12"><h2>laravel 6 Auto Complete Search Using Jquery UI</h2></div>
+        <div class="col-12"><h2></h2></div>
         <div class="col-12">
             <div id="custom-search-input">
                 <div class="input-group">
                     <input id="search" name="search" type="text" class="form-control" placeholder="Search" />
+                    <button id="demo" onclick="myFunction()">Click me</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-$("#search").autocomplete({     
-      source : function(request, response) {
-           $.ajax({
-                url : "Controller",
-                type : "GET",
-                data : {
-                       term : request.term
-                },
-                dataType : "json",
-                success : function(data) {
-                      response(data);
-                }
-         });
-      },
-      select: function( event, ui ) {
-         alert( ui.item.value );
-         // Your code
-         return false;
-      }
-});
-</script>   
+ $(document).ready(function() {
+    $( "#search" ).autocomplete({
+ 
+        source: function(request, response) {
+            $.ajax({
+            url: "Controller",
+            data: {
+                    term : request.term
+             },
+            dataType: "json",
+            success: function(data){
+               var resp = $.map(data,function(obj){
+                    //console.log(obj.city_name);
+                    return obj.name;
+               }); 
+ 
+               response(resp);
+            }
+        });
+    },
+    minLength: 1
+ });
+});    
+
+</script>
 </body>
 </html>

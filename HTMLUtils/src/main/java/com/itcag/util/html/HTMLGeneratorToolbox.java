@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 
 public final class HTMLGeneratorToolbox {
 
-    public final static Element getHead(String title, String version, Document doc) {
+    public final static Element getHead(String title, String version, Document doc, ArrayList<String> scripts) {
         
         Element retVal = doc.createElement("head");
 
@@ -59,7 +59,33 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("http-equiv", "Expires");
             retVal.appendChild(subElt);
         }
-
+        
+        if(scripts != null) {
+            for(String scriptPath: scripts) {
+                {
+                    Element subElt = doc.createElement("script");
+                    subElt.setAttribute("type", "text/javascript");
+                    subElt.setAttribute("src", scriptPath);
+                    retVal.appendChild(subElt);
+                }
+            }
+        }
+       
+        {
+            Element subElt = doc.createElement("link");
+            subElt.setAttribute("rel", "stylesheet");
+            subElt.setAttribute("href", "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
+            retVal.appendChild(subElt);
+        }
+        
+        {
+            Element subElt = doc.createElement("link");
+            subElt.setAttribute("rel", "stylesheet");
+            subElt.setAttribute("href", "//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css");
+            subElt.setAttribute("id", "bootstrap-css");
+            retVal.appendChild(subElt);
+        }
+                
         return retVal;
         
     }
@@ -224,6 +250,20 @@ public final class HTMLGeneratorToolbox {
         return retVal;
 
     }
+ 
+    public final static Element getInput(String id, String name, String placeholder, Document doc) {
+
+        Element retVal = doc.createElement("input");
+        retVal.setAttribute("name", name);
+        retVal.setAttribute("id", id);
+        retVal.setAttribute("type", "text");
+        retVal.setAttribute("class", "form-control");
+        retVal.setAttribute("placeholder", placeholder);
+        retVal.setAttribute("style", "width:100%");
+        
+        return retVal;
+
+    }    
     
     public final static Element getLabeledInput(String label, String input, String field, boolean readonly, boolean autofocus, Document doc) {
 

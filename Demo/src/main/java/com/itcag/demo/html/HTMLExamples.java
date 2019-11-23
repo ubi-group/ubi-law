@@ -20,7 +20,7 @@ public class HTMLExamples {
         Element root = doc.getDocumentElement();
         root.setAttribute("dir", "rtl");
         
-        Element head = HTMLGeneratorToolbox.getHead(Targets.EXAMPLES.getTitle(), WebConstants.VERSION, doc);
+        Element head = HTMLGeneratorToolbox.getHead(Targets.EXAMPLES.getTitle(), WebConstants.VERSION, doc, HTMLHeader.getScripts());
         Element subElt = HTMLGeneratorToolbox.getHebrewFont(doc);
         head.appendChild(subElt);
         root.appendChild(head);

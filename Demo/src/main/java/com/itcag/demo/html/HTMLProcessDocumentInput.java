@@ -15,7 +15,7 @@ public class HTMLProcessDocumentInput {
         Document doc = XMLProcessor.getDocument("html");
         Element root = doc.getDocumentElement();
         
-        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), WebConstants.VERSION, doc));
+        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), WebConstants.VERSION, doc, HTMLHeader.getScripts()));
 
         root.appendChild(getBody(doc));
 
@@ -34,9 +34,9 @@ public class HTMLProcessDocumentInput {
         subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_INPUT.getTitle(), doc));
 
         subElt.appendChild(HTMLGeneratorToolbox.getInput(null, FormFields.ID.getName(), false, true, doc));
-        
-        subElt.appendChild(HTMLGeneratorToolbox.getSearchButton(doc, "Classify"));
 
+        subElt.appendChild(HTMLGeneratorToolbox.getSearchButton(doc, "Classify"));
+               
         elt.appendChild(subElt);
         
         return elt;

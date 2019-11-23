@@ -15,6 +15,8 @@ public class Config {
     public final static String TEST_DATA_PATH;
     
     public final static String MODEL_PATH;
+    
+    public final static String ALL_CATEGORIES;
 
     static {
         
@@ -30,6 +32,8 @@ public class Config {
         TEST_DATA_PATH = tmp.getTestDataPath();
         
         MODEL_PATH = tmp.getModelPath();
+        
+        ALL_CATEGORIES = "/home/alis/ubi-law/LegalyzerUtils/src/main/resources/inf/categories";
 
     }
     
