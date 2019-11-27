@@ -57,7 +57,7 @@ public class Category {
     }
 
     public final static String normalizeLabel(String label) {
-        return label.replace(",", "").replace(" ", "_");
+        return label.replace(",", "").replace("/", "-").replace(" ", "_");
     }
     
 }

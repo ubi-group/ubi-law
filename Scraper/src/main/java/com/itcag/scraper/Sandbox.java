@@ -15,8 +15,8 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
         
         
-        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
-//        processFile("/home/nahum/Desktop/legaltech/experiments/tmp");
+//        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
+        processFile("/home/nahum/Desktop/legaltech/experiments/original/Civil - Torts.txt");
         
     }
     
@@ -37,7 +37,9 @@ public class Sandbox {
     
     private static void processFile(String filePath) throws Exception {
     
-        String filter = "מעמד";
+        String filter = "נזק";
+//        String filter = "סכומים";
+        
         
         ArrayList<String> lines = TextFileReader.read(filePath);
 

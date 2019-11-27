@@ -117,7 +117,7 @@ public class Trainer {
         log.info("Evaluating...");
 
         Evaluation eval = net.evaluate(testData);
-        log.info(eval.stats());
+        log.info(eval.stats(false,true));
 
 //        ROC roc = net.evaluateROC(testData, 0);
 //        log.info(roc.stats());

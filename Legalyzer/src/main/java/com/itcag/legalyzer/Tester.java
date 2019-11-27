@@ -92,12 +92,31 @@ public class Tester {
                 
                 if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
 
-                    if (sentence.getResult().getHighestRanking().getIndex() == 16) {
-                        Printer.print(sentence.getText());
-                    }
                     /*
+                    if (sentence.getResult().getHighestRanking().getScore() < 0.99) {
+                        int count = 0;
+                        StringBuilder tmp = new StringBuilder();
+                        for (Category category : sentence.getResult().getCategories().values()) {
+                            if (category.getIndex() > configuration.getLastGenericIndex() && category.getScore() > 0.50) {
+                                tmp.append("\t").append(category.toString()).append("\n");
+                                count++;
+                            }
+                        }
+                        if (count > 1) {
+                            Printer.print(sentence.getText());
+                            Printer.print(tmp.toString());
+                            Printer.print();
+                        }
+                        
+                    }
                     */
                     
+                    if (sentence.getResult().getHighestRanking().getIndex() == 19) {
+                        if (sentence.getResult().getHighestRanking().getScore() >= 0.99) {
+                            Printer.print(sentence.getText());
+                        }
+                    }
+
                     /*
                     if (sentence.getResult().getHighestRanking().getScore() > configuration.getScoreThreshold()) {
 
