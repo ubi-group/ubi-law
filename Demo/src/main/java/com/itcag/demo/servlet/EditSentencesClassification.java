@@ -25,12 +25,18 @@ public class EditSentencesClassification extends HttpServlet {
             String id = request.getParameter(FormFields.ID.getName());     
             String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
             String sentenceText = request.getParameter(FormFields.SENTENCE_TEXT.getName()); 
-            
-System.out.println("id=" + id);
-System.out.println("strParagraphIndex=" + strParagraphIndex);
-System.out.println("sentenceText=" + sentenceText);
-            if(sentenceText != null && !sentenceText.isEmpty()) {
-                DataTierAPI.rejectClassification(sentenceText, id);
+            String categoryId = request.getParameter("search"); 
+            String strIsAdditon = request.getParameter(FormFields.IS_CATEGORY_ADDITION.getName()); 
+            boolean isAddition = Boolean.parseBoolean(strIsAdditon);
+
+            if(isAddition) {
+                if(sentenceText != null && !sentenceText.isEmpty()) {
+                    DataTierAPI.indexClassification(sentenceText, categoryId);
+                }                
+            } else {
+                if(sentenceText != null && !sentenceText.isEmpty()) {
+                    DataTierAPI.rejectClassification(sentenceText, id);
+                }                
             }
 
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
@@ -43,7 +49,7 @@ System.out.println("sentenceText=" + sentenceText);
             HTTPToolbox.prepareResponse(response);
             
             String html = HTMLEditSentencesClassification.get(doc, id, paragraphIndex);
-System.out.println(html);            
+//System.out.println(html);            
             try (PrintWriter out = response.getWriter()) {
                 out.println(html);
             } catch (Exception ex) {

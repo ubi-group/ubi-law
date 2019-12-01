@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Auto Complete Search Using Jquery UI - Tutsmake.com</title>
+  <title>Test</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -22,42 +22,73 @@
  
 <div class="container">
     <div class="row">
-        <div class="col-12"><h2></h2></div>
+        <div class="col-12"><h2>test</h2></div>
         <div class="col-12">
             <div id="custom-search-input">
                 <div class="input-group">
                     <input id="search" name="search" type="text" class="form-control" placeholder="Search" />
-                    <button id="demo" onclick="myFunction()">Click me</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+ 
+<datalist id="languages">
+  <option value="HTML">
+  <option value="CSS">
+  <option value="JavaScript">
+  <option value="Java">
+  <option value="Ruby">
+  <option value="PHP">
+  <option value="Go">
+  <option value="Erlang">
+  <option value="Python">
+  <option value="C">
+  <option value="C#">
+  <option value="C++">
+</datalist>
+<div class="ui-widget">
+Langs:
+<input type="text" list="languages">    
+</div>
+    
+<div class="ui-widget">
+  <label for="tags">Tags: </label>
+  <input id="tags">
+</div>
+ 
+    
 <script>
- $(document).ready(function() {
-    $( "#search" ).autocomplete({
- 
-        source: function(request, response) {
-            $.ajax({
-            url: "Controller",
-            data: {
-                    term : request.term
-             },
-            dataType: "json",
-            success: function(data){
-               var resp = $.map(data,function(obj){
-                    //console.log(obj.city_name);
-                    return obj.name;
-               }); 
- 
-               response(resp);
-            }
-        });
-    },
-    minLength: 1
- });
-});    
-
+$( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );    
 </script>
+    
 </body>
 </html>

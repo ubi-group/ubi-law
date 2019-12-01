@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Controller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-System.out.println("!!!!!!!!!!!!!!");
+
 		response.setContentType("application/json");
                 
 		try {
@@ -22,15 +22,14 @@ System.out.println("!!!!!!!!!!!!!!");
 System.out.println("Data from ajax call " + term);
                         
                         ArrayList autoCompletion = new ArrayList();
-                        
-System.out.println(AutocompletionCategories.getInstance(Config.ALL_CATEGORIES).getAllCategories());                          
+                                                
                         term = term.toLowerCase();
                         for(String cat: AutocompletionCategories.getInstance(Config.ALL_CATEGORIES).getAllCategories()) {
                             cat = cat.toLowerCase();
-System.out.println("cat:" + cat);                            
+                           
                             if(cat.contains(term)){
                                 autoCompletion.add(cat);
-System.out.println("Match: " + cat);
+
                             }
                         }
 

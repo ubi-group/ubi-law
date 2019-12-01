@@ -6,7 +6,8 @@ public enum FormFields {
     ID("id"),
     PARAGRAPH_INDEX("paragraphIndex"),
     SENTENCE_TEXT("sentenceText"),
-    
+    CATEGORY_ID("categoryId"),
+    IS_CATEGORY_ADDITION("isCategoryAddition"),
     
     ;
     

@@ -1,17 +1,21 @@
 package com.itcag.demo.html;
 
+import com.itcag.datatier.schema.SentenceFields;
+import com.itcag.demo.DataTierAPI;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.LegalyzerFactory;
 import com.itcag.demo.Targets;
 import com.itcag.demo.WebConstants;
 import com.itcag.legalyzer.util.cat.Category;
 import com.itcag.legalyzer.util.doc.Paragraph;
+import com.itcag.legalyzer.util.doc.Sentence;
 import com.itcag.util.Encoder;
 import com.itcag.util.XMLProcessor;
 import com.itcag.util.html.HTMLGeneratorToolbox;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
+import org.json.JSONObject;
 import org.w3c.dom.Element;
 
 public class HTMLProcessDocumentOutput {
@@ -113,25 +117,40 @@ public class HTMLProcessDocumentOutput {
         LinkedHashMap<Integer, Category> map = paragraph.getEvaluation(mapScoreCat);
         
         ArrayList<String> arrCats = new ArrayList();
-        paragraph.getSentences().stream().filter((sentence) -> (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null)).filter((sentence) -> (sentence.getResult().getHighestRanking().getScore() > 0.5)).filter((sentence) -> (sentence.getResult().getHighestRanking().getIndex() != 0)).forEachOrdered((sentence) -> {
-            arrCats.add(sentence.getResult().getHighestRanking().getLabel());
-        });        
+        for(Sentence sentence: paragraph.getSentences()) {
+            if(sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
+                if(sentence.getResult().getHighestRanking().getScore() > 0.5) {
+                    if(sentence.getResult().getHighestRanking().getIndex() != 0) {
+                        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());
 
-        int size = map.entrySet().size();
+                        if(jsonSentence != null) {
+                            String categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
+                            arrCats.add(categoryId);
+                        } else {
+                            Category category = sentence.getResult().getHighestRanking();
+                            if(category != null) {
+                                arrCats.add(sentence.getResult().getHighestRanking().getLabel());
+                            }
+                        }
+                        
+                   }
+                }
+            }
+        }        
+
+        int size = arrCats.size();
+
         int pos = 0;
         boolean indent = false;
         for(String catLabl : arrCats) {           
             String catLabel = catLabl.replace("_", " ");
             if(size != 1 && pos != size -1)
               catLabel = catLabel + ",";
-
-
+           
             retVal.appendChild(HTMLGeneratorToolbox.getInlineSpan(catLabel, indent, htmlDoc));
             pos++;
             indent = true;
-        }
-        
-//        retVal.appendChild(HTMLGeneratorToolbox.getHiddenInput(docId, FormFields.ID.getName(), htmlDoc));
+        }       
         
         Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
         edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, "test", "Edit", paragraph.getIndex()+""));

@@ -1,15 +1,12 @@
 package com.itcag.demo.servlet;
 
-import com.itcag.demo.DataTierAPI;
 import com.itcag.demo.DocumentProcessor;
 import com.itcag.demo.FormFields;
-import com.itcag.demo.Targets;
 import com.itcag.demo.html.HTMLEditSentencesClassification;
 import com.itcag.util.html.HTTPToolbox;
 import com.itcag.util.txt.TextToolbox;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +23,6 @@ public class RejectClassification extends HttpServlet {
             
             String id = request.getParameter(FormFields.ID.getName());     
             String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
-            
-System.out.println("id=" + id);
-System.out.println("strParagraphIndex=" + strParagraphIndex);
 
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
             if (TextToolbox.isReallyEmpty(strParagraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());

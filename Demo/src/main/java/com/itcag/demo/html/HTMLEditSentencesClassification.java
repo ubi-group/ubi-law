@@ -94,7 +94,7 @@ public class HTMLEditSentencesClassification {
         
         String categoryId = null;
         JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());
-System.out.println("CORRECTION FROM DB:" + jsonSentence);
+
         if(jsonSentence != null) {
             categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
         } else {
@@ -105,17 +105,6 @@ System.out.println("CORRECTION FROM DB:" + jsonSentence);
         subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
                 
         Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
-            
-        if(categoryId != null && !categoryId.isEmpty())    
-            edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Reject", sentence.getText()));
-        
-        subElt.appendChild(edit);
-        
-        Element add = HTMLGeneratorToolbox.getDiv(htmlDoc);
-                      
-//        add.appendChild(HTMLGeneratorToolbox.getInput("search", "search", "Search", htmlDoc));
-        
-//        subElt.appendChild(add);
         
         Element classDiv = htmlDoc.createElement("div");
         classDiv.setAttribute("class", "container");
@@ -136,19 +125,31 @@ System.out.println("CORRECTION FROM DB:" + jsonSentence);
         button.setAttribute("name", "search");
         button.setAttribute("id", "search");
         button.setAttribute("type", "text");
-        button.setAttribute("class", "form-control");
+        button.setAttribute("class", "ui-widget");
+//        button.setAttribute("class", "form-control");
         button.setAttribute("placeholder", "Search");
-        button.setAttribute("style", "width:100%");
+//        button.setAttribute("style", "width:100%");
         
-        classInput.appendChild(button);
-        classCustomeSearch.appendChild(classInput);
-        classCol.appendChild(classCustomeSearch);
-        classRow.appendChild(classCol);
-        classDiv.appendChild(classRow);
+        if(categoryId != null && !categoryId.isEmpty()) {
+            button.setAttribute("value", categoryId);
+            edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Reject", sentence.getText()));
+            subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput("false", FormFields.IS_CATEGORY_ADDITION.getName(), htmlDoc));
         
-        subElt.appendChild(classDiv);     
+        } else {
+            edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Add", sentence.getText()));
+            subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput("true", FormFields.IS_CATEGORY_ADDITION.getName(), htmlDoc));
+            classInput.appendChild(button);
+            classCustomeSearch.appendChild(classInput);
+            classCol.appendChild(classCustomeSearch);
+            classRow.appendChild(classCol);
+            classDiv.appendChild(classRow);
+        }                
         
+        
+        subElt.appendChild(classDiv); 
         retVal.appendChild(subElt);
+        
+        subElt.appendChild(edit);
         
         return retVal;
         

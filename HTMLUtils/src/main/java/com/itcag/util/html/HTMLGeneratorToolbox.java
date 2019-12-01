@@ -77,7 +77,7 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("href", "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
             retVal.appendChild(subElt);
         }
-        
+/*        
         {
             Element subElt = doc.createElement("link");
             subElt.setAttribute("rel", "stylesheet");
@@ -85,7 +85,7 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("id", "bootstrap-css");
             retVal.appendChild(subElt);
         }
-                
+*/
         return retVal;
         
     }
