@@ -80,7 +80,7 @@ public class Configuration {
             
             this.modelPath = prop.getProperty(Fields.MODEL_PATH.getName());
             
-            this.allCategories = getClass().getClassLoader().getResource(prop.getProperty(Fields.ALL_CATEGORIES.getName())).getPath(); 
+            this.allCategories = Configuration.class.getClassLoader().getResource(prop.getProperty(Fields.ALL_CATEGORIES.getName())).getPath(); 
 
             this.lastGenericIndex = Integer.parseInt(prop.getProperty(Fields.LAST_GENERIC_INDEX.getName()));
             this.scoreThreshold = Double.parseDouble(prop.getProperty(Fields.SCORE_THRESHOLD.getName()));
