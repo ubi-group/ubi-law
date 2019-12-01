@@ -1,6 +1,9 @@
 package com.itcag.demo;
 
 import com.itcag.util.io.TextFileReader;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AutocompletionCategories {
@@ -12,13 +15,16 @@ public class AutocompletionCategories {
     private AutocompletionCategories(String filePath) throws Exception { 
         
         allCategories = new ArrayList();
-System.out.println("filePath: " + filePath);
 
-        ArrayList<String> lines = TextFileReader.read(filePath);       
-        
-        lines.forEach((line) -> { 
-            allCategories.add(line);
-        });
+        InputStream input = getClass().getClassLoader().getResourceAsStream(filePath);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
+            String line = reader.readLine();
+            while (line != null) {
+                line = line.trim();             
+                if (!line.isEmpty()) allCategories.add(line);
+                line = reader.readLine();
+            }        
         
     } 
     
