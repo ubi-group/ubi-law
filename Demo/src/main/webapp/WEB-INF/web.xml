@@ -11,24 +11,6 @@
     </servlet-mapping> 
     -->  
     <servlet>
-        <servlet-name>Test</servlet-name>
-        <servlet-class>com.itcag.demo.servlet.Test</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/Test</url-pattern>
-    </servlet-mapping>
-    <!-- -->
-    <servlet>
-        <servlet-name>StudentServlet</servlet-name>
-        <servlet-class>com.itcag.demo.servlet.StudentServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>StudentServlet</servlet-name>
-        <url-pattern>/StudentServlet</url-pattern>
-    </servlet-mapping>
-    <!-- -->    
-    <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>com.itcag.demo.servlet.Controller</servlet-class>
     </servlet>

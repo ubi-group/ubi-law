@@ -19,7 +19,6 @@ public class Controller extends HttpServlet {
 		try {
                     
 			String term = request.getParameter("term");
-System.out.println("Data from ajax call " + term);
                         
                         ArrayList autoCompletion = new ArrayList();
                                                 

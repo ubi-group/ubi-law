@@ -31,7 +31,7 @@ public class ProcessDocumentOutput extends HttpServlet {
             HTTPToolbox.prepareResponse(response);
             
             String html = HTMLProcessDocumentOutput.get(doc);
-System.out.println(html);
+
             try (PrintWriter out = response.getWriter()) {
                 out.println(html);
             } catch (Exception ex) {
