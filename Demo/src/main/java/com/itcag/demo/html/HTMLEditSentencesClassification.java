@@ -1,6 +1,7 @@
 package com.itcag.demo.html;
 
 import com.itcag.datatier.schema.SentenceFields;
+import com.itcag.demo.Config;
 import com.itcag.demo.DataTierAPI;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.Targets;
@@ -63,16 +64,6 @@ public class HTMLEditSentencesClassification {
 
         for (Sentence sentence : paragraph.getSentences()) {
             retVal.appendChild(getListItem(sentence, htmlDoc, id, paragraphIndex));
-            if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
-                if (sentence.getResult().getHighestRanking().getScore() > 0.5) {
-                    if (sentence.getResult().getHighestRanking().getIndex() != 0) {                      
-
-                    }
-
-                }
-
-            }
-
         }        
         
         return retVal;
@@ -93,16 +84,24 @@ public class HTMLEditSentencesClassification {
         subElt.appendChild(HTMLGeneratorToolbox.getBlockSpan(sentence.getText(), htmlDoc));       
         
         String categoryId = null;
-        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());
-
+        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());         
         if(jsonSentence != null) {
             categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
         } else {
-            Category category = sentence.getResult().getHighestRanking();
-            if(category != null)
-                categoryId = sentence.getResult().getHighestRanking().getLabel();
+            if(sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
+                if(sentence.getResult().getHighestRanking().getScore() > Config.HIGHEST_RANKING) {
+                    if(sentence.getResult().getHighestRanking().getIndex() > Config.HIGHEST_GENERIC_INDEX) {
+                        if(jsonSentence == null) {                              
+                            Category category = sentence.getResult().getHighestRanking();
+                            if(category != null)
+                                categoryId = sentence.getResult().getHighestRanking().getLabel();
+                        }                        
+                    }
+                }
+            }                
         }
-        subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
+        if(categoryId != null)
+            subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
                 
         Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
         

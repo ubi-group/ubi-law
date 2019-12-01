@@ -30,13 +30,7 @@ public class Initiator extends HttpServlet {
      public void init() throws ServletException {
 
         try {
-System.out.println(MyConfiguration.FILE_NAME);            
-System.out.println(WORD_2_VEC_DATA_PATH);
-System.out.println(WORD_2_VEC_PATH);
-System.out.println(CATEGORIES_PATH);
-System.out.println(DATA_PATH);
-System.out.println(TRAINING_DATA_PATH);
-System.out.println(MODEL_PATH);
+
             WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(Config.WORD_2_VEC_PATH));
        
             TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();

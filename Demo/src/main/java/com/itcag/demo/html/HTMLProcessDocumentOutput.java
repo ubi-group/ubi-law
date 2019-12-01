@@ -1,6 +1,7 @@
 package com.itcag.demo.html;
 
 import com.itcag.datatier.schema.SentenceFields;
+import com.itcag.demo.Config;
 import com.itcag.demo.DataTierAPI;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.LegalyzerFactory;
@@ -32,41 +33,7 @@ public class HTMLProcessDocumentOutput {
         return XMLProcessor.convertDocumentToString(htmlDoc);
         
     }
-/*
-        for (Paragraph paragraph : document.getParagraphs()) {
-            
-            LinkedHashMap<Integer, Category> categories = paragraph.getEvaluation(LegalyzerFactory.getCategories().get());
-
-            for (Sentence sentence : paragraph.getSentences()) {
-                
-                if (sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
-                    
-                    if (sentence.getResult().getHighestRanking().getScore() > 0.5) {
-
-                        if (sentence.getResult().getHighestRanking().getIndex() != 0) {
-                            
-                            Printer.print(sentence.getText());
-                            Printer.print(document.getId());
-                            Printer.print(sentence.getResult().getHighestRanking().toString());
-
-                            for (Recommendation recommendation : sentence.getRecommendations()) {
-                                if (recommendation.getValue() > 0.70) {
-                                    Printer.print("\t" + recommendation.toString());
-                                }
-                            }
-
-                            Printer.print();
-                        
-                        }
-
-                    }
-
-                }
-                
-            }
-            
-        }    
-*/    
+  
     private static Element getBody(com.itcag.legalyzer.util.doc.Document document, org.w3c.dom.Document htmlDoc) throws Exception {
         
         Element elt = HTMLGeneratorToolbox.getBody(htmlDoc);
@@ -118,24 +85,26 @@ public class HTMLProcessDocumentOutput {
         
         ArrayList<String> arrCats = new ArrayList();
         for(Sentence sentence: paragraph.getSentences()) {
-            if(sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
-                if(sentence.getResult().getHighestRanking().getScore() > 0.5) {
-                    if(sentence.getResult().getHighestRanking().getIndex() != 0) {
-                        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());
-
-                        if(jsonSentence != null) {
-                            String categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
-                            arrCats.add(categoryId);
-                        } else {
-                            Category category = sentence.getResult().getHighestRanking();
-                            if(category != null) {
-                                arrCats.add(sentence.getResult().getHighestRanking().getLabel());
-                            }
+            JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());
+            String categoryId = null;           
+            if(jsonSentence != null) {
+                categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
+            } else {
+                if(sentence.getResult() != null && sentence.getResult().getHighestRanking() != null) {
+                    if(sentence.getResult().getHighestRanking().getScore() > Config.HIGHEST_RANKING) {
+                        if(sentence.getResult().getHighestRanking().getIndex() > Config.HIGHEST_GENERIC_INDEX) {
+                            if(jsonSentence == null) {                              
+                                Category category = sentence.getResult().getHighestRanking();
+                                if(category != null)
+                                    categoryId = sentence.getResult().getHighestRanking().getLabel();
+                            }                        
                         }
-                        
-                   }
-                }
+                    }
+                }                
             }
+            if(categoryId != null && !categoryId.isEmpty())
+                arrCats.add(categoryId);
+
         }        
 
         int size = arrCats.size();

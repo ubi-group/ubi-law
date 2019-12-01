@@ -17,6 +17,10 @@ public class Config {
     public final static String MODEL_PATH;
     
     public final static String ALL_CATEGORIES;
+    
+    public final static int HIGHEST_GENERIC_INDEX;
+    
+    public final static double HIGHEST_RANKING = 0.95;
 
     static {
         
@@ -33,7 +37,9 @@ public class Config {
         
         MODEL_PATH = tmp.getModelPath();
         
-        ALL_CATEGORIES = "/home/alis/ubi-law/LegalyzerUtils/src/main/resources/inf/categories";
+        ALL_CATEGORIES = tmp.getAllCategories();
+        
+        HIGHEST_GENERIC_INDEX = tmp.getLastGenericIndex();
 
     }
     

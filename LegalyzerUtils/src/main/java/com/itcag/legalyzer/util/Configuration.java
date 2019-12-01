@@ -22,6 +22,7 @@ public class Configuration {
 
         LAST_GENERIC_INDEX("lastGenericIndex"),
         SCORE_THRESHOLD("scoreThreshold"),
+        ALL_CATEGORIES("allCategories"),
 
         ;
 
@@ -54,6 +55,8 @@ public class Configuration {
     
     private final String modelPath;
     
+    private final String allCategories;
+    
     private final int lastGenericIndex;
     private final double scoreThreshold;
     
@@ -76,6 +79,8 @@ public class Configuration {
             this.testDataPath = this.dataPath + prop.getProperty(Fields.TEST_DATA_FOLDER.getName());
             
             this.modelPath = prop.getProperty(Fields.MODEL_PATH.getName());
+            
+            this.allCategories = getClass().getClassLoader().getResource(prop.getProperty(Fields.ALL_CATEGORIES.getName())).getPath(); 
 
             this.lastGenericIndex = Integer.parseInt(prop.getProperty(Fields.LAST_GENERIC_INDEX.getName()));
             this.scoreThreshold = Double.parseDouble(prop.getProperty(Fields.SCORE_THRESHOLD.getName()));
@@ -120,6 +125,13 @@ public class Configuration {
 
     public int getLastGenericIndex() {
         return this.lastGenericIndex;
+    }
+
+    /**
+     * @return the allCategories
+     */
+    public String getAllCategories() {
+        return allCategories;
     }
 
 }

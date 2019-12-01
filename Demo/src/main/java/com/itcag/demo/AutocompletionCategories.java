@@ -12,8 +12,9 @@ public class AutocompletionCategories {
     private AutocompletionCategories(String filePath) throws Exception { 
         
         allCategories = new ArrayList();
-               
-        ArrayList<String> lines = TextFileReader.read(filePath);
+System.out.println("filePath: " + filePath);
+
+        ArrayList<String> lines = TextFileReader.read(filePath);       
         
         lines.forEach((line) -> { 
             allCategories.add(line);

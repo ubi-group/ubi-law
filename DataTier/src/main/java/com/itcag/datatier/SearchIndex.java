@@ -113,7 +113,6 @@ public class SearchIndex {
         RestHighLevelClient client = ElasticsearchRestClient.getClient();
 
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-    System.out.println(searchResponse.toString());
 
         SearchHits hits = searchResponse.getHits();
         if( hits != null) {
