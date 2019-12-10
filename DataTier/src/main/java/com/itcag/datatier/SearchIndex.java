@@ -41,7 +41,9 @@ public class SearchIndex {
             SearchHit[] searchHits = hits.getHits();
             for(int i = 0; i < searchHits.length; i++) {
                 SearchHit hit = searchHits[i];
-                retVal.add(new JSONObject(hit.getSourceAsString()));
+                JSONObject retObj = new JSONObject(hit.getSourceAsString());
+                retObj.put("_id", hit.getId());
+                retVal.add(retObj);
             }
         }      
         

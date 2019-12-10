@@ -12,24 +12,15 @@ import org.json.JSONObject;
 
 public class DataTierAPI {
     
-    public static void rejectClassification(String sentenceText, String id) throws Exception {
+    public static void rejectClassification(String sentenceText) throws Exception {
         
         ArrayList<JSONObject> arrSentences = SearchIndex.searchIndex(Indices.CORRECTIONS.getFieldName(), 0, 1, SentenceFields.sentence.getFieldName(), sentenceText);
       
-        if(arrSentences.size() > 0) {
-            JSONObject firstResult = arrSentences.get(0); 
-            String _id = firstResult.getString(Constants._ID);
-            DeleteDocument.deleteIndex(Indices.CORRECTIONS.getFieldName(), _id);
-            JSONObject newSentence = new JSONObject();
-            newSentence.put(SentenceFields.sentence.getFieldName(), sentenceText);
-            newSentence.put(SentenceFields.categoryId.getFieldName(), "");
-            IndexDocument.indexDocument(Indices.CORRECTIONS.getFieldName(), newSentence.toString());
-           
-        } else {
-            JSONObject jsonSentence = new JSONObject();
-            jsonSentence.put(SentenceFields.sentence.getFieldName(), sentenceText);
-            jsonSentence.put(SentenceFields.categoryId.getFieldName(), "");
-            IndexDocument.indexDocument(Indices.CORRECTIONS.getFieldName(), jsonSentence.toString());
+        if(arrSentences != null && arrSentences.size() > 0) {
+             for(JSONObject obj: arrSentences) {
+                String _id = obj.getString(Constants._ID);
+                DeleteDocument.deleteIndex(Indices.CORRECTIONS.getFieldName(), _id);
+            }
         }
        
     }

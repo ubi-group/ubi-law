@@ -1,5 +1,8 @@
 package com.itcag.datatier;
 
+import com.itcag.datatier.meta.Constants;
+import com.itcag.datatier.meta.Indices;
+import com.itcag.datatier.schema.SentenceFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +17,32 @@ import org.json.JSONObject;
 public class Tester {
 
     public static void main(String[] args) throws Exception {
+  
+        String s =  "פסק הדין יובא לידיעת יומן בית המשפט.";
+        ArrayList<JSONObject> arrSentences = SearchIndex.searchIndex(Indices.CORRECTIONS.getFieldName(), 0, 10, SentenceFields.sentence.getFieldName(), s);
+System.out.println(arrSentences);
+        if(arrSentences.size() > 0) {
+            for(JSONObject obj: arrSentences) {
+     System.out.println("jest");
+                String _id = obj.getString(Constants._ID);
+                DeleteDocument.deleteIndex(Indices.CORRECTIONS.getFieldName(), _id);
+            }
+            JSONObject newSentence = new JSONObject();
+            newSentence.put(SentenceFields.sentence.getFieldName(), s);
+            newSentence.put(SentenceFields.categoryId.getFieldName(), "");
+            IndexDocument.indexDocument(Indices.CORRECTIONS.getFieldName(), newSentence.toString());
+           
+        } else {
+            JSONObject jsonSentence = new JSONObject();
+            jsonSentence.put(SentenceFields.sentence.getFieldName(), s);
+            jsonSentence.put(SentenceFields.categoryId.getFieldName(), "");
+            IndexDocument.indexDocument(Indices.CORRECTIONS.getFieldName(), jsonSentence.toString());
+        }        
         
 //        CorrectionsCleaner.cleanIndex();
 //        DataTrainingCleaner.cleanIndex();
 //        CategoriesCleaner.cleanIndex();
-       CourtRulingsCleaner.cleanIndex();
+//       CourtRulingsCleaner.cleanIndex();
        
 //Map<String, String> propertyValues = new HashMap<String, String>();
 //propertyValues.put("paragraphs.sentences.paragraphIndex", 0+"");

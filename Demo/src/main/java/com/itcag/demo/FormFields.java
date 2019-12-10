@@ -8,6 +8,8 @@ public enum FormFields {
     SENTENCE_TEXT("sentenceText"),
     CATEGORY_ID("categoryId"),
     IS_CATEGORY_ADDITION("isCategoryAddition"),
+    IS_BEING_MODIFIED("isBeingModified"),
+    NEW_CATEGORY("newCategory"),
     
     ;
     

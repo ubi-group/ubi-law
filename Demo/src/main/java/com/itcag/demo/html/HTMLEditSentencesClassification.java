@@ -18,20 +18,20 @@ import org.w3c.dom.Element;
 
 public class HTMLEditSentencesClassification {
 
-    public final static String get(com.itcag.legalyzer.util.doc.Document document, String id, int paragraphIndex) throws Exception {
+    public final static String get(com.itcag.legalyzer.util.doc.Document document, String id, int paragraphIndex, boolean isBeingModifiedMode) throws Exception {
         
         org.w3c.dom.Document htmlDoc = XMLProcessor.getDocument("html");
         Element root = htmlDoc.getDocumentElement();
         
         root.appendChild(HTMLGeneratorToolbox.getHead(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), WebConstants.VERSION, htmlDoc, HTMLHeader.getScripts()));
 
-        root.appendChild(getBody(document, htmlDoc, id, paragraphIndex));        
+        root.appendChild(getBody(document, htmlDoc, id, paragraphIndex, isBeingModifiedMode));        
 
         return XMLProcessor.convertDocumentToString(htmlDoc);
         
     }
   
-    private static Element getBody(com.itcag.legalyzer.util.doc.Document document, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex) throws Exception {
+    private static Element getBody(com.itcag.legalyzer.util.doc.Document document, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex, boolean isBeingModifiedMode) throws Exception {
         
         Element elt = HTMLGeneratorToolbox.getBody(htmlDoc);
         
@@ -52,39 +52,42 @@ public class HTMLEditSentencesClassification {
         elt.appendChild(HTMLGeneratorToolbox.getHiddenInput(id, FormFields.ID.getName(), htmlDoc));
         elt.appendChild(HTMLGeneratorToolbox.getHiddenInput(selectedParagraph.getIndex()+"", FormFields.PARAGRAPH_INDEX.getName(), htmlDoc));        
         
-        elt.appendChild(getList(selectedParagraph, htmlDoc, id, paragraphIndex));
+        elt.appendChild(getList(selectedParagraph, htmlDoc, id, paragraphIndex, isBeingModifiedMode));
         
         return elt;
         
     }
 
-    private static Element getList(Paragraph paragraph, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex) throws Exception {
+    private static Element getList(Paragraph paragraph, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex, boolean isBeingModifiedMode) throws Exception {
         
         Element retVal = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);       
 
         for (Sentence sentence : paragraph.getSentences()) {
-            retVal.appendChild(getListItem(sentence, htmlDoc, id, paragraphIndex));
+            retVal.appendChild(getListItem(sentence, htmlDoc, id, paragraphIndex, isBeingModifiedMode));
         }        
         
         return retVal;
         
     }
     
-    private static Element getListItem(Sentence sentence, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex) throws Exception {
+    private static Element getListItem(Sentence sentence, org.w3c.dom.Document htmlDoc, String id, int paragraphIndex, boolean isBeingModifiedMode) throws Exception {
         
         Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);        
 
-        StringBuilder url = new StringBuilder();
-        url.append(Targets.EDIT_CLASSIFICATION_RESULT.getUrl());
-        url.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText(id));
-        url.append("&").append(FormFields.PARAGRAPH_INDEX.getName()).append("=").append(paragraphIndex);
+        StringBuilder urlModify = new StringBuilder();
+        urlModify.append(Targets.CLASSIFICATION_RESULT.getUrl());
+        urlModify.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText(id));
+        urlModify.append("&").append(FormFields.PARAGRAPH_INDEX.getName()).append("=").append(paragraphIndex);
+        urlModify.append("&").append(FormFields.IS_BEING_MODIFIED.getName()).append("=").append("true"); 
         
-        Element subElt = HTMLGeneratorToolbox.getForm(url.toString(), true, htmlDoc);
+        Element subEltFormModify = HTMLGeneratorToolbox.getForm(urlModify.toString(), false, htmlDoc);
         
-        subElt.appendChild(HTMLGeneratorToolbox.getBlockSpan(sentence.getText(), htmlDoc));       
+        retVal.appendChild(HTMLGeneratorToolbox.getBlockSpan(sentence.getText(), htmlDoc));       
         
         String categoryId = null;
-        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());         
+        
+        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());  
+        
         if(jsonSentence != null) {
             categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
         } else {
@@ -100,10 +103,9 @@ public class HTMLEditSentencesClassification {
                 }
             }                
         }
+System.out.println("categoryId" + categoryId);        
         if(categoryId != null)
-            subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
-                
-        Element edit = HTMLGeneratorToolbox.getDiv(htmlDoc);
+            retVal.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
         
         Element classDiv = htmlDoc.createElement("div");
         classDiv.setAttribute("class", "container");
@@ -124,32 +126,33 @@ public class HTMLEditSentencesClassification {
         button.setAttribute("name", "search");
         button.setAttribute("id", "search");
         button.setAttribute("type", "text");
-        button.setAttribute("class", "ui-widget");
-//        button.setAttribute("class", "form-control");
-        button.setAttribute("placeholder", "Search");
-//        button.setAttribute("style", "width:100%");
+//        button.setAttribute("class", "ui-widget");
+        button.setAttribute("style", "float:left");;
+//        button.setAttribute("placeholder", "Search");
+
+        classInput.appendChild(button);
+        classCustomeSearch.appendChild(classInput);
+        classCol.appendChild(classCustomeSearch);
+        classRow.appendChild(classCol);
+        classDiv.appendChild(classRow);   
+        subEltFormModify.appendChild(button);    
         
-        if(categoryId != null && !categoryId.isEmpty()) {
-            button.setAttribute("value", categoryId);
-            edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Reject", sentence.getText()));
-            subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput("false", FormFields.IS_CATEGORY_ADDITION.getName(), htmlDoc));
+ //       subEltFormModify.appendChild(classDiv);    
+
+        StringBuilder urlCancel = new StringBuilder();
+        urlCancel.append(Targets.CLASSIFICATION_RESULT.getUrl());
+        urlCancel.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText(id));
+        urlCancel.append("&").append(FormFields.PARAGRAPH_INDEX.getName()).append("=").append(paragraphIndex);
+        urlCancel.append("&").append(FormFields.IS_BEING_MODIFIED.getName()).append("=").append("false");   
         
-        } else {
-            edit.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Add", sentence.getText()));
-            subElt.appendChild(HTMLGeneratorToolbox.getHiddenInput("true", FormFields.IS_CATEGORY_ADDITION.getName(), htmlDoc));
-            classInput.appendChild(button);
-            classCustomeSearch.appendChild(classInput);
-            classCol.appendChild(classCustomeSearch);
-            classRow.appendChild(classCol);
-            classDiv.appendChild(classRow);
-        }                
+        subEltFormModify.appendChild(HTMLGeneratorToolbox.getButtonInlineNoMargin(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Modify", sentence.getText()));
+                
+        Element subEltFormCancelButton = HTMLGeneratorToolbox.getForm(urlCancel.toString(), false, htmlDoc);
+        subEltFormCancelButton.appendChild(HTMLGeneratorToolbox.getButtonInlineNoMargin(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Cancel", sentence.getText()));
         
-        
-        subElt.appendChild(classDiv); 
-        retVal.appendChild(subElt);
-        
-        subElt.appendChild(edit);
-        
+        retVal.appendChild(subEltFormModify);
+        retVal.appendChild(subEltFormCancelButton);  
+     
         return retVal;
         
     }   

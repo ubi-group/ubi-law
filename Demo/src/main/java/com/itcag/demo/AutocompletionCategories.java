@@ -11,6 +11,8 @@ public class AutocompletionCategories {
     private static ArrayList<String> allCategories;
     
     private static AutocompletionCategories autocompletionCategories;
+    
+    private final static String NONE = "None";
 
     private AutocompletionCategories(String filePath) throws Exception { 
         
@@ -18,13 +20,15 @@ public class AutocompletionCategories {
 
         InputStream input = getClass().getClassLoader().getResourceAsStream(filePath);
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        
+        allCategories.add(NONE);
 
-            String line = reader.readLine();
-            while (line != null) {
-                line = line.trim();             
-                if (!line.isEmpty()) allCategories.add(line);
-                line = reader.readLine();
-            }        
+        String line = reader.readLine();
+        while (line != null) {
+            line = line.trim();             
+            if (!line.isEmpty()) allCategories.add(line);
+            line = reader.readLine();
+        }        
         
     } 
     

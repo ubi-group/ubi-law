@@ -12,6 +12,7 @@ import com.itcag.scraper.court_rulings.Scraper;
 import com.itcag.datatier.meta.Indices;
 import com.itcag.datatier.schema.DocumentFields;
 import com.itcag.legalyzer.Legalyzer;
+import com.itcag.legalyzer.util.parse.SimpleParser;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -68,5 +69,45 @@ public class DocumentProcessor {
         
         return document;
     }
+
+    public static com.itcag.legalyzer.util.doc.Document classifySimpleParser(String url) throws Exception {
+        
+        com.itcag.legalyzer.util.doc.Document document = null;     
+        
+        try {
+
+            String strDoc = Scraper.getPage(url);
+            Document doc = Jsoup.parse(strDoc);
+            
+            String txt = Scraper.extractText(doc).toString();
+
+            if(txt == null) throw new Exception("Nothing to process");
+            
+            List<String> lines = new BufferedReader(new StringReader(txt)).lines().collect(Collectors.toList());
+          
+            Properties config = new Properties();
+            config.setProperty(ParserFields.MAX_LINE_LENGTH.getName(), "1000");
+            config.setProperty(ParserFields.MAX_NUM_PARAGRAPHS.getName(), "6");
+            config.setProperty(ParserFields.STRIP_OFF_BULLETS.getName(), Boolean.TRUE.toString());
+            config.setProperty(ParserFields.REMOVE_QUOTES.getName(), Boolean.TRUE.toString());
+            config.setProperty(ParserFields.REMOVE_PARENTHESES.getName(), Boolean.TRUE.toString());      
+
+            document = new com.itcag.legalyzer.util.doc.Document(url, new ArrayList(lines), new SimpleParser(config));
+
+            LegalyzerFactory legalyzerFactory = LegalyzerFactory.getInstance(); 
+
+            Legalyzer legalyzer = legalyzerFactory.getLegalyzer();
+            
+            legalyzer.evaluate(document);
+       
+            
+        } catch(Exception ex) {
+            
+
+        }
+        
+        return document;
+    }
+
     
 }

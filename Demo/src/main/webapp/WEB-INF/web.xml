@@ -56,6 +56,15 @@
     </servlet-mapping>
     <!-- -->
     <servlet>
+        <servlet-name>SentencesClassification</servlet-name>
+        <servlet-class>com.itcag.demo.servlet.SentencesClassification</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SentencesClassification</servlet-name>
+        <url-pattern>/SentencesClassification</url-pattern>
+    </servlet-mapping>
+    <!-- -->        
+    <servlet>
         <servlet-name>RejectClassification</servlet-name>
         <servlet-class>com.itcag.demo.servlet.RejectClassification</servlet-class>
     </servlet>

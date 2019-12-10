@@ -490,6 +490,12 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("style", "clear:both; display:block; float:left; width:100%; margin-bottom:30px;");
         return retVal;
     }
+    
+   public final static Element getDiv50(Document doc) {
+        Element retVal = doc.createElement("div");
+        retVal.setAttribute("style", "float:left; width:50%; margin-bottom:30px;");
+        return retVal;
+    }
 
     public final static Element getSideBySideDiv(Document doc) {
         Element retVal = doc.createElement("div");
@@ -812,7 +818,20 @@ public final class HTMLGeneratorToolbox {
 
         return retVal;
 
-    }    
+    }  
+    
+    public final static Element getButtonInlineNoMargin(Document doc, String name, String displayName, String value) {
+
+        Element retVal = doc.createElement("button");
+        retVal.setAttribute("type", "submit");
+        retVal.setAttribute("name", name);
+        retVal.setAttribute("value", value);
+        retVal.setTextContent(displayName);
+        retVal.setAttribute("style", "float:left;");
+
+        return retVal;
+
+    }        
         
     
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

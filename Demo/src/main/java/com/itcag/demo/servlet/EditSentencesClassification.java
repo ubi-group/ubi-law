@@ -26,19 +26,7 @@ public class EditSentencesClassification extends HttpServlet {
             String strParagraphIndex = request.getParameter(FormFields.PARAGRAPH_INDEX.getName()); 
             String sentenceText = request.getParameter(FormFields.SENTENCE_TEXT.getName()); 
             String categoryId = request.getParameter("search"); 
-            String strIsAdditon = request.getParameter(FormFields.IS_CATEGORY_ADDITION.getName()); 
-            boolean isAddition = Boolean.parseBoolean(strIsAdditon);
-
-            if(isAddition) {
-                if(sentenceText != null && !sentenceText.isEmpty()) {
-                    DataTierAPI.indexClassification(sentenceText, categoryId);
-                }                
-            } else {
-                if(sentenceText != null && !sentenceText.isEmpty()) {
-                    DataTierAPI.rejectClassification(sentenceText, id);
-                }                
-            }
-
+            
             if (TextToolbox.isReallyEmpty(id)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
             if (TextToolbox.isReallyEmpty(strParagraphIndex)) throw new IllegalArgumentException("Field is missing: " + FormFields.PARAGRAPH_INDEX.getName());
             
@@ -48,9 +36,10 @@ public class EditSentencesClassification extends HttpServlet {
             
             HTTPToolbox.prepareResponse(response);
             
-            String html = HTMLEditSentencesClassification.get(doc, id, paragraphIndex);
-           
+            String html = HTMLEditSentencesClassification.get(doc, id, paragraphIndex, false);
+System.out.println(html);
             try (PrintWriter out = response.getWriter()) {
+
                 out.println(html);
             } catch (Exception ex) {
                 throw ex;
