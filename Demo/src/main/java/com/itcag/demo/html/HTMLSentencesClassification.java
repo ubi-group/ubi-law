@@ -22,8 +22,10 @@ public class HTMLSentencesClassification {
         
         org.w3c.dom.Document htmlDoc = XMLProcessor.getDocument("html");
         Element root = htmlDoc.getDocumentElement();
+        root.setAttribute("dir", "rtl");
+        root.setAttribute("lang", "he");        
         
-        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), WebConstants.VERSION, htmlDoc, HTMLHeader.getScripts()));
+        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), WebConstants.VERSION, htmlDoc, HTMLHeader.getScripts(), HTMLHeader.getStyles()));
 
         root.appendChild(getBody(document, htmlDoc, id, paragraphIndex));        
 
@@ -37,10 +39,15 @@ public class HTMLSentencesClassification {
         
         Element breadcrumbs = HTMLGeneratorToolbox.getBreadcrumbs(null, "Home", WebConstants.CONTEXT_PATH, htmlDoc);
         
-        elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_OUTPUT.getUrl(), htmlDoc));
+        elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_INPUT.getUrl(), htmlDoc));
+                      
+        Element title = HTMLGeneratorToolbox.getTitle(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), htmlDoc);
+        Element link = HTMLGeneratorToolbox.getLink(document.getId(), document.getId(), htmlDoc);
         
-        elt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.EDIT_CLASSIFICATION_RESULT.getTitle(), htmlDoc));
-
+        title.appendChild(link);
+        
+        elt.appendChild(title);       
+        
         ArrayList<Paragraph> arrParagraphs = document.getParagraphs();
         Paragraph selectedParagraph = null;
      

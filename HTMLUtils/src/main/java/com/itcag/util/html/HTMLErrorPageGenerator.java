@@ -15,7 +15,7 @@ public class HTMLErrorPageGenerator {
             Document doc = XMLProcessor.getDocument("html");
             Element root = doc.getDocumentElement();
 
-            root.appendChild(HTMLGeneratorToolbox.getHead(title, version, doc, null));
+            root.appendChild(HTMLGeneratorToolbox.getHead(title, version, doc, null, null));
 
             root.appendChild(getBody(exception, title, home, doc));
 

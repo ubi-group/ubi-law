@@ -19,8 +19,9 @@ public class HTMLAbout {
         Document doc = XMLProcessor.getDocument("html");
         Element root = doc.getDocumentElement();
         root.setAttribute("dir", "rtl");
+        root.setAttribute("lang", "he");
         
-        Element head = HTMLGeneratorToolbox.getHead(Targets.ABOUT.getTitle(), WebConstants.VERSION, doc, null);
+        Element head = HTMLGeneratorToolbox.getHead(Targets.ABOUT.getTitle(), WebConstants.VERSION, doc, null, HTMLHeader.getStyles());
         Element subElt = HTMLGeneratorToolbox.getHebrewFont(doc);
         head.appendChild(subElt);
         root.appendChild(head);

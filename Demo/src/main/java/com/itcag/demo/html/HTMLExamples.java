@@ -19,8 +19,9 @@ public class HTMLExamples {
         Document doc = XMLProcessor.getDocument("html");
         Element root = doc.getDocumentElement();
         root.setAttribute("dir", "rtl");
+        root.setAttribute("lang", "he");
         
-        Element head = HTMLGeneratorToolbox.getHead(Targets.EXAMPLES.getTitle(), WebConstants.VERSION, doc, HTMLHeader.getScripts());
+        Element head = HTMLGeneratorToolbox.getHead(Targets.EXAMPLES.getTitle(), WebConstants.VERSION, doc, HTMLHeader.getScripts(), HTMLHeader.getStyles());
         Element subElt = HTMLGeneratorToolbox.getHebrewFont(doc);
         head.appendChild(subElt);
         root.appendChild(head);

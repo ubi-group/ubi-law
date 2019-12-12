@@ -12,4 +12,11 @@ public class HTMLHeader {
         arrScripts.add("resources/js/example.js");
         return arrScripts;
     }    
+    
+    public static ArrayList<String> getStyles() {
+        ArrayList<String> arrStyles = new ArrayList();
+        arrStyles.add("resources/css/legalyzer.css");
+        return arrStyles;
+    }
+    
 }

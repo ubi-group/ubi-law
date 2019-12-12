@@ -17,7 +17,9 @@ import org.json.JSONObject;
 public class Tester {
 
     public static void main(String[] args) throws Exception {
-  
+        
+        System.out.println("\u2300 List item");
+/*  
         String s =  "פסק הדין יובא לידיעת יומן בית המשפט.";
         ArrayList<JSONObject> arrSentences = SearchIndex.searchIndex(Indices.CORRECTIONS.getFieldName(), 0, 10, SentenceFields.sentence.getFieldName(), s);
 System.out.println(arrSentences);
@@ -38,7 +40,7 @@ System.out.println(arrSentences);
             jsonSentence.put(SentenceFields.categoryId.getFieldName(), "");
             IndexDocument.indexDocument(Indices.CORRECTIONS.getFieldName(), jsonSentence.toString());
         }        
-        
+*/        
 //        CorrectionsCleaner.cleanIndex();
 //        DataTrainingCleaner.cleanIndex();
 //        CategoriesCleaner.cleanIndex();

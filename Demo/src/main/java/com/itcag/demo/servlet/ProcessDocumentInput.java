@@ -21,7 +21,7 @@ public class ProcessDocumentInput extends HttpServlet {
             HTTPToolbox.prepareResponse(response);
 
             try (PrintWriter out = response.getWriter()) {
-
+System.out.println(html);
                 out.println(html);
             } catch (Exception ex) {
                 throw ex;

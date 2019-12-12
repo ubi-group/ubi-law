@@ -34,8 +34,10 @@ public class HTMLProcessDocumentOutput {
         
         org.w3c.dom.Document htmlDoc = XMLProcessor.getDocument("html");
         Element root = htmlDoc.getDocumentElement();
+        root.setAttribute("dir", "rtl");
+        root.setAttribute("lang", "he");        
        
-        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), WebConstants.VERSION, htmlDoc, HTMLHeader.getScripts()));
+        root.appendChild(HTMLGeneratorToolbox.getHead(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), WebConstants.VERSION, htmlDoc, HTMLHeader.getScripts(), HTMLHeader.getStyles()));
 
         root.appendChild(getBody(document, htmlDoc));        
 
@@ -49,15 +51,20 @@ public class HTMLProcessDocumentOutput {
         
         Element breadcrumbs = HTMLGeneratorToolbox.getBreadcrumbs(null, "Home", WebConstants.CONTEXT_PATH, htmlDoc);
         
-        elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_OUTPUT.getUrl(), htmlDoc));
+        elt.appendChild(HTMLGeneratorToolbox.getBreadcrumbs(breadcrumbs, Targets.PROCESS_DOCUMENT_INPUT.getTitle(), Targets.PROCESS_DOCUMENT_INPUT.getUrl(), htmlDoc));
         
-        elt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc));
+        Element title = HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc);
+        Element link = HTMLGeneratorToolbox.getLink(document.getId(), document.getId(), htmlDoc);
+        
+        title.appendChild(link);
+        
+        elt.appendChild(title);                  
         
         Element eleDiv = HTMLGeneratorToolbox.getDiv(htmlDoc);
         
-        Element eleDiv1 = HTMLGeneratorToolbox.getDiv50(htmlDoc);
+        Element eleDiv1 = HTMLGeneratorToolbox.getSideBySideDiv(500, htmlDoc);
         eleDiv1.appendChild(getList(document, htmlDoc));
-        Element eleDiv2 = HTMLGeneratorToolbox.getDiv50(htmlDoc);
+        Element eleDiv2 = HTMLGeneratorToolbox.getSideBySideDiv(300, htmlDoc);
         eleDiv2.appendChild(extract(document.getId(), htmlDoc));
         
         eleDiv.appendChild(eleDiv1); 
@@ -121,7 +128,7 @@ public class HTMLProcessDocumentOutput {
                     }
                 }                
             }
-            if(categoryId != null && !categoryId.isEmpty())
+            if(categoryId != null && !categoryId.isEmpty() && !arrCats.contains(categoryId))
                 arrCats.add(categoryId);
 
         }        
@@ -207,17 +214,6 @@ public class HTMLProcessDocumentOutput {
             }
         }
         eleDiv.appendChild(listRulings);
-
-        Element listPenalties = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);        
-        listPenalties.appendChild(HTMLGeneratorToolbox.getH3("Penalties:", htmlDoc));
-        if (!document.getPenalties().isEmpty()) {
-            for (Penalty penalty : document.getPenalties()) {
-                Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);
-                retVal.appendChild(HTMLGeneratorToolbox.getBlockSpan(penalty.toString(), htmlDoc));
-                listPenalties.appendChild(retVal);
-            }
-        }        
-        eleDiv.appendChild(listPenalties);
         
         return eleDiv;
         

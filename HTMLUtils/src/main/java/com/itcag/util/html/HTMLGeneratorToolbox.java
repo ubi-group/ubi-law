@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 
 public final class HTMLGeneratorToolbox {
 
-    public final static Element getHead(String title, String version, Document doc, ArrayList<String> scripts) {
+    public final static Element getHead(String title, String version, Document doc, ArrayList<String> scripts, ArrayList<String> styles) {
         
         Element retVal = doc.createElement("head");
 
@@ -43,16 +43,6 @@ public final class HTMLGeneratorToolbox {
             retVal.appendChild(subElt);
         }
 
-        /**
-         * Ensure that no caching takes place ANYWHERE.
-         */
-        {
-            Element subElt = doc.createElement("META");
-            subElt.setAttribute("content", "no-cache");
-            subElt.setAttribute("http-equiv", "Pragma");
-            retVal.appendChild(subElt);
-        }
-
         {
             Element subElt = doc.createElement("META");
             subElt.setAttribute("content", "-1");
@@ -75,8 +65,20 @@ public final class HTMLGeneratorToolbox {
             Element subElt = doc.createElement("link");
             subElt.setAttribute("rel", "stylesheet");
             subElt.setAttribute("href", "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
+            subElt.setAttribute("type", "text/css");            
             retVal.appendChild(subElt);
         }
+        
+        if(styles != null) {
+            for(String stylePath: styles) {                {
+                    Element subElt = doc.createElement("link");
+                    subElt.setAttribute("rel", "stylesheet");
+                    subElt.setAttribute("type", "text/css");
+                    subElt.setAttribute("href", stylePath);
+                    retVal.appendChild(subElt);
+                }
+            }
+        }        
 /*        
         {
             Element subElt = doc.createElement("link");
@@ -141,7 +143,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getTitle(String title, Document doc) {
         
         Element retVal = doc.createElement("h1");
-        retVal.setAttribute("style", "clear:both; float:left;");
+        retVal.setAttribute("style", "clear:both; float:right;");
         retVal.setTextContent(title);
         
         return retVal;
@@ -151,7 +153,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getSubtitle(String title, Document doc) {
         
         Element retVal = doc.createElement("h2");
-        retVal.setAttribute("style", "clear:both; float:left;");
+        retVal.setAttribute("style", "clear:both; float:right;");
         retVal.setTextContent(title);
         
         return retVal;
@@ -161,7 +163,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getH3(String title, Document doc) {
         
         Element retVal = doc.createElement("h3");
-        retVal.setAttribute("style", "clear:both; float:left;");
+        retVal.setAttribute("style", "clear:both; float:right;");
         retVal.setTextContent(title);
         
         return retVal;
@@ -171,7 +173,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getH4(String title, Document doc) {
         
         Element retVal = doc.createElement("h4");
-        retVal.setAttribute("style", "clear:both; float:left;");
+        retVal.setAttribute("style", "clear:both; float:right;");
         retVal.setTextContent(title);
         
         return retVal;
@@ -181,7 +183,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getCheckbox(String label, boolean checked, String field, boolean readonly, Document doc) {
 
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         {
             Element elt = doc.createElement("input");
@@ -206,7 +208,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getRadio(String label, String name, String value, boolean checked, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; clear:both; float:left");
+        retVal.setAttribute("style", "display:block; clear:both; float:right");
         
         {
             Element subElt = doc.createElement("input");
@@ -233,7 +235,7 @@ public final class HTMLGeneratorToolbox {
     private static Element getLabel(String label, Document doc) {
         Element retVal = doc.createElement("span");
         retVal.setTextContent(label);
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left;");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
         return retVal;
     }
     
@@ -268,7 +270,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledInput(String label, String input, String field, boolean readonly, boolean autofocus, Document doc) {
 
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
@@ -290,13 +292,13 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledInputWithInstruction(String label, String instruction, String input, String field, boolean readonly, boolean autofocus, Document doc) {
 
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
         {
             Element subElt = doc.createElement("span");
-            subElt.setAttribute("style", "display:block; float:left; width:100%; color:#606060; font-style: italic; font-size: 80%");
+            subElt.setAttribute("style", "display:block; float:right; width:100%; color:#606060; font-style: italic; font-size: 80%");
             subElt.setTextContent(instruction);
             retVal.appendChild(subElt);
         }
@@ -319,7 +321,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getHiddenInput(String input, String field, Document doc) {
 
         Element retVal = doc.createElement("input");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px; display:none;");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px; display:none;");
         retVal.setAttribute("name", field);
         retVal.setAttribute("type", "text");
         if (!TextToolbox.isEmpty(input)) retVal.setAttribute("value", input);
@@ -336,7 +338,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("cols", "100");
         if (autofocus) retVal.setAttribute("autofocus", "autofocus");
         if (readonly) retVal.setAttribute("readonly", "readonly");
-        retVal.setAttribute("style", "display:block; float:left; width:" + width + "%; margin-top:" + topMargin + "px; margin-bottom:" + bottomMargin + " px; margin-left:" + leftMargin + "px; margin-right:" + rightMargin + "px;");
+        retVal.setAttribute("style", "display:block; float:right; width:" + width + "%; margin-top:" + topMargin + "px; margin-bottom:" + bottomMargin + " px; margin-left:" + leftMargin + "px; margin-right:" + rightMargin + "px;");
         retVal.setTextContent(input);
         return retVal;
     }
@@ -349,7 +351,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("cols", "100");
         if (autofocus) retVal.setAttribute("autofocus", "autofocus");
         if (readonly) retVal.setAttribute("readonly", "readonly");
-        retVal.setAttribute("style", "display:block; float:left; width:100%; margin-top:20px; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; float:right; width:100%; margin-top:20px; margin-bottom:20px;");
         retVal.setTextContent(input);
         return retVal;
     }
@@ -362,7 +364,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("cols", "100");
         if (autofocus) retVal.setAttribute("autofocus", "autofocus");
         if (readonly) retVal.setAttribute("readonly", "readonly");
-        retVal.setAttribute("style", "display:block; float:left; width:100%; margin-top:20px; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; float:right; width:100%; margin-top:20px; margin-bottom:20px;");
         retVal.setTextContent(input);
         return retVal;
     }
@@ -370,7 +372,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledTextArea(String label, String input, String name, boolean readonly, boolean autofocus, int width, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
@@ -381,7 +383,7 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("cols", "100");
             if (readonly) subElt.setAttribute("readonly", "readonly");
             if (!readonly && autofocus) subElt.setAttribute("autofocus", "autofocus");
-            subElt.setAttribute("style", "display:block; width:" + width + "%; clear:both; float:left;");
+            subElt.setAttribute("style", "display:block; width:" + width + "%; clear:both; float:right;");
             subElt.setTextContent(input);
             retVal.appendChild(subElt);
         }
@@ -392,7 +394,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledTextArea(String label, String input, String name, boolean readonly, boolean autofocus, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
@@ -403,7 +405,7 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("cols", "100");
             if (readonly) subElt.setAttribute("readonly", "readonly");
             if (!readonly && autofocus) subElt.setAttribute("autofocus", "autofocus");
-            subElt.setAttribute("style", "display:block; width:100%; clear:both; float:left;");
+            subElt.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
             subElt.setTextContent(input);
             retVal.appendChild(subElt);
         }
@@ -414,13 +416,13 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledTextAreaWithInstruction(String label, String instruction, String input, String name, boolean readonly, boolean autofocus, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
         {
             Element subElt = doc.createElement("span");
-            subElt.setAttribute("style", "display:block; float:left; width:100%; color:#606060; font-style: italic; font-size: 80%");
+            subElt.setAttribute("style", "display:block; float:right; width:100%; color:#606060; font-style: italic; font-size: 80%");
             subElt.setTextContent(instruction);
             retVal.appendChild(subElt);
         }
@@ -432,7 +434,7 @@ public final class HTMLGeneratorToolbox {
             subElt.setAttribute("cols", "100");
             if (readonly) subElt.setAttribute("readonly", "readonly");
             if (!readonly && autofocus) subElt.setAttribute("autofocus", "autofocus");
-            subElt.setAttribute("style", "display:block; width:100%; clear:both; float:left;");
+            subElt.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
             if (input != null) subElt.setTextContent(input);
             retVal.appendChild(subElt);
         }
@@ -487,50 +489,50 @@ public final class HTMLGeneratorToolbox {
 
     public final static Element getDiv(Document doc) {
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "clear:both; display:block; float:left; width:100%; margin-bottom:30px;");
+        retVal.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:30px;");
         return retVal;
     }
     
    public final static Element getDiv50(Document doc) {
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "float:left; width:50%; margin-bottom:30px;");
+        retVal.setAttribute("style", "float:right; width:50%; margin-bottom:30px;");
         return retVal;
     }
 
     public final static Element getSideBySideDiv(Document doc) {
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; float:left; max-width:250px; margin-right:40px;");
+        retVal.setAttribute("style", "display:block; float:right; max-width:250px; margin-right:40px;");
         return retVal;
     }
 
     public final static Element getSideBySideDiv(int maxWidth, Document doc) {
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; float:left; width:100%; max-width:" + maxWidth + "px; margin-right:20px;");
+        retVal.setAttribute("style", "display:block; float:right; width:100%; max-width:" + maxWidth + "px; margin-right:20px;");
         return retVal;
     }
 
     public final static Element getMenuDiv(Document doc) {
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; float:left; max-width:250px; margin-left:20px; margin-right:40px;");
+        retVal.setAttribute("style", "display:block; float:right; max-width:250px; margin-left:20px; margin-right:40px;");
         return retVal;
     }
 
     /* LISTS */
     public final static Element getUl(Document doc) {
         Element retVal = doc.createElement("ul");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin:0;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin:0;");
         return retVal;
     }
 
     public final static Element getUlNoDiscs(Document doc) {
         Element retVal = doc.createElement("ul");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin:0; list-style-type: none;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin:0; list-style-type: none;");
         return retVal;
     }
 
     public final static Element getMenuUl(Document doc) {
         Element retVal = doc.createElement("ul");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; padding-left:10px; margin:0 0 0 10px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; padding-left:10px; margin:0 0 0 10px;");
         return retVal;
     }
 
@@ -578,7 +580,7 @@ public final class HTMLGeneratorToolbox {
         
         Element retVal = doc.createElement("span");
         retVal.setTextContent(text);
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left;");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
         
         return retVal;
     }
@@ -633,7 +635,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getParagraph(String text, Document doc) {
         
         Element retVal = doc.createElement("p");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left;");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
         retVal.setTextContent(text);
         
         return retVal;
@@ -643,7 +645,7 @@ public final class HTMLGeneratorToolbox {
         
         Element retVal = doc.createElement("select");
         if (disabled) retVal.setAttribute("disabled", "disabled");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
         retVal.setAttribute("name", name);
         
         if (allowNoSelection) {
@@ -669,7 +671,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledDropdown(String label, TreeSet<String> options, String selected, String name, boolean disabled, boolean allowNoSelection, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
         
         retVal.appendChild(getLabel(label, doc));
 
@@ -683,7 +685,7 @@ public final class HTMLGeneratorToolbox {
         
         Element retVal = doc.createElement("select");
         if (disabled) retVal.setAttribute("disabled", "disabled");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
         retVal.setAttribute("name", name);
         
         if (allowNoSelection) {
@@ -709,7 +711,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledDropdown(String label, TreeMap<String, String> options, String selected, String name, boolean disabled, boolean allowNoSelection, Document doc) {
         
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
         
         retVal.appendChild(getLabel(label, doc));
 
@@ -725,13 +727,13 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("name", name);
         if (disabled) retVal.setAttribute("disabled", "disabled");
         if (!TextToolbox.isReallyEmpty(date)) retVal.setAttribute("value", date);
-        retVal.setAttribute("style", "display:block; clear:both; float:left;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right;");
         return retVal;
     }
     
     public final static Element getLabeledDatePicker(String label, String date, String name, boolean disabled, Document doc) {
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
         
         retVal.appendChild(getLabel(label, doc));
 
@@ -743,7 +745,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getLabeledFileInput(String label, String field, Document doc) {
 
         Element retVal = doc.createElement("span");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px");
 
         retVal.appendChild(getLabel(label, doc));
         
@@ -777,7 +779,7 @@ public final class HTMLGeneratorToolbox {
         Element retVal = doc.createElement("input");
         retVal.setAttribute("type", "submit");
         retVal.setAttribute("value", "Submit");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
 
         return retVal;
 
@@ -788,7 +790,7 @@ public final class HTMLGeneratorToolbox {
         Element retVal = doc.createElement("input");
         retVal.setAttribute("type", "submit");
         retVal.setAttribute("value", displayName);
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
 
         return retVal;
 
@@ -801,7 +803,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("name", name);
         retVal.setAttribute("value", value);
         retVal.setTextContent(displayName);
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
 
         return retVal;
 
@@ -814,7 +816,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("name", name);
         retVal.setAttribute("value", value);
         retVal.setTextContent(displayName);
-        retVal.setAttribute("style", "display:block; clear:both; float:left; margin-bottom:20px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; margin-bottom:20px;");
 
         return retVal;
 
@@ -827,7 +829,7 @@ public final class HTMLGeneratorToolbox {
         retVal.setAttribute("name", name);
         retVal.setAttribute("value", value);
         retVal.setTextContent(displayName);
-        retVal.setAttribute("style", "float:left;");
+        retVal.setAttribute("style", "float:right;");
 
         return retVal;
 
@@ -864,7 +866,7 @@ public final class HTMLGeneratorToolbox {
 
     public final static Element getTable(Document doc) {
         Element retVal = doc.createElement("table");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; width:100%; max-width:100%; border-collapse:collapse; table-layout:fixed;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; width:100%; max-width:100%; border-collapse:collapse; table-layout:fixed;");
         return retVal;
     }
     
@@ -913,7 +915,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getVerticalSpaceDiv(int height, Document doc) {
         
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; width:100%; height:" + height + "px;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; width:100%; height:" + height + "px;");
         return retVal;
 
     }
@@ -921,7 +923,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getResetDiv(Document doc) {
 
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; clear:both; float:left;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right;");
         return retVal;
         
     }
@@ -935,7 +937,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getWarning(String text, Document doc) {
         
         Element retVal = doc.createElement("p");
-        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:left; margin-bottom:20px; font-size:120%; color:red;");
+        retVal.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-bottom:20px; font-size:120%; color:red;");
         retVal.setTextContent(text);
         
         return retVal;
@@ -948,7 +950,7 @@ public final class HTMLGeneratorToolbox {
     public final static Element getTopMenu(LinkedHashMap<String, String> links, Document doc) {
         
         Element retVal = doc.createElement("div");
-        retVal.setAttribute("style", "display:block; clear:both; float:left; text-align:right; width:100%; padding:10px; background-color:#E6E6FA;");
+        retVal.setAttribute("style", "display:block; clear:both; float:right; text-align:right; width:100%; padding:10px; background-color:#E6E6FA;");
         
         for (Entry<String, String> entry : links.entrySet()) {
             retVal.appendChild(getInlineLink(entry.getValue(), entry.getKey(), doc));
@@ -965,7 +967,7 @@ public final class HTMLGeneratorToolbox {
          */
         if (wrapper == null) {
             wrapper = doc.createElement("span");
-            wrapper.setAttribute("style", "display:block; clear:both; float:left;");
+            wrapper.setAttribute("style", "display:block; clear:both; float:right;");
         } else {
             Element pointer = doc.createElement("span");
             pointer.setAttribute("style", "font-size:75%");
