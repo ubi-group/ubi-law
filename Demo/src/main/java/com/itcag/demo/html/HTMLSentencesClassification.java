@@ -110,13 +110,36 @@ public class HTMLSentencesClassification {
             }                
         }
 System.out.println("categoryId" + categoryId);
-        if(categoryId != null)
-            subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
-                
-        Element ModifyDiv = HTMLGeneratorToolbox.getDiv(htmlDoc);
-        ModifyDiv.appendChild(HTMLGeneratorToolbox.getButton(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Modify", sentence.getText()));
 
-        subElt.appendChild(ModifyDiv);
+        if(categoryId != null) {
+            subElt.appendChild(HTMLGeneratorToolbox.getInlineSpan(categoryId, false, htmlDoc));
+            // <a href="#" id="blabla">Text</a>
+            
+            Element eleRemove = htmlDoc.createElement("a");
+            eleRemove.setAttribute("href", "#");
+            eleRemove.setAttribute("id", "removeTag");
+            eleRemove.setTextContent("Remove");
+            subElt.appendChild(eleRemove);
+            
+            Element button = htmlDoc.createElement("input");
+            button.setAttribute("name", "search");
+            button.setAttribute("id", "search");
+            button.setAttribute("type", "text");
+            button.setAttribute("style", "float:right");
+
+            subElt.appendChild(button); 
+            subElt.appendChild(HTMLGeneratorToolbox.getButtonInlineNoMargin(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Replace", sentence.getText()));
+
+        } else {
+            Element button = htmlDoc.createElement("input");
+            button.setAttribute("name", "search");
+            button.setAttribute("id", "search");
+            button.setAttribute("type", "text");
+            button.setAttribute("style", "float:right");            
+            subElt.appendChild(button); 
+            subElt.appendChild(HTMLGeneratorToolbox.getButtonInlineNoMargin(htmlDoc, FormFields.SENTENCE_TEXT.getName(), "Add", sentence.getText()));
+            
+        }                                    
         
         retVal.appendChild(subElt);
         

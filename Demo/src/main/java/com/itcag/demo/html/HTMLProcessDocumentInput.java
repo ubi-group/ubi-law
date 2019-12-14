@@ -38,19 +38,29 @@ public class HTMLProcessDocumentInput {
 
         subElt.appendChild(para);
         
+         Element divInput = doc.createElement("div");
+              
         Element input = doc.createElement("input");
         input.setAttribute("name", FormFields.ID.getName());
         input.setAttribute("type", "text");
         input.setAttribute("autofocus", "autofocus");
         input.setAttribute("width", "95%");
-        input.setAttribute("style", "display:block; clear:both; float:right;");
-        subElt.appendChild(input);
-        
+        input.setAttribute("style", "display:block; clear:both; float:right; width:95%");
+        Element rightInputDiv = doc.createElement("div");
+        rightInputDiv.setAttribute("style", "display:block; float:left; width:95%");
+        rightInputDiv.appendChild(input);
+        divInput.appendChild(rightInputDiv);
+      
         Element buttonText = doc.createElement("button");
         buttonText.setTextContent("\u23EC");
         buttonText.setAttribute("class", "link");  
         buttonText.setAttribute("style", "display:block; clear:both; float:right;");
-        subElt.appendChild(buttonText);
+        Element rightInputDiv2 = doc.createElement("div");
+        rightInputDiv2.setAttribute("style", "display:block; float:left; width:5%");
+        rightInputDiv2.appendChild(buttonText);
+        divInput.appendChild(rightInputDiv2);
+        
+        subElt.appendChild(divInput);
         
         Element AdditonalLinksPara = doc.createElement("p");
         
@@ -58,6 +68,8 @@ public class HTMLProcessDocumentInput {
         AdditonalLinksPara.setTextContent("להלן מספר פסקי דין לדוגמא:");
 
         Element link1 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2", "right", doc);
+//target="_blank" rel="noopener noreferrer"         
+        
         Element link2 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2", "right", doc);
         Element link3 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2","right" , doc);
         Element link4 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2", "right",doc);
