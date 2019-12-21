@@ -15,8 +15,8 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
         
         
-//        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
-        processFile("/home/nahum/Desktop/legaltech/experiments/original/Civil - Torts.txt");
+        processFolder("/home/nahum/Desktop/hebrew/high court rulings/");
+//        processFile("/home/nahum/Desktop/legaltech/experiments/original/Civil - Torts.txt");
         
     }
     
@@ -29,7 +29,7 @@ public class Sandbox {
         total = folder.listFiles().length;
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) continue;
-            System.out.println(count++ + "/" + total);
+//            System.out.println(count++ + "/" + total);
             processFile(file.getPath());
         }
         
@@ -37,29 +37,29 @@ public class Sandbox {
     
     private static void processFile(String filePath) throws Exception {
     
-        String filter = "נזק";
+        String filter = "עתירה";
 //        String filter = "סכומים";
         
         
         ArrayList<String> lines = TextFileReader.read(filePath);
 
-        HashSet<String> outputLines = new HashSet<>();
+//        HashSet<String> outputLines = new HashSet<>();
         
         for (String line : lines) {
             
             if (line.contains(filter)) {
                 System.out.println(line);
             } else {
-                outputLines.add(line);
+//                outputLines.add(line);
             }
             
         }
         
-        TextFileWriter writer = new TextFileWriter(filePath);
-        for (String outputLine : outputLines) {
-            writer.write(outputLine);
-        }
-        writer.close();
+//        TextFileWriter writer = new TextFileWriter(filePath);
+//        for (String outputLine : outputLines) {
+//            writer.write(outputLine);
+//        }
+//        writer.close();
     
     }
     

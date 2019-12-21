@@ -204,4 +204,8 @@ public class Tester {
     
     }
 
+    public Categories getCategories() {
+        return this.categories;
+    }
+    
 }

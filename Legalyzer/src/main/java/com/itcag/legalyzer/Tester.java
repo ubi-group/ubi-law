@@ -34,9 +34,7 @@ public class Tester {
         String folderPath = "/home/nahum/Desktop/hebrew/high court rulings/";
         String filePath = "/home/nahum/Desktop/legaltech/experiments/original/Administrative - Licenses, planning and construction.txt";
 
-        String categoryFilePath = "/home/nahum/Desktop/legaltech/experiments/categories.txt";
-        
-        Categories categories = new Categories(categoryFilePath);
+        Categories categories = new Categories(configuration.getCategoriesPath());
 
         Legalyzer legalyzer = new Legalyzer(categories);
 
@@ -64,8 +62,8 @@ public class Tester {
         
 //        Printer.print("----------------------------------------------------------------");
 //        Printer.print(id);
-        evaluate(id, lines, legalyzer);
-//        extract(id, lines, legalyzer);
+//        evaluate(id, lines, legalyzer);
+        extract(id, lines, legalyzer);
 //        Printer.print("----------------------------------------------------------------");
 //        Printer.print();
 //        Printer.print();
@@ -202,7 +200,7 @@ public class Tester {
         }
         
         if (!document.getPenalties().isEmpty()) {
-            Printer.print("Referenced court rulings:");
+            Printer.print("Penalties:");
             for (Penalty penalty : document.getPenalties()) {
                 Printer.print("\t" + penalty.toString());
             }

@@ -64,10 +64,12 @@ public class HTMLProcessDocumentOutput {
         elt.appendChild(eleDivLink);
         
         Element eleDiv = htmlDoc.createElement("div");
-        eleDiv.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:30px; margin-top:20px; ");
+        eleDiv.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:30px; margin-top:20px; max-width:inherit;");
         
         Element eleDiv1 = HTMLGeneratorToolbox.getSideBySideDiv(500, htmlDoc);
-        eleDiv1.appendChild(getList(document, htmlDoc));
+        Element list = getList(document, htmlDoc);
+        list.setAttribute("style", list.getAttribute("style") + " max-width:inherit;");
+        eleDiv1.appendChild(list);
         Element eleDiv2 = HTMLGeneratorToolbox.getSideBySideDiv(300, htmlDoc);
         eleDiv2.appendChild(extract(document.getId(), htmlDoc));
         
@@ -83,6 +85,7 @@ public class HTMLProcessDocumentOutput {
     private static Element getList(com.itcag.legalyzer.util.doc.Document document, org.w3c.dom.Document htmlDoc) throws Exception {
 
         Element retVal = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
+        retVal.setAttribute("style", retVal.getAttribute("style") + " max-width:inherit;");
 
         for (Paragraph paragraph : document.getParagraphs()) {
 System.out.println("paragraph: " + paragraph);
@@ -90,7 +93,9 @@ System.out.println("paragraph.getText(): " + paragraph.getText());
 System.out.println("LegalyzerFactory.getCategories(): " + LegalyzerFactory.getCategories());
 System.out.println("LegalyzerFactory.getCategories().get() " + LegalyzerFactory.getCategories().get());
 System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get()) " + paragraph.getEvaluation(LegalyzerFactory.getCategories().get()));
-            retVal.appendChild(getListItem(paragraph, document.getId(), htmlDoc));
+            Element listItem = getListItem(paragraph, document.getId(), htmlDoc);
+            listItem.setAttribute("style", listItem.getAttribute("style") + " max-width:inherit;");
+            retVal.appendChild(listItem);
         }
         
         return retVal;
@@ -107,6 +112,7 @@ System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get
         Element subElt = HTMLGeneratorToolbox.getForm(url.toString(), true, htmlDoc);
         
         Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);
+        retVal.setAttribute("style", retVal.getAttribute("style") + " max-width:inherit;");
 
         StringBuilder label = new StringBuilder();
         label.append(paragraph.getText());
@@ -149,8 +155,9 @@ System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get
             String catLabel = catLabl.replace("_", " ");
             if(size != 1 && pos != size -1)
               catLabel = catLabel + ",";
-           
-            retVal.appendChild(HTMLGeneratorToolbox.getInlineSpan(catLabel, indent, htmlDoc));
+            Element span = HTMLGeneratorToolbox.getInlineSpan(catLabel, indent, htmlDoc);
+            span.setAttribute("style", "max-width:inherit;");
+            retVal.appendChild(span);
             pos++;
             indent = true;
         }       

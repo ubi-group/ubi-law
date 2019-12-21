@@ -35,7 +35,7 @@ public class HTMLProcessDocumentInput {
 
         subElt.appendChild(HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_INPUT.getTitle(), doc));
 
-        Element para = HTMLGeneratorToolbox.getParagraph("\u23EC "+"תבחרו פסק דין מאתר בית המשפט העליון (https://supremedecisions.court.gov.il), תעתיקו את הכתובת למטה ותלחצו על", doc);
+        Element para = HTMLGeneratorToolbox.getParagraph("תבחרו פסק דין מאתר בית המשפט העליון (https://supremedecisions.court.gov.il), תעתיקו את הכתובת למטה ותלחצו על \u23EC", doc);
 
         subElt.appendChild(para);
         

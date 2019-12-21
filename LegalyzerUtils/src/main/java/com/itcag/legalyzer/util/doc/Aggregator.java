@@ -49,6 +49,7 @@ public class Aggregator {
         for (Map.Entry<Double, HashSet<Integer>> entry : inverted.entrySet()) {
             for (Integer index : entry.getValue()) {
                 Category category = categories.get(index);
+                category.setScore(entry.getKey());
                 if (retVal.containsKey(entry.getKey())) {
                     retVal.get(entry.getKey()).add(category);
                 } else {

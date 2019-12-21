@@ -1,0 +1,11 @@
+{
+  "patterns": [
+    {
+      "scope": "HIGH_COURT",
+      "role": "TRIGGER",
+      "type": "PERSONNEL",
+      "value": "בפני:",
+      "semantic": "JUDGE"
+    }
+  ]
+}

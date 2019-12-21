@@ -137,7 +137,7 @@ public class Trainer {
         
         config.setProperty(ConfigurationFields.TRUNCATE_TEXT_TO.getName(), "300");
         config.setProperty(ConfigurationFields.BATCH_SIZE.getName(), "50");
-        config.setProperty(ConfigurationFields.EPOCHS.getName(), "100");
+        config.setProperty(ConfigurationFields.EPOCHS.getName(), "500");
         
         config.setProperty(ConfigurationFields.LEARNING_RATE.getName(), "0.0018");
         config.setProperty(ConfigurationFields.DECAY_RATE.getName(), "0.1");
