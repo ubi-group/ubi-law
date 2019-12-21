@@ -185,7 +185,7 @@ public class Document extends Aggregator {
         
         {
             JSONArray jsonArray = new JSONArray();
-            for (String line : lines) {
+            for (String line : getLines()) {
                 jsonArray.put(line);
             }
             retVal.put(Fields.LINES.getName(), jsonArray);
@@ -201,6 +201,13 @@ public class Document extends Aggregator {
         
         return retVal;
         
+    }
+
+    /**
+     * @return the lines
+     */
+    public ArrayList<String> getLines() {
+        return lines;
     }
     
 }

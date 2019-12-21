@@ -10,6 +10,9 @@ public enum FormFields {
     IS_CATEGORY_ADDITION("isCategoryAddition"),
     IS_BEING_MODIFIED("isBeingModified"),
     NEW_CATEGORY("newCategory"),
+    REMOVE_TAG("removeTag"),
+    ADD_TAG("addTag"),
+    REPLACE_TAG("replaceTag"),
     
     ;
     

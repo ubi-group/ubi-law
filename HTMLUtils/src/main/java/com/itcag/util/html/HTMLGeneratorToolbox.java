@@ -570,6 +570,7 @@ public final class HTMLGeneratorToolbox {
 
         Element retVal = doc.createElement("a");
         retVal.setTextContent(label);
+        retVal.setAttribute("style", "text-align: left;");
         retVal.setAttribute("href", href);
 
         return retVal;

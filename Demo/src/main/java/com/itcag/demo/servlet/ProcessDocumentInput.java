@@ -1,5 +1,7 @@
 package com.itcag.demo.servlet;
 
+import com.itcag.demo.AutocompletionCategories;
+import com.itcag.demo.Config;
 import com.itcag.demo.html.HTMLProcessDocumentInput;
 import com.itcag.util.html.HTTPToolbox;
 import java.io.IOException;
@@ -15,13 +17,13 @@ public class ProcessDocumentInput extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            
+   
             String html = HTMLProcessDocumentInput.get();
             
             HTTPToolbox.prepareResponse(response);
 
             try (PrintWriter out = response.getWriter()) {
-System.out.println(html);
+
                 out.println(html);
             } catch (Exception ex) {
                 throw ex;

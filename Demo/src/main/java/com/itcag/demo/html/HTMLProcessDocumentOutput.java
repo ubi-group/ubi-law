@@ -56,11 +56,15 @@ public class HTMLProcessDocumentOutput {
         Element title = HTMLGeneratorToolbox.getTitle(Targets.PROCESS_DOCUMENT_OUTPUT.getTitle(), htmlDoc);
         Element link = HTMLGeneratorToolbox.getLink(document.getId(), document.getId(), htmlDoc);
         
-        title.appendChild(link);
+        elt.appendChild(title);   
         
-        elt.appendChild(title);                  
+        Element eleDivLink = htmlDoc.createElement("div");
+        eleDivLink.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:30px; margin-top:10px; ");        
+        eleDivLink.appendChild(link);  
+        elt.appendChild(eleDivLink);
         
-        Element eleDiv = HTMLGeneratorToolbox.getDiv(htmlDoc);
+        Element eleDiv = htmlDoc.createElement("div");
+        eleDiv.setAttribute("style", "clear:both; display:block; float:right; width:100%; margin-bottom:30px; margin-top:20px; ");
         
         Element eleDiv1 = HTMLGeneratorToolbox.getSideBySideDiv(500, htmlDoc);
         eleDiv1.appendChild(getList(document, htmlDoc));
@@ -81,7 +85,11 @@ public class HTMLProcessDocumentOutput {
         Element retVal = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
 
         for (Paragraph paragraph : document.getParagraphs()) {
-            
+System.out.println("paragraph: " + paragraph);
+System.out.println("paragraph.getText(): " + paragraph.getText());
+System.out.println("LegalyzerFactory.getCategories(): " + LegalyzerFactory.getCategories());
+System.out.println("LegalyzerFactory.getCategories().get() " + LegalyzerFactory.getCategories().get());
+System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get()) " + paragraph.getEvaluation(LegalyzerFactory.getCategories().get()));
             retVal.appendChild(getListItem(paragraph, document.getId(), htmlDoc));
         }
         
@@ -172,7 +180,7 @@ public class HTMLProcessDocumentOutput {
         LegalyzerFactory.getInstance().getLegalyzer().extract(document, extractionConfig);
         
         Element listJudges = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
-        listJudges.appendChild(HTMLGeneratorToolbox.getH3("Personnel:", htmlDoc));
+        listJudges.appendChild(HTMLGeneratorToolbox.getH3("Personnel", htmlDoc));
         
         if (!document.getJudges().isEmpty() || !document.getPlaintiffAttorneys().isEmpty() || !document.getDefendantAttorneys().isEmpty()) {
             for (Person person : document.getJudges()) {
@@ -191,10 +199,11 @@ public class HTMLProcessDocumentOutput {
                 listJudges.appendChild(retVal);
             }
         }
-        eleDiv.appendChild(listJudges);
+        if(!document.getJudges().isEmpty() || !document.getPlaintiffAttorneys().isEmpty() || !document.getDefendantAttorneys().isEmpty())
+            eleDiv.appendChild(listJudges);
         
         Element listLaws = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
-        listLaws.appendChild(HTMLGeneratorToolbox.getH3("Referenced laws:", htmlDoc));
+        listLaws.appendChild(HTMLGeneratorToolbox.getH3("Referenced laws", htmlDoc));
         if (!document.getLaws().isEmpty()) {
             for (Map.Entry<String, Law> entry : document.getLaws().entrySet()) {
                 Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);
@@ -202,10 +211,11 @@ public class HTMLProcessDocumentOutput {
                 listLaws.appendChild(retVal);
             }
         }
-        eleDiv.appendChild(listLaws);
+        if(!document.getLaws().isEmpty())
+            eleDiv.appendChild(listLaws);
         
         Element listRulings = HTMLGeneratorToolbox.getUlNoDiscs(htmlDoc);
-        listRulings.appendChild(HTMLGeneratorToolbox.getH3("Referenced court rulings:", htmlDoc));
+        listRulings.appendChild(HTMLGeneratorToolbox.getH3("Referenced court rulings", htmlDoc));
         if (!document.getRulings().isEmpty()) {
             for (Map.Entry<String, CourtRuling> entry : document.getRulings().entrySet()) {
                 Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);
@@ -213,7 +223,8 @@ public class HTMLProcessDocumentOutput {
                 listRulings.appendChild(retVal);
             }
         }
-        eleDiv.appendChild(listRulings);
+        if(!document.getRulings().isEmpty())
+            eleDiv.appendChild(listRulings);
         
         return eleDiv;
         

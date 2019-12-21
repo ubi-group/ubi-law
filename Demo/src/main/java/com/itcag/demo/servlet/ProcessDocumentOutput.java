@@ -50,6 +50,7 @@ public class ProcessDocumentOutput extends HttpServlet {
                 String html = HTMLProcessDocumentOutput.get(doc);
 
                 try (PrintWriter out = response.getWriter()) {
+System.out.println(html);
                     out.println(html);
                 } catch (Exception ex) {
                     throw ex;
@@ -65,8 +66,51 @@ public class ProcessDocumentOutput extends HttpServlet {
     }
     
     @Override
-    public void destroy() {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        try {
+            
+            request.setCharacterEncoding("UTF-8");
+            
+            String url = request.getParameter(FormFields.ID.getName());  
+            response.setContentType("text/html; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+                        
+            if(url == null || url.isEmpty() || !url.startsWith("https://supremedecisions.court.gov.il/")) {
+                
+                String msg = "הלינק שהכנסתם אינו מוביל למסד הנתונים המכיל פסקי דין של בית המשפט העליון. נסו שוב. הלינק חייב להשתייך לכתובת זו: https://supremedecisions.court.gov.il/";
+                
+                String errorPage = HTMLErrorPageGenerator.get(msg, "קלט שגוי", WebConstants.VERSION, null);
+                
+                 try (PrintWriter out = response.getWriter()) {
+                    out.println(errorPage);
+                } catch (Exception ex) {
+                    throw ex;
+                }
+                 
+            } else {
+           
+                if (TextToolbox.isReallyEmpty(url)) throw new IllegalArgumentException("Field is missing: " + FormFields.ID.getName());
+
+                com.itcag.legalyzer.util.doc.Document doc = DocumentProcessor.classify(url);
+System.out.println("com.itcag.legalyzer.util.doc.Document: " + doc);
+                HTTPToolbox.prepareResponse(response);
+
+                String html = HTMLProcessDocumentOutput.get(doc);
+
+                try (PrintWriter out = response.getWriter()) {
+
+                    out.println(html);
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+
+        } catch (Exception ex) {
+            
+            throw new ServletException(ex);
+            
+        }
 
     }
 }

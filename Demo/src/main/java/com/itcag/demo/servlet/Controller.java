@@ -21,11 +21,12 @@ public class Controller extends HttpServlet {
 			String term = request.getParameter("term");
                         
                         ArrayList autoCompletion = new ArrayList();
-                                                
+                                             
                         term = term.toLowerCase();
+ System.out.println(term);                          
                         for(String cat: AutocompletionCategories.getInstance(Config.ALL_CATEGORIES).getAllCategories()) {
                             cat = cat.toLowerCase();
-                           
+System.out.println(cat);
                             if(cat.contains(term)){
                                 autoCompletion.add(cat);
 

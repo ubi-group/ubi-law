@@ -41,6 +41,16 @@ public class Config {
         
         HIGHEST_GENERIC_INDEX = tmp.getLastGenericIndex();
 
+        System.out.println("WORD_2_VEC_DATA_PATH=" + WORD_2_VEC_DATA_PATH);
+        System.out.println("WORD_2_VEC_PATH=" + WORD_2_VEC_PATH);
+        System.out.println("CATEGORIES_PATH=" + CATEGORIES_PATH);
+        System.out.println("DATA_PATH=" + DATA_PATH);
+        System.out.println("TRAINING_DATA_PATH=" + TRAINING_DATA_PATH);
+        System.out.println("TEST_DATA_PATH=" + TEST_DATA_PATH);
+        System.out.println("MODEL_PATH=" + MODEL_PATH);
+        System.out.println("ALL_CATEGORIES=" + ALL_CATEGORIES);
+        System.out.println("HIGHEST_GENERIC_INDEX=" + HIGHEST_GENERIC_INDEX);
+        
     }
     
 }

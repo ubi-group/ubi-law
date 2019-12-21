@@ -2,6 +2,7 @@ package com.itcag.datatier;
 
 import com.itcag.datatier.meta.Constants;
 import com.itcag.datatier.meta.Indices;
+import com.itcag.datatier.schema.DocumentFields;
 import com.itcag.datatier.schema.SentenceFields;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,9 @@ public class Tester {
 
     public static void main(String[] args) throws Exception {
         
-        System.out.println("\u2300 List item");
+ElasticsearchRestClient.getClient();
+System.exit(0);
+        
 /*  
         String s =  "פסק הדין יובא לידיעת יומן בית המשפט.";
         ArrayList<JSONObject> arrSentences = SearchIndex.searchIndex(Indices.CORRECTIONS.getFieldName(), 0, 10, SentenceFields.sentence.getFieldName(), s);

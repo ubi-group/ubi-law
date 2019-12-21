@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 public class DataTierAPI {
-    
+   
     public static void rejectClassification(String sentenceText) throws Exception {
         
         ArrayList<JSONObject> arrSentences = SearchIndex.searchIndex(Indices.CORRECTIONS.getFieldName(), 0, 1, SentenceFields.sentence.getFieldName(), sentenceText);
@@ -57,5 +57,5 @@ public class DataTierAPI {
         }
        
     }    
-    
+
 }

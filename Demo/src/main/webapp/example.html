@@ -26,39 +26,94 @@
         <div class="col-12">
             <div id="custom-search-input">
                 <div class="input-group">
-                    <input id="search" name="search" type="text" class="form-control" placeholder="Search" />
+                    <input id="search2" name="search2" type="text" class="form-control" placeholder="Search" />
                 </div>
             </div>
         </div>
     </div>
 </div>
  
-<datalist id="languages">
-  <option value="HTML">
-  <option value="CSS">
-  <option value="JavaScript">
-  <option value="Java">
-  <option value="Ruby">
-  <option value="PHP">
-  <option value="Go">
-  <option value="Erlang">
-  <option value="Python">
-  <option value="C">
-  <option value="C#">
-  <option value="C++">
+<datalist id="categories">
+<option value="Administrative - Citizenship">
+<option value="Administrative - Commercial and Economic Regulation">
+<option value="Administrative - Education">
+<option value="Administrative - Environmental">
+<option value="Administrative - Licenses, planning and construction">
+<option value="Administrative - Media">
+<option value="Administrative - Municipalities">
+<option value="Administrative - other">
+<option value="Administrative - Tender">
+<option value="Civil - Bankruptcy">
+<option value="Civil - Contracts">
+<option value="Civil - Corporate/Commercial">
+<option value="Civil - Equity and Trusts">
+<option value="Civil - Fiscal/Tax">
+<option value="Civil - Intellectual Property">
+<option value=">Civil - Land">
+<option value=">Civil - other">
+<option value=">Civil - Procedure and Evidence">
+<option value=">Civil - Property">
+<option value=">Civil - Torts">
+<option value=">Constitutional - Election law">
+<option value=">Constitutional - Human Rights - Access to courts">
+<option value=">Constitutional - Human Rights - Autonomy">
+<option value=">Constitutional - Human Rights - Dignity">
+<option value=">Constitutional - Human Rights - Due process">
+<option value=">Constitutional - Human Rights - Education">
+<option value=">Constitutional - Human Rights - Equality/ Discrimination">
+<option value=">Constitutional - Human Rights - Freedom of association">
+<option value=">Constitutional - Human Rights - Freedom of/from religion">
+<option value=">Constitutional - Human Rights - Freedom of movement">
+<option value=">Constitutional - Human Rights - Freedom of occupation">
+<option value=">Constitutional - Human Rights - Freedom of speech">
+<option value=">Constitutional - Human Rights - Interest">
+<option value=">Constitutional - Human Rights - Liberty">
+<option value=">Constitutional - Human Rights - Minimal conditions for existence in Dignity">
+<option value=">Constitutional - Human Rights - Privacy">
+<option value=">Constitutional - Human Rights - Property">
+<option value=">Constitutional - Human Rights - Right to family life">
+<option value=">Constitutional - Human Rights - Right to health">
+<option value=">Constitutional - Human Rights - Right to life">
+<option value=">Constitutional - Human Rights - The right to a nationality">
+<option value=">Constitutional - Human Rights - The right to elect and to be elected">
+<option value=">Constitutional - other">
+<option value=">Constitutional - Religion and State">
+<option value=">Constitutional - Separation of powers and judicial power">
+<option value=">Criminal - Appeal on sentence">
+<option value=">Criminal - Arrests">
+<option value=">Criminal - Corruption">
+<option value=">Criminal - Drugs">
+<option value=">Criminal - Other">
+<option value=">Criminal - Prisioner's petitions">
+<option value=">Criminal - Procedure & Evidence">
+<option value=">Criminal - Security">
+<option value=">Criminal - Sex">
+<option value=">Criminal - Traffic">
+<option value=">Criminal - Violence">
+<option value=">Criminal - White collar">
+<option value=">Family - Alimony and assets">
+<option value=">Family - Custody and guardiandship">
+<option value=">Family - other">
+<option value=">Family - Wills and successions">
+<option value=">International law">
+<option value=">Labor and Employment">
+<option value="National security, military, and the territories">
+<option value="Religious - other">
+<option value="Religious - Other religions">
+<option value="Religious - Rabbinical courts">
+<option value="Social security, Health Insurance, Pension">
 </datalist>
+      
 <div class="ui-widget">
 Langs:
-<input type="text" list="languages">    
+<input id="search" type="text" list="categories">    
 </div>
-    
-<div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div>
- 
-    
+    <button onclick="myFun()">Test</button>     
 <script>
+function myFun() {
+    alert(document.getElementById("search").value);
+}    
+    
 $( function() {
     var availableTags = [
       "ActionScript",
@@ -87,7 +142,107 @@ $( function() {
     $( "#tags" ).autocomplete({
       source: availableTags
     });
-  } );    
+  } );   
+
+$( function() {
+    var availableTags = [
+ "Administrative - Citizenship"
+,"Administrative - Commercial and Economic Regulation"
+,"Administrative - Education"
+,"Administrative - Environmental"
+,"Administrative - Licenses, planning and construction"
+,"Administrative - Media"
+,"Administrative - Municipalities"
+,"Administrative - other"
+,"Administrative - Tender"
+,"Civil - Bankruptcy"
+,"Civil - Contracts"
+,"Civil - Corporate/Commercial"
+,"Civil - Equity and Trusts"
+,"Civil - Fiscal/Tax"
+,"Civil - Intellectual Property"
+,"Civil - Land"
+,"Civil - other"
+,"Civil - Procedure and Evidence"
+,"Civil - Property"
+,"Civil - Torts"
+,"Constitutional - Election law"
+,"Constitutional - Human Rights - Access to courts"
+,"Constitutional - Human Rights - Autonomy"
+,"Constitutional - Human Rights - Dignity"
+,"Constitutional - Human Rights - Due process"
+,"Constitutional - Human Rights - Education"
+,"Constitutional - Human Rights - Equality/ Discrimination"
+,"Constitutional - Human Rights - Freedom of association"
+,"Constitutional - Human Rights - Freedom of/from religion"
+,"Constitutional - Human Rights - Freedom of movement"
+,"Constitutional - Human Rights - Freedom of occupation"
+,"Constitutional - Human Rights - Freedom of speech"
+,"Constitutional - Human Rights - Interest"
+,"Constitutional - Human Rights - Liberty"
+,"Constitutional - Human Rights - Minimal conditions for existence in Dignity"
+,"Constitutional - Human Rights - Privacy"
+,"Constitutional - Human Rights - Property"
+,"Constitutional - Human Rights - Right to family life"
+,"Constitutional - Human Rights - Right to health"
+,"Constitutional - Human Rights - Right to life"
+,"Constitutional - Human Rights - The right to a nationality"
+,"Constitutional - Human Rights - The right to elect and to be elected"
+,"Constitutional - other"
+,"Constitutional - Religion and State"
+,"Constitutional - Separation of powers and judicial power"
+,"Criminal - Appeal on sentence"
+,"Criminal - Arrests"
+,"Criminal - Corruption"
+,"Criminal - Drugs"
+,"Criminal - Other"
+,"Criminal - Prisioner's petitions"
+,"Criminal - Procedure & Evidence"
+,"Criminal - Security"
+,"Criminal - Sex"
+,"Criminal - Traffic"
+,"Criminal - Violence"
+,"Criminal - White collar"
+,"Family - Alimony and assets"
+,"Family - Custody and guardiandship"
+,"Family - other"
+,"Family - Wills and successions"
+,"International law"
+,"Labor and Employment"
+,"National security, military, and the territories"
+,"Religious - other"
+,"Religious - Other religions"
+,"Religious - Rabbinical courts"
+,"Social security, Health Insurance, Pension"
+    ];
+    $( "#search2" ).autocomplete({
+      source: availableTags
+    });
+  } );   
+  
+    
+ $(function() {
+    $("#search").autocomplete({     
+          source : function(request, response) {
+               $.ajax({
+                    url : "Controller",
+                    type : "GET",
+                    data : {
+                           term : request.term
+                    },
+                    dataType : "json",
+                    success : function(data) {
+                          response(data);
+                    }
+             });
+          },
+          select: function( event, ui ) {
+             $("#search").val(ui.item.value);
+             return false;
+          }
+    });
+});  
+      
 </script>
     
 </body>

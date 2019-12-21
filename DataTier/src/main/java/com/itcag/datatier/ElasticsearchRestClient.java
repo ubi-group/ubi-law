@@ -10,9 +10,9 @@ import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
 public class ElasticsearchRestClient {
-    
+   
     public static RestHighLevelClient getClient() {
-        
+System.out.println("DB 18.184.3.224");
         final CredentialsProvider credentialsProvider =
             new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
@@ -33,5 +33,28 @@ public class ElasticsearchRestClient {
         
         return client;
     }
-    
+  
+/* 
+    public static RestHighLevelClient getClient() {
+ System.out.println("localhost");
+        final CredentialsProvider credentialsProvider =
+            new BasicCredentialsProvider();
+
+        RestClientBuilder builder = org.elasticsearch.client.RestClient.builder(
+            new HttpHost("localhost", 9200))
+            .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+                @Override
+                public HttpAsyncClientBuilder customizeHttpClient(
+                        HttpAsyncClientBuilder httpClientBuilder) {
+                    return httpClientBuilder
+                        .setDefaultCredentialsProvider(credentialsProvider);
+                }
+            });  
+        
+            RestHighLevelClient client = new RestHighLevelClient(builder);        
+        
+        return client;
+    }
+       
+  */
 }

@@ -3,6 +3,7 @@ package com.itcag.demo.html;
 import com.itcag.demo.FormFields;
 import com.itcag.demo.Targets;
 import com.itcag.demo.WebConstants;
+import com.itcag.util.Encoder;
 import com.itcag.util.XMLProcessor;
 import com.itcag.util.html.HTMLGeneratorToolbox;
 import org.w3c.dom.Document;
@@ -67,13 +68,40 @@ public class HTMLProcessDocumentInput {
         AdditonalLinksPara.setAttribute("style", "display:block; width:100%; clear:both; float:right;");
         AdditonalLinksPara.setTextContent("להלן מספר פסקי דין לדוגמא:");
 
-        Element link1 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2", "right", doc);
-//target="_blank" rel="noopener noreferrer"         
+        StringBuilder redirectURL1 = new StringBuilder();
+        redirectURL1.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL1.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2"));        
+        Element link1 = HTMLGeneratorToolbox.getBlockLink(redirectURL1.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\14\\530\\049\\t06&fileName=14049530_t06.txt&type=2", "right", doc);
         
-        Element link2 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2", "right", doc);
-        Element link3 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2","right" , doc);
-        Element link4 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2", "right",doc);
-        Element link5 = HTMLGeneratorToolbox.getBlockLink("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\620\\070\\e02&fileName=16070620_e02.txt&type=2", "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\620\\070\\e02&fileName=16070620_e02.txt&type=2", "right",doc);
+        StringBuilder redirectURL2 = new StringBuilder();
+        redirectURL2.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL2.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2"));                
+        Element link2 = HTMLGeneratorToolbox.getBlockLink(redirectURL2.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\250\\076\\e07&fileName=11076250_e07.txt&type=2", "right", doc);
+
+        StringBuilder redirectURL3 = new StringBuilder();
+        redirectURL3.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL3.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2"));                
+        Element link3 = HTMLGeneratorToolbox.getBlockLink(redirectURL3.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\15\\640\\084\\z06&fileName=15084640.Z06&type=2","right" , doc);
+        
+        StringBuilder redirectURL4 = new StringBuilder();
+        redirectURL4.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL4.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2"));                
+        Element link4 = HTMLGeneratorToolbox.getBlockLink(redirectURL4.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\11\\200\\076\\w16&fileName=11076200_w16.txt&type=2", "right",doc);
+        
+        StringBuilder redirectURL5 = new StringBuilder();
+        redirectURL5.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL5.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\620\\070\\e02&fileName=16070620_e02.txt&type=2"));                
+        Element link5 = HTMLGeneratorToolbox.getBlockLink(redirectURL5.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\620\\070\\e02&fileName=16070620_e02.txt&type=2", "right",doc);
+        
+        StringBuilder redirectURL6 = new StringBuilder();
+        redirectURL6.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL6.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts%5C%5C%5C%5C%5C%5C%5C%5C16%5C%5C%5C%5C%5C%5C%5C%5C540%5C%5C%5C%5C%5C%5C%5C%5C070%5C%5C%5C%5C%5C%5C%5C%5Cd13&fileName=16070540.D13&type=2"));                
+        Element link6 = HTMLGeneratorToolbox.getBlockLink(redirectURL6.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts%5C%5C%5C%5C%5C%5C%5C%5C16%5C%5C%5C%5C%5C%5C%5C%5C540%5C%5C%5C%5C%5C%5C%5C%5C070%5C%5C%5C%5C%5C%5C%5C%5Cd13&fileName=16070540.D13&type=2", "right",doc);
+
+        StringBuilder redirectURL7 = new StringBuilder();
+        redirectURL7.append(Targets.PROCESS_DOCUMENT_OUTPUT.getUrl());
+        redirectURL7.append("?").append(FormFields.ID.getName()).append("=").append(Encoder.encodeText("https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\540\\070\\d13&fileName=16070540.D13&type=2"));                
+        Element link7 = HTMLGeneratorToolbox.getBlockLink(redirectURL6.toString(), "https://supremedecisions.court.gov.il/Home/Download?path=HebrewVerdicts\\16\\540\\070\\d13&fileName=16070540.D13&type=2", "right",doc);
         
         elt.appendChild(subElt);
         
@@ -83,6 +111,7 @@ public class HTMLProcessDocumentInput {
         elt.appendChild(link3);
         elt.appendChild(link4);
         elt.appendChild(link5);
+        elt.appendChild(link6);
         
         return elt;
         

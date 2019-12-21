@@ -44,10 +44,11 @@ public class Legalyzer {
     private final Inference inference;
     
     public Legalyzer(Categories categories) throws Exception {
-        
-        this.tester = new Tester();
-        this.categories = categories;
-
+System.out.println("Before Tester");
+        this.tester = new Tester();    
+System.out.println("Before categories");        
+        this.categories = categories;    
+System.out.println("before inference");
         this.inference = new Inference(categories);
         
     }

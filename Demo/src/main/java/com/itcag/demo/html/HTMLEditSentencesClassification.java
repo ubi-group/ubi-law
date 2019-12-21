@@ -93,7 +93,7 @@ public class HTMLEditSentencesClassification {
         
         String categoryId = null;
         
-        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());  
+        JSONObject jsonSentence = DataTierAPI.getCorrection(sentence.getText());    
         
         if(jsonSentence != null) {
             categoryId = jsonSentence.getString(SentenceFields.categoryId.getFieldName());
