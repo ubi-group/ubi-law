@@ -21,6 +21,7 @@ import com.itcag.util.Printer;
 import com.itcag.util.XMLProcessor;
 import com.itcag.util.html.HTMLGeneratorToolbox;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -88,11 +89,7 @@ public class HTMLProcessDocumentOutput {
         retVal.setAttribute("style", retVal.getAttribute("style") + " max-width:inherit;");
 
         for (Paragraph paragraph : document.getParagraphs()) {
-System.out.println("paragraph: " + paragraph);
-System.out.println("paragraph.getText(): " + paragraph.getText());
-System.out.println("LegalyzerFactory.getCategories(): " + LegalyzerFactory.getCategories());
-System.out.println("LegalyzerFactory.getCategories().get() " + LegalyzerFactory.getCategories().get());
-System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get()) " + paragraph.getEvaluation(LegalyzerFactory.getCategories().get()));
+
             Element listItem = getListItem(paragraph, document.getId(), htmlDoc);
             listItem.setAttribute("style", listItem.getAttribute("style") + " max-width:inherit;");
             retVal.appendChild(listItem);
@@ -214,7 +211,15 @@ System.out.println("paragraph.getEvaluation(LegalyzerFactory.getCategories().get
         if (!document.getLaws().isEmpty()) {
             for (Map.Entry<String, Law> entry : document.getLaws().entrySet()) {
                 Element retVal = HTMLGeneratorToolbox.getListItem(null, htmlDoc);
-                retVal.appendChild(HTMLGeneratorToolbox.getBlockSpan(entry.getValue().toString(), htmlDoc));
+                Law law = entry.getValue();
+                HashSet<String> clauses = law.getClauses();
+                retVal.appendChild(HTMLGeneratorToolbox.getBlockSpan(law.toString(), htmlDoc));
+                for(String strClause: clauses) {
+                    Element eleClause = htmlDoc.createElement("span");
+                    eleClause.setTextContent(strClause);
+                    eleClause.setAttribute("style", "display:block; width:100%; clear:both; float:right; margin-left:" + 0 + "px; margin-right:" + 20 + "px;");
+                    retVal.appendChild(eleClause);
+                }
                 listLaws.appendChild(retVal);
             }
         }

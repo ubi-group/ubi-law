@@ -12,7 +12,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 public class ElasticsearchRestClient {
    
     public static RestHighLevelClient getClient() {
-System.out.println("DB 18.184.3.224");
+System.out.println("18.184.3.224");
         final CredentialsProvider credentialsProvider =
             new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
@@ -33,10 +33,10 @@ System.out.println("DB 18.184.3.224");
         
         return client;
     }
-  
+ 
 /* 
     public static RestHighLevelClient getClient() {
- System.out.println("localhost");
+
         final CredentialsProvider credentialsProvider =
             new BasicCredentialsProvider();
 
@@ -55,6 +55,6 @@ System.out.println("DB 18.184.3.224");
         
         return client;
     }
-       
-  */
+*/       
+  
 }

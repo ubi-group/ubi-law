@@ -64,7 +64,7 @@ public class Law extends ExtractedInfo {
     }
     
     public void addClause(String clause) {
-        this.clauses.add(clause);
+        this.getClauses().add(clause);
     }
 
     public boolean isOverlapping(Position position) {
@@ -96,7 +96,9 @@ public class Law extends ExtractedInfo {
 //        } else {
 //            retVal.append(this.name).append("^").append("\n");
         }
-        this.clauses.stream().forEach((clause) -> { retVal.append("\t").append(clause).append("\n");});
+        
+// Commented out for Demo display purposes
+//        this.clauses.stream().forEach((clause) -> { retVal.append("\t").append(clause).append("\n");});
         
         return retVal.toString();
         

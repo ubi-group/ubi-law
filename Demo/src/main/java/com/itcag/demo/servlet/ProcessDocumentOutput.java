@@ -50,7 +50,7 @@ public class ProcessDocumentOutput extends HttpServlet {
                 String html = HTMLProcessDocumentOutput.get(doc);
 
                 try (PrintWriter out = response.getWriter()) {
-System.out.println(html);
+
                     out.println(html);
                 } catch (Exception ex) {
                     throw ex;
